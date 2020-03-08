@@ -4,18 +4,34 @@ import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from '@material-ui/icons/Menu';
+import {SideDrawer} from "./SideDrawer";
+import {connect} from "react-redux";
+import {toggleDrawer} from "../../state/actions";
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         toolbarMargin: {
             ...theme.mixins.toolbar
-        }
+        },
+        root: {
+            flexGrow: 1,
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            flexGrow: 1,
+        },
     }),
 );
 
 interface Props {
     children?: React.ReactElement;
+    toggleDrawer: typeof toggleDrawer;
 }
 
 function HideOnScroll(props: Props) {
@@ -29,22 +45,37 @@ function HideOnScroll(props: Props) {
     );
 }
 
-const Header = (props: Props) => {
+const _Header = (props: Props) => {
     const classes = useStyles();
+
+    const onDrawerButtonClicked = (): void => {
+        props.toggleDrawer(true);
+    };
+
     return (
         <React.Fragment>
             <HideOnScroll {...props}>
                 <AppBar color="primary">
                     <Toolbar>
-                        <Typography variant="h5">FoodChain</Typography>
+                        <IconButton onClick={onDrawerButtonClicked} edge="start" className={classes.menuButton}
+                                    color="inherit" aria-label="menu">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>
+                            FoodChain
+                        </Typography>
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
             <div className={
                 classes.toolbarMargin
             }/>
+            <SideDrawer/>
         </React.Fragment>
     );
 };
 
-export default Header;
+export const Header = connect(
+    null,
+    {toggleDrawer}
+)(_Header);
