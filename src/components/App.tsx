@@ -1,64 +1,23 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {Todo, fetchTodos, deleteTodo} from "../actions";
-import {StoreState} from "../reducers";
+import React from 'react';
+import Header from "./ui/Header";
+import {ThemeProvider} from "@material-ui/styles";
+import theme from "./ui/Theme";
 
-interface AppProps {
-    todos: Todo[];
-    fetchTodos: Function;
-    deleteTodo: typeof deleteTodo;
-}
 
-interface AppState {
-    fetching: boolean;
-}
-
-class _App extends Component<AppProps, AppState> {
-    state = {fetching: false};
-
-    onButtonClick = ():void => {
-        this.props.fetchTodos();
-        this.setState({fetching: true});
-    };
-
-    componentDidUpdate(prevProps: AppProps): void {
-        if (!prevProps.todos.length && this.props.todos.length) {
-            this.setState({fetching: false});
-        }
-    }
-
-    onTodoClick = (id: number): void => {
-        this.props.deleteTodo(id);
-    };
-
-    renderList(): JSX.Element[] {
-        return this.props.todos.map((todo: Todo) => {
-            return (
-                <div onClick={() => this.onTodoClick(todo.id)} key={todo.id}>
-                    {todo.title}
-                </div>
-            );
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <button onClick={this.onButtonClick}>
-                    Fetch todos
-                </button>
-                {this.state.fetching ? "LOADING" : null}
-                {this.renderList()}
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = ({todos}: StoreState): {todos: Todo[]} => {
-      return {todos};
+const App = () => {
+    return (
+        <ThemeProvider theme={theme}>
+            <Header/>
+            {[...new Array(120)]
+                .map(
+                    () => `Cras mattis consectetur purus sit amet fermentum.
+Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+                )
+                .join('\n')}
+        </ThemeProvider>
+    );
 };
 
-export const App = connect(
-    mapStateToProps,
-    { fetchTodos, deleteTodo }
-)(_App);
+export default App;
