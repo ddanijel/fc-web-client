@@ -18,7 +18,7 @@ contract FoodChain {
     }
 
 
-    function registerProducer() public {
+    function registerProducer(string memory _producerName, string memory _licenceNumber, string memory _url, string memory _certificates) public {
         Producer newProducer = new Producer(address(this), msg.sender);
         producerAddresses.push(address(newProducer));
     }
@@ -26,9 +26,16 @@ contract FoodChain {
 }
 
 contract Producer {
-    address public foodChainOwner;
-    address public producerAddress;
-    address[] public productTags;
+    address foodChainOwner;
+    address producerAddress;
+    address[] productTags;
+    string producerName;
+    string licenceNumber;
+    string url;
+    string[] certificates;
+    string[] additionalActions;
+
+    enum State {Active, Blocked}
 
     constructor(address _foodChainOwner, address _producerAddress) public {
         foodChainOwner = _foodChainOwner;
@@ -51,6 +58,8 @@ contract ProductTag {
         string longitute;
         string latitude;
     }
+
+    address[] public previousProductTags;
 
     string[] actions;
 }
