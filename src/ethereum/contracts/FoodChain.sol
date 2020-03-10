@@ -1,4 +1,4 @@
-pragma solidity ^0.6.3;
+pragma solidity ^0.4.17;
 
 contract FoodChain {
     address public owner;
