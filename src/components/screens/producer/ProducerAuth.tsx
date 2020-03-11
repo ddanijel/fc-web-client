@@ -42,6 +42,7 @@ function a11yProps(index: any) {
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
+        marginTop: theme.spacing(2),
         backgroundColor: theme.palette.background.paper
     },
 }));
