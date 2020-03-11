@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+import {SignUpForm} from "./SignUpForm";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function ProducerAuth() {
     const classes = useStyles();
     const theme = useTheme();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(1);
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         const updatedIndex = newValue < 0 ? 0 : newValue;  // todo no idea why it adds 1 when we swipe left

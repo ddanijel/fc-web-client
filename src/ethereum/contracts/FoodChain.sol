@@ -3,6 +3,7 @@ pragma solidity ^0.4.17;
 contract FoodChain {
     address public owner;
     address[] public producers;
+    mapping(address => address) producerAddresses;
 
     constructor() public {
         owner = msg.sender;
@@ -23,7 +24,11 @@ contract FoodChain {
             _certificates
         );
         producers.push(address(newProducer));
+        producerAddresses[msg.sender] = address(newProducer);
+        emit ContractCreated(address(newProducer));
     }
+
+    event ContractCreated(address newAddress);
 
     function describeFoodChain() public view returns (
         address,
@@ -32,6 +37,14 @@ contract FoodChain {
         return (
         owner,
         producers
+        );
+    }
+
+    function getContractForProducer(address producerAccountAddress) public view returns (
+        address
+    ) {
+        return (
+        producerAddresses[producerAccountAddress]
         );
     }
 
@@ -50,6 +63,7 @@ contract Producer {
     string certificates;
     string defaultActions;
     address[] productTags;
+
 
     enum State {Active, Blocked}
 
@@ -90,5 +104,4 @@ contract Producer {
         productTags
         );
     }
-
 }

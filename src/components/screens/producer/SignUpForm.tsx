@@ -11,7 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
-import {signUpFormData} from "../../../interfaces/producer";
+import {SignUpFormData} from "../../../interfaces/producer";
+import {connect} from "react-redux";
+import {signUpProducer} from "../../../state/actions";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -33,9 +35,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUpForm() {
+interface Props {
+    children?: React.ReactElement;
+    signUpProducer: Function;
+}
+
+const _SignUpForm = (props: Props) => {
     const classes = useStyles();
-    const {handleSubmit, control} = useForm<signUpFormData>();
+    const {handleSubmit, control} = useForm<SignUpFormData>();
 
     const onSubmit = handleSubmit(({
                                        producerName,
@@ -43,7 +50,14 @@ export default function SignUpForm() {
                                        url,
                                        certificates
                                    }) => {
-        console.log("submiting: ", {
+        // console.log("submiting: ", {
+        //     producerName,
+        //     licenceNumber,
+        //     url,
+        //     certificates
+        // });
+
+        props.signUpProducer({
             producerName,
             licenceNumber,
             url,
@@ -67,7 +81,7 @@ export default function SignUpForm() {
                             <Controller
                                 name="producerName"
                                 control={control}
-                                defaultValue=""
+                                defaultValue="Producer 1"
                                 as={
                                     <TextField
                                         autoComplete="producerName"
@@ -87,7 +101,7 @@ export default function SignUpForm() {
                             <Controller
                                 name="licenceNumber"
                                 control={control}
-                                defaultValue=""
+                                defaultValue="Licence 1"
                                 as={
                                     <TextField
                                         variant="outlined"
@@ -106,7 +120,7 @@ export default function SignUpForm() {
                             <Controller
                                 name="url"
                                 control={control}
-                                defaultValue=""
+                                defaultValue="www.producer1.com"
                                 as={
                                     <TextField
                                         variant="outlined"
@@ -124,7 +138,7 @@ export default function SignUpForm() {
                             <Controller
                                 name="certificates"
                                 control={control}
-                                defaultValue=""
+                                defaultValue="Certificate 1"
                                 as={
                                     <TextField
                                         variant="outlined"
@@ -157,4 +171,9 @@ export default function SignUpForm() {
             </div>
         </Container>
     );
-}
+};
+
+export const SignUpForm = connect(
+    null,
+    {signUpProducer}
+)(_SignUpForm);

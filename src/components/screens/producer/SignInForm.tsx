@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
-import {signInFormData} from "../../../interfaces/producer";
+import {SignInFormData} from "../../../interfaces/producer";
 
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInForm() {
     const classes = useStyles();
-    const {handleSubmit, control} = useForm<signInFormData>();
+    const {handleSubmit, control} = useForm<SignInFormData>();
 
     const onSubmit = handleSubmit(({producerContractAddress}) => {
         console.log("submiting: ", producerContractAddress);
