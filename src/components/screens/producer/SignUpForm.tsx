@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Controller, useForm} from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        // width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
     submit: {
@@ -31,8 +32,30 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+interface SignUpFormData {
+    producerName: string;
+    licenceNumber: string;
+    url: string;
+    certificates: string;
+}
+
 export default function SignUpForm() {
     const classes = useStyles();
+    const {register, setValue, handleSubmit, errors, control} = useForm<SignUpFormData>();
+
+    const onSubmit = handleSubmit(({
+                                       producerName,
+                                       licenceNumber,
+                                       url,
+                                       certificates
+                                   }) => {
+        console.log("submiting: ", {
+            producerName,
+            licenceNumber,
+            url,
+            certificates
+        });
+    });
 
     return (
         <Container component="main" maxWidth="xs">
@@ -44,50 +67,80 @@ export default function SignUpForm() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="pname"
+                            <Controller
                                 name="producerName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="producerName"
-                                label="Producer Name"
-                                autoFocus
+                                control={control}
+                                defaultValue=""
+                                as={
+                                    <TextField
+                                        autoComplete="producerName"
+                                        name="producerName"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="producerName"
+                                        label="Producer Name"
+                                        autoFocus
+                                    />
+                                }
                             />
+
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="licenceNumber"
-                                label="Licence Number"
+                            <Controller
                                 name="licenceNumber"
-                                autoComplete="lnumber"
+                                control={control}
+                                defaultValue=""
+                                as={
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="licenceNumber"
+                                        label="Licence Number"
+                                        name="licenceNumber"
+                                        autoComplete="lnumber"
+                                    />
+                                }
                             />
+
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="url"
-                                label="URL"
+                            <Controller
                                 name="url"
-                                autoComplete="url"
+                                control={control}
+                                defaultValue=""
+                                as={
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="url"
+                                        label="URL"
+                                        name="url"
+                                        autoComplete="url"
+                                    />
+                                }
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="certificate"
-                                label="Certificates"
-                                id="certificates"
+                            <Controller
+                                name="certificates"
+                                control={control}
+                                defaultValue=""
+                                as={
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="certificates"
+                                        label="Certificates"
+                                        id="certificates"
+                                    />
+                                }
                             />
                         </Grid>
                         <Grid item xs={12}>

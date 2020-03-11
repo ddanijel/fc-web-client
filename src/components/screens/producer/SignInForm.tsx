@@ -9,6 +9,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Controller, useForm} from "react-hook-form";
+
+interface SignInFormData {
+    producerContractAddress: string;
+}
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -32,6 +37,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInForm() {
     const classes = useStyles();
+    const {register, setValue, handleSubmit, errors, control} = useForm<SignInFormData>();
+
+    const onSubmit = handleSubmit(({producerContractAddress}) => {
+        console.log("submiting: ", producerContractAddress);
+    });
+
 
     return (
         <Container component="main" maxWidth="xs">
@@ -43,18 +54,23 @@ export default function SignInForm() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Producer Contract Address"
-                        name="email"
-                        // autoComplete="email"
-                        autoFocus
+                <form className={classes.form} onSubmit={onSubmit}>
+                    <Controller
+                        name="producerContractAddress"
+                        as={<TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="producerContractAddress"
+                            label="Producer Contract Address"
+                            name="producerContractAddress"
+                            autoFocus
+                        />}
+                        control={control}
+                        defaultValue=""
                     />
+
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary"/>}
                         label="Remember me"

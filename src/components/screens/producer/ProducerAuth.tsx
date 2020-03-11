@@ -53,11 +53,13 @@ export default function ProducerAuth() {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
+        const updatedIndex = newValue < 0 ? 0 : newValue;  // todo no idea why it adds 1 when we swipe left
+        setValue(updatedIndex);
     };
 
     const handleChangeIndex = (index: number) => {
-        setValue(index - 1); // todo no idea why it adds 1 when we swipe left
+        const updatedIndex = index < 0 ? 0 : index - 1;  // todo no idea why it adds 1 when we swipe left
+        setValue(updatedIndex);
     };
 
     return (
@@ -71,8 +73,8 @@ export default function ProducerAuth() {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
+                    <Tab label="SignIn" {...a11yProps(0)} />
+                    <Tab label="SignUp" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
