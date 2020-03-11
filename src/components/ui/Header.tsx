@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {SideDrawer} from "./SideDrawer";
 import {connect} from "react-redux";
 import {toggleDrawer} from "../../state/actions";
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         title: {
             flexGrow: 1,
+            color: 'inherit',
+            textDecoration: 'none'
         },
     }),
 );
@@ -61,7 +64,7 @@ const _Header = (props: Props) => {
                                     color="inherit" aria-label="menu">
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
+                        <Typography component={Link} to="/" variant="h6" className={classes.title}>
                             FoodChain
                         </Typography>
                     </Toolbar>

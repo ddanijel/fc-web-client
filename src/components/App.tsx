@@ -1,22 +1,24 @@
 import React from 'react';
+import {BrowserRouter, Route, Switch} from "react-router-dom"
 import {Header} from "./ui/Header";
 import {ThemeProvider} from "@material-ui/styles";
 import theme from "./ui/Theme";
 import FoodChainDetails from "./fragments/FoodChainDetails";
+import HomeScreen from "./screens/HomeScreen";
+import ProducerAuth from "./screens/producer/ProducerAuth";
 
 
 const App = () => {
     return (
         <ThemeProvider theme={theme}>
-            <Header/>
-            {/*            {[...new Array(120)]*/}
-            {/*                .map(*/}
-            {/*                    () => `Cras mattis consectetur purus sit amet fermentum.*/}
-            {/*Cras justo odio, dapibus ac facilisis in, egestas eget quam.*/}
-            {/*Morbi leo risus, porta ac consectetur ac, vestibulum at eros.*/}
-            {/*Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,*/}
-            {/*                )*/}
-            {/*                .join('\n')}*/}
+            <BrowserRouter>
+                <Header/>
+                <Switch>
+                    <Route exact path="/" component={HomeScreen}/>
+                    <Route exact path="/producer" component={ProducerAuth}/>
+                </Switch>
+
+            </BrowserRouter>
             <FoodChainDetails/>
         </ThemeProvider>
     );

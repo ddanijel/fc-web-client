@@ -1,19 +1,19 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const black = "#000000";
 const archBlue = "#0B72B9";
-const archOrange = "#FFBA60";
 
 const theme = createMuiTheme({
     palette: {
         common: {
+            black: `${black}`,
             arcBlue: `${archBlue}`,
-            arcOrange: `${archOrange}`
         },
         primary: {
-            main: `${archBlue}`
+            main: `${black}`
         },
         secondary: {
-            main: `${archOrange}`
+            main: `${archBlue}`
         }
     },
     typography: {
