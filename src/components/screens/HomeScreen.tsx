@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             '& > *': {
                 margin: theme.spacing(1),
-            },
+            }
         },
     }),
 );

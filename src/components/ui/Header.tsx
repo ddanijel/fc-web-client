@@ -4,13 +4,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
-import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
 import {SideDrawer} from "./SideDrawer";
 import {connect} from "react-redux";
 import {toggleDrawer} from "../../state/actions";
 import {Link} from "react-router-dom";
+import {StoreState} from "../../state/reducers";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -78,7 +79,11 @@ const _Header = (props: Props) => {
     );
 };
 
+const mapStateToProps = ({ui}: StoreState) => {
+    return {ui};
+};
+
 export const Header = connect(
-    null,
+    mapStateToProps,
     {toggleDrawer}
 )(_Header);

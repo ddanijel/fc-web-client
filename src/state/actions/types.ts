@@ -1,11 +1,16 @@
-import {FetchTodosAction, DeleteTodoAction} from "./todos";
-import {ToggleDrawerAction} from "./ui";
+import {DeleteTodoAction, FetchTodosAction} from "./todos";
+import {ToggleDrawerAction, ToggleIsLoadingAction} from "./ui";
 
 
 export enum ActionTypes {
     fetchTodos,
     deleteTodo,
-    toggleDrawer
+    toggleDrawer,
+    toggleIsLoading
 }
 
-export type Action = FetchTodosAction | DeleteTodoAction | ToggleDrawerAction;
+export type Action =
+    FetchTodosAction |
+    DeleteTodoAction |
+    ToggleDrawerAction |
+    ToggleIsLoadingAction;

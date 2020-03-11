@@ -1,7 +1,8 @@
-import {ActionTypes, Action, Ui} from "../actions"
+import {Action, ActionTypes, Ui} from "../actions"
 
 const initialState = {
-    isDrawerOpen: false
+    isDrawerOpen: false,
+    isLoading: false
 };
 
 export const uiReducer = (state: Ui = initialState, action: Action) => {
@@ -10,6 +11,11 @@ export const uiReducer = (state: Ui = initialState, action: Action) => {
             return {
                 ...state,
                 isDrawerOpen: action.isDrawerOpen
+            };
+        case ActionTypes.toggleIsLoading:
+            return {
+                ...state,
+                isLoading: action.isLoading
             };
         default:
             return state;

@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
+import {signUpFormData} from "../../../interfaces/producer";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -32,16 +33,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-interface SignUpFormData {
-    producerName: string;
-    licenceNumber: string;
-    url: string;
-    certificates: string;
-}
-
 export default function SignUpForm() {
     const classes = useStyles();
-    const {register, setValue, handleSubmit, errors, control} = useForm<SignUpFormData>();
+    const {handleSubmit, control} = useForm<signUpFormData>();
 
     const onSubmit = handleSubmit(({
                                        producerName,
