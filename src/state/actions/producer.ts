@@ -4,18 +4,13 @@ import {Producer, SignUpFormData} from "../../interfaces/producer";
 import FoodChain from "../../ethereum/foodChain"
 import ProducerContract from "../../ethereum/producer"
 import web3 from "../../ethereum/web3";
+import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
+import {History} from 'history';
 
 export interface ProducerSignUpAction {
     type: ActionTypes.producerSignUp;
     producer: Producer
 }
-
-// const getContractAddress = async (): Promise<string> => {
-//     const accounts = await web3.eth.getAccounts();
-//     const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
-//     console.log("returning the address: ", contractAddress);
-//     return contractAddress
-// };
 
 const populateProducer = (producerResult: any): Producer => {
     console.log("result: ", producerResult);
@@ -31,26 +26,34 @@ const populateProducer = (producerResult: any): Producer => {
     }
 };
 
-export const signUpProducer = (producerSignUpFormData: SignUpFormData) => {
+export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: History) => {
+// export const signUpProducer = (producerSignUpFormData: SignUpFormData) => {
     return async (dispatch: Dispatch) => {
-        const accounts = await web3.eth.getAccounts();
-        const result = await FoodChain().methods.registerProducer(
-            producerSignUpFormData.producerName,
-            producerSignUpFormData.licenceNumber,
-            producerSignUpFormData.url,
-            producerSignUpFormData.certificates
-        ).send({from: accounts[0]});
-        const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
+        dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
-        const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
+        try {
+            const accounts = await web3.eth.getAccounts();
+            const result = await FoodChain().methods.registerProducer(
+                producerSignUpFormData.producerName,
+                producerSignUpFormData.licenceNumber,
+                producerSignUpFormData.url,
+                producerSignUpFormData.certificates
+            ).send({from: accounts[0]});
+            const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
+            const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
+            const producer = populateProducer(producerResult);
+            console.log("RESULT ADDRESS: ", contractAddress);
+            history.push("/producer");
+            dispatch<ProducerSignUpAction>({
+                type: ActionTypes.producerSignUp,
+                producer
+            });
+        } catch (e) {
+            console.error(e);
+        } finally {
+            dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
+        }
 
-        const producer = populateProducer(producerResult);
 
-        console.log("RESULT ADDRESS: ", contractAddress);
-
-        dispatch<ProducerSignUpAction>({
-            type: ActionTypes.producerSignUp,
-            producer
-        })
     }
 };

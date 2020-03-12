@@ -11,9 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
-import {SignUpFormData} from "../../../interfaces/producer";
+import {SignUpFormData} from "../../../../interfaces/producer";
 import {connect} from "react-redux";
-import {signUpProducer} from "../../../state/actions";
+import {signUpProducer} from "../../../../state/actions";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -38,32 +39,28 @@ const useStyles = makeStyles(theme => ({
 interface Props {
     children?: React.ReactElement;
     signUpProducer: Function;
+
 }
 
 const _SignUpForm = (props: Props) => {
     const classes = useStyles();
+    const history = useHistory();
     const {handleSubmit, control} = useForm<SignUpFormData>();
 
-    const onSubmit = handleSubmit(({
-                                       producerName,
-                                       licenceNumber,
-                                       url,
-                                       certificates
-                                   }) => {
-        // console.log("submiting: ", {
-        //     producerName,
-        //     licenceNumber,
-        //     url,
-        //     certificates
-        // });
-
-        props.signUpProducer({
-            producerName,
-            licenceNumber,
-            url,
-            certificates
+    const onSubmit = handleSubmit(
+        ({
+             producerName,
+             licenceNumber,
+             url,
+             certificates
+         }) => {
+            props.signUpProducer({
+                producerName,
+                licenceNumber,
+                url,
+                certificates
+            }, history);
         });
-    });
 
     return (
         <Container component="main" maxWidth="xs">
