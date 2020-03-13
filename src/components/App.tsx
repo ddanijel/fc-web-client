@@ -10,7 +10,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from '@material-ui/core/Container';
 import Footer from "./ui/Footer";
 import {LoadingBackdrop} from "./ui/Backdrop";
-import Producer from "./screens/producer/Producer";
+import ProtectedRoute, {ProtectedRouteProps} from "./ProtectedRoute";
+import ProducerHomeScreen from "./screens/producer/ProducerHomeScreen";
+import {SessionContextProvider, useSessionContext} from './constexts/SessionContext';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,7 +28,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const App = () => {
+const App: React.FC = () => {
+    const [sessionContext, updateSessionContext] = useSessionContext();
+
+    const setRedirectPathOnAuthentication = (path: string) => {
+        updateSessionContext({...sessionContext, redirectPathOnAuthentication: path});
+    };
+
+    const defaultProtectedRouteProps: ProtectedRouteProps = {
+        isAuthenticated: !!sessionContext.isAuthenticated,
+        authenticationPath: '/producer/auth',
+        redirectPathOnAuthentication: sessionContext.redirectPathOnAuthentication || '/producer',
+        setRedirectPathOnAuthentication
+    };
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -33,12 +48,20 @@ const App = () => {
                 <CssBaseline/>
                 <Container component="main" className={classes.main} maxWidth="sm">
                     <BrowserRouter>
-                        <Header/>
-                        <Switch>
-                            <Route exact path="/" component={HomeScreen}/>
-                            <Route exact path="/producer/auth" component={ProducerAuth}/>
-                            <Route exact path="/producer" component={Producer}/>
-                        </Switch>
+                        <SessionContextProvider>
+                            <Header/>
+                            <Switch>
+                                <Route exact path="/" component={HomeScreen}/>
+                                <Route exact path="/producer/auth" component={ProducerAuth}/>
+                                {/*<Route exact path="/producer" component={Producer}/>*/}
+                                <ProtectedRoute
+                                    exact
+                                    {...defaultProtectedRouteProps}
+                                    path="/producer"
+                                    component={ProducerHomeScreen}
+                                />
+                            </Switch>
+                        </SessionContextProvider>
                     </BrowserRouter>
                 </Container>
                 <Footer/>
