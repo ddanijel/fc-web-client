@@ -1,18 +1,18 @@
 import {combineReducers} from "redux";
-import {todosReducer} from "./todos";
-import {Todo, Ui} from "../actions";
+import {Session, Ui} from "../actions";
 import {uiReducer} from "./ui";
 import {Producer} from "../../interfaces/producer";
 import {producerReducer} from "./producer";
+import {sessionReducer} from "./session";
 
 export interface StoreState {
-    todos: Todo[];
-    ui: Ui,
-    producer: Producer
+    ui: Ui;
+    producer: Producer;
+    session: Session;
 }
 
 export const reducers = combineReducers<StoreState>({
-    todos: todosReducer,
     ui: uiReducer,
-    producer: producerReducer
+    producer: producerReducer,
+    session: sessionReducer
 });

@@ -6,6 +6,7 @@ import ProducerContract from "../../ethereum/producer"
 import web3 from "../../ethereum/web3";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import {History} from 'history';
+import {saveItemToLocalStorage} from "../localStorage";
 
 export interface ProducerSignUpAction {
     type: ActionTypes.producerSignUp;
@@ -26,8 +27,9 @@ const populateProducer = (producerResult: any): Producer => {
     }
 };
 
+
+
 export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: History) => {
-// export const signUpProducer = (producerSignUpFormData: SignUpFormData) => {
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
@@ -42,7 +44,7 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
             const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult);
-            console.log("RESULT ADDRESS: ", contractAddress);
+            saveItemToLocalStorage("producerContractAddress", contractAddress);
             history.push("/producer");
             dispatch<ProducerSignUpAction>({
                 type: ActionTypes.producerSignUp,

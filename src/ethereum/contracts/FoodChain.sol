@@ -104,4 +104,8 @@ contract Producer {
         productTags
         );
     }
+
+    function isAuthenticated() public view returns (bool) {
+        return (owner == msg.sender);
+    }
 }

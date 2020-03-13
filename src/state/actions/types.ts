@@ -1,19 +1,17 @@
-import {DeleteTodoAction, FetchTodosAction} from "./todos";
 import {ToggleDrawerAction, ToggleIsLoadingAction} from "./ui";
 import {ProducerSignUpAction} from "./producer";
+import {ToggleIsAuthenticatedAction} from "./session";
 
 
 export enum ActionTypes {
-    fetchTodos,
-    deleteTodo,
     toggleDrawer,
     toggleIsLoading,
-    producerSignUp
+    producerSignUp,
+    toggleIsAuthenticated
 }
 
 export type Action =
-    FetchTodosAction |
-    DeleteTodoAction |
     ToggleDrawerAction |
     ToggleIsLoadingAction |
-    ProducerSignUpAction;
+    ProducerSignUpAction |
+    ToggleIsAuthenticatedAction;

@@ -5,9 +5,8 @@ import Button from "@material-ui/core/Button";
 const ProducerHomeScreen = () => {
     return (
         <div>
-            Producer Page 1
-
-            <Button component={Link} to="/producer2" variant="contained">Producer2</Button>
+            Producer Page 2
+            <Button component={Link} to="/producer" variant="contained">Producer1</Button>
         </div>
     );
 };

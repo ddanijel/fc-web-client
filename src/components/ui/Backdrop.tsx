@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
-import {fetchTodos, Ui} from "../../state/actions";
+import {Ui} from "../../state/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,5 +34,5 @@ const mapStateToProps = ({ui}: StoreState): { ui: Ui } => {
 
 export const LoadingBackdrop = connect(
     mapStateToProps,
-    {fetchTodos}
+    {}
 )(_Backdrop);
