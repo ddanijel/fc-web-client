@@ -5,6 +5,7 @@ const archBlue = "#0B72B9";
 
 const theme = createMuiTheme({
     palette: {
+        // type: "dark",
         common: {
             black: `${black}`,
             arcBlue: `${archBlue}`,

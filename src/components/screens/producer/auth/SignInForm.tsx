@@ -7,10 +7,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
 import {SignInFormData} from "../../../../interfaces/producer";
+import {connect} from "react-redux";
+import {signInProducer} from "../../../../state/actions";
+import {useHistory} from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,13 +36,28 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignInForm() {
-    const classes = useStyles();
-    const {handleSubmit, control} = useForm<SignInFormData>();
+interface Props {
+    children?: React.ReactElement;
+    signInProducer: Function;
 
-    const onSubmit = handleSubmit(({producerContractAddress}) => {
-        console.log("submiting: ", producerContractAddress);
-    });
+}
+
+
+const _SignInForm = (props: Props) => {
+    const classes = useStyles();
+    const {handleSubmit, control, reset} = useForm<SignInFormData>();
+    const history = useHistory();
+
+
+    const onSubmit = handleSubmit(
+        ({
+             producerContractAddress
+         }) => {
+            props.signInProducer(
+                producerContractAddress,
+                history
+            );
+        });
 
 
     return (
@@ -86,4 +104,10 @@ export default function SignInForm() {
             </div>
         </Container>
     );
-}
+};
+
+
+export const SignInForm = connect(
+    null,
+    {signInProducer}
+)(_SignInForm);

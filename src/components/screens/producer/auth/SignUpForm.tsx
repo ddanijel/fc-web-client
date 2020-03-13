@@ -45,7 +45,7 @@ interface Props {
 const _SignUpForm = (props: Props) => {
     const classes = useStyles();
     const history = useHistory();
-    const {handleSubmit, control} = useForm<SignUpFormData>();
+    const {handleSubmit, control, reset} = useForm<SignUpFormData>();
 
     const onSubmit = handleSubmit(
         ({
@@ -60,6 +60,7 @@ const _SignUpForm = (props: Props) => {
                 url,
                 certificates
             }, history);
+            reset();
         });
 
     return (
