@@ -1,4 +1,5 @@
 pragma solidity ^0.4.17;
+pragma experimental ABIEncoderV2;
 
 contract FoodChain {
     address public owner;
@@ -109,3 +110,43 @@ contract Producer {
         return (owner == msg.sender);
     }
 }
+
+contract ProductTag {
+    address producer;
+    string[] actions;
+    string longitude;
+    string latitude;
+    address[] previousProductTags;
+
+    constructor(
+        string[] memory _actions,
+        string memory _longitude,
+        string memory _latitude,
+        address[] memory _previousProductTags
+    ) public {
+        producer = msg.sender;
+        actions = _actions;
+        longitude = _longitude;
+        latitude = _latitude;
+        previousProductTags = _previousProductTags;
+    }
+
+    function describeProuctTag() public view returns (
+        address,
+        string[],
+        string,
+        string,
+        address[]
+    ) {
+        return (
+        producer,
+        actions,
+        longitude,
+        latitude,
+        previousProductTags
+        );
+    }
+
+}
+
+
