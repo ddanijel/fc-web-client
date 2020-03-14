@@ -51,7 +51,7 @@ const useColorlibStepIconStyles = makeStyles({
     },
     active: {
         backgroundImage:
-            'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+            'linear-gradient( 136deg, rgb(128,128,128) 0%, rgb(192,192,192) 50%, rgb(138,35,135) 100%)',
         boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
     },
     completed: {
@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: '100%',
+            // marginBottom: "1000px"
         },
         button: {
             marginRight: theme.spacing(1),
@@ -104,7 +105,7 @@ function getSteps() {
 function getStepContent(step: number) {
     switch (step) {
         case 0:
-            return 'Select campaign settings...';
+            return <div>Scan Product tags</div>;
         case 1:
             return 'What is an ad group anyways?';
         case 2:
@@ -116,7 +117,7 @@ function getStepContent(step: number) {
 
 const NewProductTag = ({match}) => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(1);
+    const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
     const handleNext = () => {
@@ -152,7 +153,7 @@ const NewProductTag = ({match}) => {
                     </div>
                 ) : (
                     <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                        <div className={classes.instructions}>{getStepContent(activeStep)}</div>
                         <div>
                             <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                 Back

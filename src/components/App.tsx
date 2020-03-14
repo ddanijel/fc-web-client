@@ -10,7 +10,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from '@material-ui/core/Container';
 import Footer from "./ui/Footer";
 import {LoadingBackdrop} from "./ui/Backdrop";
-import ProducerBottomTagNavigation from "./screens/producer/ProducerBottomTagNavigation";
 import NewProductTag from "./screens/product_tag/NewProductTag";
 import ProductTagHistory from "./screens/product_tag/ProductTagHistory";
 import ProducerSettings from "./screens/product_tag/ProducerSettings";
@@ -27,8 +26,8 @@ const useStyles = makeStyles(theme => ({
     main: {
         // marginTop: theme.spacing(8),
         marginBottom: theme.spacing(2),
-        marginLeft: 0,
-        paddingLeft: 0
+        // marginLeft: 0,
+        // paddingLeft: 0
     }
 }));
 

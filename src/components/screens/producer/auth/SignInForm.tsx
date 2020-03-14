@@ -84,7 +84,7 @@ const _SignInForm = (props: Props) => {
                             autoFocus
                         />}
                         control={control}
-                        defaultValue=""
+                        defaultValue="0x5CE407D55ad82e74B98831E649FCE18639b06d76"
                     />
 
                     <FormControlLabel
