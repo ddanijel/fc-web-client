@@ -10,8 +10,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from '@material-ui/core/Container';
 import Footer from "./ui/Footer";
 import {LoadingBackdrop} from "./ui/Backdrop";
-import ProducerHomeScreen from "./screens/producer/ProducerHomeScreen";
-import ProducerHomeScreen2 from "./screens/producer/ProducerHomeScreen2";
+import ProducerBottomTagNavigation from "./screens/producer/ProducerBottomTagNavigation";
+import NewProductTag from "./screens/product_tag/NewProductTag";
+import ProductTagHistory from "./screens/product_tag/ProductTagHistory";
+import ProducerSettings from "./screens/product_tag/ProducerSettings";
+import {routePaths} from "../global/constants";
+import PtScanner from "./screens/PTScanner";
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,6 +27,8 @@ const useStyles = makeStyles(theme => ({
     main: {
         // marginTop: theme.spacing(8),
         marginBottom: theme.spacing(2),
+        marginLeft: 0,
+        paddingLeft: 0
     }
 }));
 
@@ -39,9 +45,11 @@ const App: React.FC = () => {
                             <Header/>
                             <Switch>
                                 <Route exact path="/" component={HomeScreen}/>
-                                <Route exact path="/producer/auth" component={ProducerAuth}/>
-                                <Route exact path="/producer" component={ProducerHomeScreen}/>
-                                <Route exact path="/producer2" component={ProducerHomeScreen2}/>
+                                <Route exact path={routePaths.ptScan} component={PtScanner}/>
+                                <Route exact path={routePaths.producerAuthPage} component={ProducerAuth}/>
+                                <Route exact path={routePaths.createProductTag} component={NewProductTag}/>
+                                <Route exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>
+                                <Route exact path={routePaths.producerSettings} component={ProducerSettings}/>
                             </Switch>
                     </BrowserRouter>
                 </Container>

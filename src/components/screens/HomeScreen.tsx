@@ -2,6 +2,7 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
+import {routePaths} from "../../global/constants";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -17,8 +18,8 @@ const HomeScreen = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Button component={Link} to="/producer/auth" variant="contained">Producer</Button>
-            <Button component={Link} to="/scan" variant="contained">Scan Product</Button>
+            <Button component={Link} to={routePaths.producerAuthPage} variant="contained">Producer</Button>
+            <Button component={Link} to={routePaths.ptScan} variant="contained">Scan Product</Button>
         </div>
     );
 };

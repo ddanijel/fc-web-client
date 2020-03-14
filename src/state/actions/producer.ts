@@ -7,7 +7,7 @@ import web3 from "../../ethereum/web3";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import {History} from 'history';
 import {saveItemToLocalStorage} from "../localStorage";
-import {variableNames} from "../../global/constants";
+import {routePaths, variableNames} from "../../global/constants";
 
 export interface ProducerSignUpAction {
     type: ActionTypes.producerSignUp;
@@ -52,7 +52,7 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult);
             saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
-            history.push("/producer");
+            history.push(routePaths.createProductTag);
             dispatch<ProducerSignUpAction>({
                 type: ActionTypes.producerSignUp,
                 producer
@@ -72,7 +72,7 @@ export const signInProducer = (producerContractAddress: string, history: History
             const accounts = await web3.eth.getAccounts();
             const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call({from: accounts[0]});
             saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
-            history.push("/producer");
+            history.push(routePaths.createProductTag);
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
                 authenticated: true

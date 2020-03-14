@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function ProducerAuth() {
+const ProducerAuth = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(1);
@@ -91,4 +91,6 @@ export default function ProducerAuth() {
             </SwipeableViews>
         </div>
     );
-}
+};
+
+export default ProducerAuth;
