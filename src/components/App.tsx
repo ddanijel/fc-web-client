@@ -15,6 +15,7 @@ import ProductTagHistory from "./screens/product_tag/ProductTagHistory";
 import ProducerSettings from "./screens/product_tag/ProducerSettings";
 import {routePaths} from "../global/constants";
 import PtScanner from "./screens/PTScanner";
+import {PrivateRoute} from "./PrivateRoute";
 
 
 const useStyles = makeStyles(theme => ({
@@ -46,9 +47,9 @@ const App: React.FC = () => {
                                 <Route exact path="/" component={HomeScreen}/>
                                 <Route exact path={routePaths.ptScan} component={PtScanner}/>
                                 <Route exact path={routePaths.producerAuthPage} component={ProducerAuth}/>
-                                <Route exact path={routePaths.createProductTag} component={NewProductTag}/>
-                                <Route exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>
-                                <Route exact path={routePaths.producerSettings} component={ProducerSettings}/>
+                                <PrivateRoute exact path={routePaths.createProductTag} component={NewProductTag}/>
+                                <PrivateRoute exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>
+                                <PrivateRoute exact path={routePaths.producerSettings} component={ProducerSettings}/>
                             </Switch>
                     </HashRouter>
                 </Container>

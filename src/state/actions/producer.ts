@@ -52,11 +52,11 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult);
             saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
-            history.push(routePaths.createProductTag);
             dispatch<ProducerSignUpAction>({
                 type: ActionTypes.producerSignUp,
                 producer
             });
+            history.push(routePaths.createProductTag);
         } catch (e) {
             console.error(e);
         } finally {
@@ -72,11 +72,11 @@ export const signInProducer = (producerContractAddress: string, history: History
             const accounts = await web3.eth.getAccounts();
             const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call({from: accounts[0]});
             saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
-            history.push(routePaths.createProductTag);
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
                 authenticated: true
             });
+            history.push(routePaths.createProductTag);
         } catch (e) {
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
