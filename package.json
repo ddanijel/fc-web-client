@@ -2,6 +2,7 @@
   "name": "fc-web-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ddanijel.github.com/fc-web-client",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
@@ -20,6 +21,7 @@
     "axios": "^0.19.2",
     "ethers": "^4.0.45",
     "fs-extra": "^8.1.0",
+    "gh-pages": "^2.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hook-form": "^5.0.3",
@@ -31,13 +33,16 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "solc": "^0.4.26",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "web3": "^1.2.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

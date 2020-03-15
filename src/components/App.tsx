@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom"
+import {BrowserRouter, HashRouter, Route, Switch} from "react-router-dom"
 import {Header} from "./ui/Header";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./ui/Theme";
@@ -40,7 +40,7 @@ const App: React.FC = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
                 <Container component="main" className={classes.main} maxWidth="sm">
-                    <BrowserRouter>
+                    <HashRouter basename="/">
                             <Header/>
                             <Switch>
                                 <Route exact path="/" component={HomeScreen}/>
@@ -50,7 +50,7 @@ const App: React.FC = () => {
                                 <Route exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>
                                 <Route exact path={routePaths.producerSettings} component={ProducerSettings}/>
                             </Switch>
-                    </BrowserRouter>
+                    </HashRouter>
                 </Container>
                 <Footer/>
                 <LoadingBackdrop/>
