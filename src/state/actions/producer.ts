@@ -9,8 +9,8 @@ import {History} from 'history';
 import {saveItemToLocalStorage} from "../localStorage";
 import {routePaths, variableNames} from "../../global/constants";
 
-export interface ProducerSignUpAction {
-    type: ActionTypes.producerSignUp;
+export interface PersistProducerAction {
+    type: ActionTypes.persistProducer;
     producer: Producer
 }
 
@@ -52,8 +52,8 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult);
             saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
-            dispatch<ProducerSignUpAction>({
-                type: ActionTypes.producerSignUp,
+            dispatch<PersistProducerAction>({
+                type: ActionTypes.persistProducer,
                 producer
             });
             history.push(routePaths.createProductTag);
@@ -71,11 +71,21 @@ export const signInProducer = (producerContractAddress: string, history: History
         try {
             const accounts = await web3.eth.getAccounts();
             const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call({from: accounts[0]});
-            saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
-                authenticated: true
+                authenticated: authenticated
             });
+
+            if (authenticated) {
+                saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
+                const producerResult = await ProducerContract(producerContractAddress).methods.describeProducer().call();
+                const producer = populateProducer(producerResult);
+                dispatch<PersistProducerAction>({
+                    type: ActionTypes.persistProducer,
+                    producer
+                });
+            }
+
             history.push(routePaths.createProductTag);
         } catch (e) {
             dispatch<ProducerSignInAction>({

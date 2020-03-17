@@ -12,6 +12,7 @@ export interface SignInFormData {
 export interface Producer {
     isAuthenticated: boolean,
     foodChainOwnerAddress: string,
+    // producerContractAddress,
     owner: string,
     producerName: string,
     licenceNumber: string,

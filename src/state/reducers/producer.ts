@@ -19,7 +19,7 @@ const initialState = {
 
 export const producerReducer = (state: Producer = initialState, action: Action) => {
     switch (action.type) {
-        case ActionTypes.producerSignUp:
+        case ActionTypes.persistProducer:
             return action.producer;
         case ActionTypes.producerSignIn:
             return {

@@ -11,6 +11,7 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { StepIconProps } from '@material-ui/core/StepIcon';
+import {NewProductTagForm} from "./NewProductTagForm";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -106,7 +107,7 @@ function getStepContent(step: number) {
         case 0:
             return <div>Scan Product tags</div>;
         case 1:
-            return 'What is an ad group anyways?';
+            return <NewProductTagForm/>;
         case 2:
             return 'This is the bit I really care about!';
         default:
