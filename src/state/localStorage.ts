@@ -1,13 +1,13 @@
-export const getItemFromLocalStorage = (key: string) => {
+export const getItemFromLocalStorage = (key: string):string => {
     try {
         const serializedState = localStorage.getItem(key);
         if (serializedState === null) {
-            return undefined;
+            return "";
         }
         return JSON.parse(serializedState);
     } catch (err) {
         console.error("Error while getting the key from Local Storage\nKey: ", key);
-        return undefined;
+        return "";
     }
 };
 

@@ -16,6 +16,8 @@ import {useHistory} from "react-router-dom";
 import {ProductTag} from "../../interfaces/productTag";
 import {generateProductTag} from "../../state/actions/productTag";
 
+import { GeolocatedProps, geolocated } from "react-geolocated";
+
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(2),
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-interface Props {
+interface Props extends GeolocatedProps {
     children?: React.ReactElement;
     generateProductTag: Function;
 
@@ -51,6 +53,8 @@ const _NewProductTagForm = (props: Props) => {
     const longitude = "lfs";
     const latitude = "lfs";
     const previousProductTags = [];
+
+    console.log("Coordinates: ", props.coords); // todo continue here
 
     const onSubmit = handleSubmit(
         ({
@@ -120,4 +124,4 @@ const _NewProductTagForm = (props: Props) => {
 export const NewProductTagForm = connect(
     null,
     {generateProductTag}
-)(_NewProductTagForm);
+)(geolocated()(_NewProductTagForm));
