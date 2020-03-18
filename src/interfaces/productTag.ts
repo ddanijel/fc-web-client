@@ -3,5 +3,5 @@ export interface ProductTag {
     actions: string[];
     longitude: string;
     latitude: string;
-    previousProductTagAddresses: string;
+    previousProductTagAddresses: string[];
 }

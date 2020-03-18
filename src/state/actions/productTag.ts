@@ -32,7 +32,7 @@ export const generateProductTag = (productTag: ProductTag, history: History) => 
             //     type: ActionTypes.producerSignUp,
             //     producer
             // });
-            history.push(routePaths.createProductTag);
+            history.push(routePaths.producer);
         } catch (e) {
             console.error(e);
         } finally {

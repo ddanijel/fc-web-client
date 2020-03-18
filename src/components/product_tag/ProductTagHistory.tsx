@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductTagHistory = ({match}) => {
+const ProductTagHistory = () => {
     return (
         <div>
             Product tag history

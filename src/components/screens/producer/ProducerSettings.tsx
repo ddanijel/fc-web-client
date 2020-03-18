@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProducerSettings = ({match}) => {
+const ProducerSettings = () => {
     return (
         <div>
             Producer Settings

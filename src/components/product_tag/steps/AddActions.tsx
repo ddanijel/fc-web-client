@@ -5,7 +5,7 @@ import Switch from '@material-ui/core/Switch';
 
 const AddActions = () => {
     const [state, setState] = React.useState({
-        checkedA: true,
+        checkedA: false,
         checkedB: true,
     });
 

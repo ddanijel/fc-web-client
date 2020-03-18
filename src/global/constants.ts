@@ -6,8 +6,9 @@ export const variableNames = {
 
 export const routePaths = {
     ptScan: "/pt/scan",
+    producer: "/producer",
     producerAuthPage: "/producer/auth",
-    createProductTag: "/producer/pt/new",
-    producerHistoryPage: "/producer/history",
+    createProductTag: "/producer/newpt",
+    producerHistoryPage: "/producer/pthistory",
     producerSettings: "/producer/settings"
 };

@@ -20,7 +20,6 @@ export interface ProducerSignInAction {
 }
 
 const populateProducer = (producerResult: any): Producer => {
-    console.log("result: ", producerResult);
     return {
         isAuthenticated: true,
         foodChainOwnerAddress: producerResult[0],
@@ -57,7 +56,7 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
                 type: ActionTypes.persistProducer,
                 producer
             });
-            history.push(routePaths.createProductTag);
+            history.push(routePaths.producer);
         } catch (e) {
             console.error(e);
         } finally {
@@ -88,7 +87,7 @@ export const signInProducer = (producerContractAddress: string, history: History
                 });
             }
 
-            history.push(routePaths.createProductTag);
+            history.push(routePaths.producer);
         } catch (e) {
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,

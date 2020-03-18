@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, HashRouter, Route, Switch} from "react-router-dom"
+import {HashRouter, Route, Switch} from "react-router-dom"
 import {Header} from "./ui/Header";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./ui/Theme";
@@ -10,12 +10,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from '@material-ui/core/Container';
 import Footer from "./ui/Footer";
 import {LoadingBackdrop} from "./ui/Backdrop";
-import NewProductTag from "./product_tag/NewProductTag";
-import ProductTagHistory from "./product_tag/ProductTagHistory";
-import ProducerSettings from "./screens/producer/ProducerSettings";
 import {routePaths} from "../global/constants";
 import PtScanner from "./screens/PTScanner";
 import {PrivateRoute} from "./PrivateRoute";
+import Producer from "./screens/producer/Producer";
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,9 +45,10 @@ const App: React.FC = () => {
                                 <Route exact path="/" component={HomeScreen}/>
                                 <Route exact path={routePaths.ptScan} component={PtScanner}/>
                                 <Route exact path={routePaths.producerAuthPage} component={ProducerAuth}/>
-                                <PrivateRoute exact path={routePaths.createProductTag} component={NewProductTag}/>
-                                <PrivateRoute exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>
-                                <PrivateRoute exact path={routePaths.producerSettings} component={ProducerSettings}/>
+                                <PrivateRoute path={routePaths.producer} component={Producer}/>
+                                {/*<PrivateRoute exact path={routePaths.createProductTag} component={NewProductTag}/>*/}
+                                {/*<PrivateRoute exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>*/}
+                                {/*<PrivateRoute exact path={routePaths.producerSettings} component={ProducerSettings}/>*/}
                             </Switch>
                     </HashRouter>
                 </Container>
