@@ -11,9 +11,11 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {StepIconProps} from '@material-ui/core/StepIcon';
-import AddActions from "./steps/AddActions";
+import {AddActions} from "./steps/AddActions";
 import ScanProductTags from "./steps/ScanProductTags";
 import Review from "./steps/Review";
+import {connect} from "react-redux";
+import {StoreState} from "../../state/reducers";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -118,7 +120,7 @@ function getStepContent(step: number) {
 }
 
 
-const NewProductTag = () => {
+const _NewProductTag = () => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -177,4 +179,11 @@ const NewProductTag = () => {
     );
 };
 
-export default NewProductTag
+const mapStateToProps = ({newProductTag}: StoreState) => {
+    return {newProductTag};
+};
+
+export const NewProductTag = connect(
+    mapStateToProps,
+    {}
+)(_NewProductTag);

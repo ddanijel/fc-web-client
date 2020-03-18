@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         width: '100%',
         position: 'fixed',
         bottom: 0,
-        marginLeft: theme.spacing(-2)
+        marginLeft: theme.spacing(-2),
         // backgroundColor: "#8e9d90",
         // marginBottom: theme.spacing(2.5),
     }

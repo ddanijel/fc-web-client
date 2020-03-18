@@ -1,9 +1,15 @@
 import React from 'react';
+import QrReader from 'react-qr-reader'
 
 const ScanProductTags = () => {
     return (
         <div>
-            scan
+            <QrReader
+                delay={300}
+                onError={() => console.error("error")}
+                onScan={(data) => console.log("scanned: ", data)}
+                style={{ width: '100%' }}
+            />
         </div>
     );
 };
