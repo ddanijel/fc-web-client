@@ -3,10 +3,12 @@ import {Producer} from "../../interfaces/producer";
 import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
 
-
+const isAlreadyAuthenticated = ():boolean => {
+    return JSON.stringify(getItemFromLocalStorage("authenticated")) == 'true'
+};
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: isAlreadyAuthenticated(),
     foodChainOwnerAddress: getItemFromLocalStorage(variableNames.producerContractAddress),
     owner: "",
     producerName: "",

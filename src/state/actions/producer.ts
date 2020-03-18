@@ -42,7 +42,7 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
 
         try {
             const accounts = await web3.eth.getAccounts();
-            const result = await FoodChain().methods.registerProducer(
+            await FoodChain().methods.registerProducer(
                 producerSignUpFormData.producerName,
                 producerSignUpFormData.licenceNumber,
                 producerSignUpFormData.url,
@@ -52,6 +52,7 @@ export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: 
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult);
             saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
+            saveItemToLocalStorage("authenticated", true);
             dispatch<PersistProducerAction>({
                 type: ActionTypes.persistProducer,
                 producer
@@ -78,6 +79,7 @@ export const signInProducer = (producerContractAddress: string, history: History
 
             if (authenticated) {
                 saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
+                saveItemToLocalStorage("authenticated", true);
                 const producerResult = await ProducerContract(producerContractAddress).methods.describeProducer().call();
                 const producer = populateProducer(producerResult);
                 dispatch<PersistProducerAction>({

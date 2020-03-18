@@ -1,15 +1,11 @@
 import Web3 from 'web3';
-import {utils} from "ethers";
 import {variableNames} from "../global/constants";
 import HDWalletProvider from "@truffle/hdwallet-provider";
+import {isMnemonicValid} from "./helpers";
 // https://medium.com/metamask/no-longer-injecting-web3-js-4a899ad6e59e
 // https://medium.com/@awantoch/how-to-connect-web3-js-to-metamask-in-2020-fee2b2edf58a
 
-const isMnemonicValid = (mnemonic: string | null): boolean => {
-    if (mnemonic == null) return false;
-    return utils.HDNode.isValidMnemonic(mnemonic);
-    return true;
-};
+
 
 const ethEnabled = () => {
     // @ts-ignore

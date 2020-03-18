@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Route, Redirect } from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import {routePaths} from "../global/constants";
 import {StoreState} from "../state/reducers";
 import {connect} from "react-redux";
 
 
-const _PrivateRoute = ({component: Component, producer, ...rest}) => {
-    console.log("Producer: ", producer);
+const _PrivateRoute = ({component: Component, signInOnStartup, producer, ...rest}) => {
     return (
         <Route
             {...rest}

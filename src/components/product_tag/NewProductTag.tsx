@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -10,8 +10,10 @@ import DoneIcon from '@material-ui/icons/Done';
 import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { StepIconProps } from '@material-ui/core/StepIcon';
-import {NewProductTagForm} from "./NewProductTagForm";
+import {StepIconProps} from '@material-ui/core/StepIcon';
+import AddActions from "./steps/AddActions";
+import ScanProductTags from "./steps/ScanProductTags";
+import Review from "./steps/Review";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -105,11 +107,11 @@ function getSteps() {
 function getStepContent(step: number) {
     switch (step) {
         case 0:
-            return <div>Scan Product tags</div>;
+            return <ScanProductTags/>;
         case 1:
-            return <NewProductTagForm/>;
+            return <AddActions/>;
         case 2:
-            return 'This is the bit I really care about!';
+            return <Review/>;
         default:
             return 'Unknown step';
     }
