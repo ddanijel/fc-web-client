@@ -85,7 +85,7 @@ contract Producer {
         string memory _longitude,
         string memory _latitude,
         address[] memory _previousProductTags
-    ) public {
+    ) public returns(address) {
         require(msg.sender == producerOwner);
 
         ProductTag pt = new ProductTag(
@@ -97,6 +97,7 @@ contract Producer {
         );
 
         productTags.push(address(pt));
+        return address(pt);
     }
 
     function describeProducer() public view returns (

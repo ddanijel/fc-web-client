@@ -46,7 +46,7 @@ const App: React.FC = () => {
                                 <Route exact path={routePaths.ptScan} component={PtScanner}/>
                                 <Route exact path={routePaths.producerAuthPage} component={ProducerAuth}/>
                                 <PrivateRoute path={routePaths.producer} component={Producer}/>
-                                {/*<PrivateRoute exact path={routePaths.createProductTag} component={NewProductTag}/>*/}
+                                {/*<PrivateRoute exact path={routePaths.createProductTag} component={NewProductTagScreen}/>*/}
                                 {/*<PrivateRoute exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>*/}
                                 {/*<PrivateRoute exact path={routePaths.producerSettings} component={ProducerSettings}/>*/}
                             </Switch>

@@ -2,7 +2,7 @@ import React from 'react';
 import ProducerBottomTagNavigation from "./ProducerBottomTagNavigation";
 import {routePaths} from "../../../global/constants";
 import {PrivateRoute} from "../../PrivateRoute";
-import {NewProductTag} from "../../product_tag/NewProductTag";
+import {NewProductTagScreen} from "../../product_tag/NewProductTagScreen";
 import ProductTagHistory from "../../product_tag/ProductTagHistory";
 import ProducerSettings from "./ProducerSettings";
 import theme from "../../ui/Theme";
@@ -14,7 +14,7 @@ const Producer = (props) => {
             <div style={{
                 marginTop: theme.spacing(2)
             }}>
-            {props.location.pathname === routePaths.producer ? <NewProductTag/> : null}
+            {props.location.pathname === routePaths.producer ? <NewProductTagScreen/> : null}
             <PrivateRoute path="/producer/:subroute" component={subroute}/>
             </div>
             <ProducerBottomTagNavigation/>
@@ -25,7 +25,7 @@ const Producer = (props) => {
 const subroute = ({match}) => {
     switch (match.url) {
         case routePaths.createProductTag:
-            return <NewProductTag/>;
+            return <NewProductTagScreen/>;
         case routePaths.producerHistoryPage:
             return <ProductTagHistory/>;
         case routePaths.producerSettings:

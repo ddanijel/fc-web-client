@@ -13,8 +13,10 @@ const initialState = {
             selected: false
         }
     ],
-    longitude: "",
-    latitude: "",
+    geolocation: {
+        longitude: "",
+        latitude: "",
+    },
     previousProductTagAddresses: []
 };
 

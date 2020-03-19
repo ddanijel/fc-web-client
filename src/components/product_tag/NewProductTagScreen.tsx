@@ -13,9 +13,12 @@ import Typography from '@material-ui/core/Typography';
 import {StepIconProps} from '@material-ui/core/StepIcon';
 import {AddActions} from "./steps/AddActions";
 import ScanProductTags from "./steps/ScanProductTags";
-import NewPTOverview from "./steps/NewPTOverview";
+import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
+import {generateProductTag} from "../../state/actions";
+import {NewProductTag} from "../../interfaces/productTag";
+import {geolocated, GeolocatedProps} from "react-geolocated";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -119,13 +122,27 @@ function getStepContent(step: number) {
     }
 }
 
+interface Props extends GeolocatedProps{
+    children?: React.ReactElement;
+    generateProductTag: Function;
+    newProductTag: NewProductTag
+}
 
-const _NewProductTag = () => {
+
+const _NewProductTag = (props: Props) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(1);
     const steps = getSteps();
 
     const handleNext = () => {
+        console.log(props.coords && props.coords.latitude)
+        if (activeStep === steps.length - 1) {
+
+            props.newProductTag.geolocation.longitude = "0.3232";
+            props.newProductTag.geolocation.latitude = "0.3232";
+
+            props.generateProductTag(props.newProductTag);
+        }
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
 
@@ -169,7 +186,7 @@ const _NewProductTag = () => {
                                 onClick={handleNext}
                                 className={classes.button}
                             >
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                {activeStep === steps.length - 1 ? 'Create Product Tag' : 'Next'}
                             </Button>
                         </div>
                     </div>
@@ -183,7 +200,7 @@ const mapStateToProps = ({newProductTag}: StoreState) => {
     return {newProductTag};
 };
 
-export const NewProductTag = connect(
+export const NewProductTagScreen = connect(
     mapStateToProps,
-    {}
-)(_NewProductTag);
+    {generateProductTag}
+)(geolocated()(_NewProductTag));

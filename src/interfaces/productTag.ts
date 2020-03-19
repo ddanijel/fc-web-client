@@ -10,10 +10,13 @@ export interface NewProductTagAction extends ProductTagAction{
     selected: boolean
 }
 
+interface Geolocation {
+    longitude: string;
+    latitude: string;
+}
 
 export interface ProductTag {
     actions: ProductTagAction[];
-    longitude: string;
-    latitude: string;
+    geolocation: Geolocation
     previousProductTagAddresses: string[];
 }
