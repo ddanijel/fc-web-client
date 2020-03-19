@@ -1,9 +1,8 @@
-import {Action} from "../actions";
+import {Action, ActionTypes} from "../actions";
 import {NewProductTag} from "../../interfaces/productTag";
 
 
 const initialState = {
-    producerAddress: "",
     actions: [
         {
             name: "Action 1",
@@ -19,8 +18,16 @@ const initialState = {
     previousProductTagAddresses: []
 };
 
-export const productTagReducer = (state: NewProductTag = initialState, action: Action):NewProductTag => {
+export const newProductTagReducer = (state: NewProductTag = initialState, action: Action):NewProductTag => {
     switch (action.type) {
+        case ActionTypes.addActionToNewProductTag:
+            return {
+                ...state,
+                actions: [
+                    ...state.actions,
+                    action.newAction
+                ]
+            };
         default:
             return state;
     }

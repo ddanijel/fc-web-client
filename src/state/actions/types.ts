@@ -1,13 +1,13 @@
 import {ToggleDrawerAction, ToggleIsLoadingAction} from "./ui";
 import {PersistProducerAction, ProducerSignInAction} from "./producer";
-import {GenerateProductTagAction} from "./productTag";
+import {AddActionToNewProductTagAction} from "./newProductTag";
 
 export enum ActionTypes {
     toggleDrawer,
     toggleIsLoading,
     persistProducer,
     producerSignIn,
-    generateProductTag
+    addActionToNewProductTag
 }
 
 export type Action =
@@ -15,4 +15,4 @@ export type Action =
     ToggleIsLoadingAction |
     PersistProducerAction |
     ProducerSignInAction |
-    GenerateProductTagAction;
+    AddActionToNewProductTagAction;

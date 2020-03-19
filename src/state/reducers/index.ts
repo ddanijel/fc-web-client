@@ -4,7 +4,7 @@ import {uiReducer} from "./ui";
 import {Producer} from "../../interfaces/producer";
 import {producerReducer} from "./producer";
 import {NewProductTag} from "../../interfaces/productTag";
-import {productTagReducer} from "./productTag";
+import {newProductTagReducer} from "./newProductTag";
 
 
 export interface StoreState {
@@ -16,5 +16,5 @@ export interface StoreState {
 export const reducers = combineReducers<StoreState>({
     ui: uiReducer,
     producer: producerReducer,
-    newProductTag: productTagReducer
+    newProductTag: newProductTagReducer
 });

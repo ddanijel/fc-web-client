@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import {StepIconProps} from '@material-ui/core/StepIcon';
 import {AddActions} from "./steps/AddActions";
 import ScanProductTags from "./steps/ScanProductTags";
-import Review from "./steps/Review";
+import NewPTOverview from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
 
@@ -113,7 +113,7 @@ function getStepContent(step: number) {
         case 1:
             return <AddActions/>;
         case 2:
-            return <Review/>;
+            return <NewPTOverview/>;
         default:
             return 'Unknown step';
     }
@@ -122,7 +122,7 @@ function getStepContent(step: number) {
 
 const _NewProductTag = () => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(1);
     const steps = getSteps();
 
     const handleNext = () => {

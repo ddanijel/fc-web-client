@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Review = () => {
+const NewPTOverview = () => {
     return (
         <div>
-            review
+            Overview
         </div>
     );
 };
 
-export default Review;
+export default NewPTOverview;

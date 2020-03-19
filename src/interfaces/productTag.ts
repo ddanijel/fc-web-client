@@ -2,17 +2,16 @@ export interface NewProductTag extends ProductTag {
     actions: NewProductTagAction[]
 }
 
-interface ProductTagAction {
+export interface ProductTagAction {
     name: string;
 }
 
-interface NewProductTagAction extends ProductTagAction{
+export interface NewProductTagAction extends ProductTagAction{
     selected: boolean
 }
 
 
 export interface ProductTag {
-    producerAddress: string;
     actions: ProductTagAction[];
     longitude: string;
     latitude: string;
