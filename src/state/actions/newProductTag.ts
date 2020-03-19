@@ -13,6 +13,11 @@ export interface GenerateProductTagAction {
     productTag: NewProductTag
 }
 
+export interface ToggleActionOfNewProductTagAction {
+    type: ActionTypes.toggleActionOfNewProductTag,
+    action: NewProductTagAction
+}
+
 export interface AddActionToNewProductTagAction {
     type: ActionTypes.addActionToNewProductTag;
     newAction: NewProductTagAction
@@ -22,6 +27,14 @@ export const addActionToNewProductTag = (newAction: NewProductTagAction): AddAct
     return {
         type: ActionTypes.addActionToNewProductTag,
         newAction
+    }
+};
+
+export const toggleActionOfNewProductTag = (action: NewProductTagAction): ToggleActionOfNewProductTagAction => {
+    console.log("changing: ", action);
+    return {
+        type: ActionTypes.toggleActionOfNewProductTag,
+        action
     }
 };
 

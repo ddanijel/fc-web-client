@@ -11,7 +11,7 @@ import {Controller, useForm} from "react-hook-form";
 import {NewProductTag, ProductTagAction} from "../../../interfaces/productTag";
 import {CardContent} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import {addActionToNewProductTag} from "../../../state/actions/newProductTag";
+import {addActionToNewProductTag, toggleActionOfNewProductTag} from "../../../state/actions/newProductTag";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,18 +34,18 @@ interface Props {
     children?: React.ReactElement;
     newProductTag: NewProductTag;
     addActionToNewProductTag: typeof addActionToNewProductTag;
+    toggleActionOfNewProductTag: typeof toggleActionOfNewProductTag;
 }
 
 const _AddActions = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control, reset} = useForm<ProductTagAction>();
-    const [state, setState] = React.useState({
-        checkedA: false,
-        checkedB: true,
-    });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, [event.target.name]: event.target.checked});
+        props.toggleActionOfNewProductTag({
+            name: event.target.name,
+            selected: event.target.checked
+        });
     };
 
     const handleAddAction = handleSubmit(({name}) => {
@@ -71,7 +71,7 @@ const _AddActions = (props: Props) => {
                         {props.newProductTag.actions.map((action, index) => (
                             <FormControlLabel key={index}
                                               control={<Switch checked={action.selected} onChange={handleChange}
-                                                               name="checkedA"/>}
+                                                               name={action.name}/>}
                                               label={action.name}
                             />
                         ))}
@@ -117,5 +117,8 @@ const mapStateToProps = ({newProductTag}: StoreState) => {
 
 export const AddActions = connect(
     mapStateToProps,
-    {addActionToNewProductTag}
+    {
+        addActionToNewProductTag,
+        toggleActionOfNewProductTag
+    }
 )(_AddActions);
