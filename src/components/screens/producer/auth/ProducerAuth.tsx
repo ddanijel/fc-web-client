@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {SignInForm} from "./SignInForm";
 import {SignUpForm} from "./SignUpForm";
+import {isAlreadyAuthenticated} from "../../../../state/helperFunction";
+import {routePaths} from "../../../../global/constants";
+import {useHistory} from "react-router-dom";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,7 +53,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ProducerAuth = () => {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory();
     const [value, setValue] = React.useState(1);
+
+    if (isAlreadyAuthenticated()){
+        history.push(routePaths.producer)
+    }
+
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         const updatedIndex = newValue < 0 ? 0 : newValue;  // todo no idea why it adds 1 when we swipe left
