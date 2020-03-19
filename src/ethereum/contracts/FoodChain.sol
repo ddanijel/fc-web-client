@@ -51,13 +51,9 @@ contract FoodChain {
 
 }
 
-contract Commons {
-    string defaultActions = "Action 1; Action 2; Action 3";
-}
-
 contract Producer {
     address foodChainOwner;
-    address owner;
+    address producerOwner;
     string producerName;
     string licenceNumber;
     string url;
@@ -70,18 +66,37 @@ contract Producer {
 
     constructor(
         address _foodChainOwner,
-        address _owner,
+        address _producerOwner,
         string memory _producerName,
         string memory _licenceNumber,
         string memory _url,
         string memory _certificates
     ) public {
         foodChainOwner = _foodChainOwner;
-        owner = _owner;
+        producerOwner = _producerOwner;
         producerName = _producerName;
         licenceNumber = _licenceNumber;
         url = _url;
         certificates = _certificates;
+    }
+
+    function generateProductTag(
+        string[] memory _actions,
+        string memory _longitude,
+        string memory _latitude,
+        address[] memory _previousProductTags
+    ) public {
+        require(msg.sender == producerOwner);
+
+        ProductTag pt = new ProductTag(
+            msg.sender,
+            _actions,
+            _longitude,
+            _latitude,
+            _previousProductTags
+        );
+
+        productTags.push(address(pt));
     }
 
     function describeProducer() public view returns (
@@ -96,7 +111,7 @@ contract Producer {
     ) {
         return (
         foodChainOwner,
-        owner,
+        producerOwner,
         producerName,
         licenceNumber,
         url,
@@ -107,7 +122,7 @@ contract Producer {
     }
 
     function isAuthenticated() public view returns (bool) {
-        return (owner == msg.sender);
+        return (producerOwner == msg.sender);
     }
 }
 
@@ -119,12 +134,13 @@ contract ProductTag {
     address[] previousProductTags;
 
     constructor(
+        address _producer,
         string[] memory _actions,
         string memory _longitude,
         string memory _latitude,
         address[] memory _previousProductTags
     ) public {
-        producer = msg.sender;
+        producer = _producer;
         actions = _actions;
         longitude = _longitude;
         latitude = _latitude;
