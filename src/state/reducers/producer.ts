@@ -2,10 +2,8 @@ import {Action, ActionTypes} from "../actions";
 import {Producer} from "../../interfaces/producer";
 import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
+import {isAlreadyAuthenticated} from "../helperFunction";
 
-const isAlreadyAuthenticated = ():boolean => {
-    return JSON.stringify(getItemFromLocalStorage("authenticated")) == 'true'
-};
 
 const initialState = {
     isAuthenticated: isAlreadyAuthenticated(),
