@@ -31,7 +31,6 @@ export const addActionToNewProductTag = (newAction: NewProductTagAction): AddAct
 };
 
 export const toggleActionOfNewProductTag = (action: NewProductTagAction): ToggleActionOfNewProductTagAction => {
-    console.log("changing: ", action);
     return {
         type: ActionTypes.toggleActionOfNewProductTag,
         action

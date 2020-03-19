@@ -52,8 +52,8 @@ contract FoodChain {
 }
 
 contract Producer {
-    address foodChainOwner;
-    address producerOwner;
+    address foodChainContractAddress;
+    address producerOwnerAccountAddress;
     string producerName;
     string licenceNumber;
     string url;
@@ -65,15 +65,15 @@ contract Producer {
     enum State {Active, Blocked}
 
     constructor(
-        address _foodChainOwner,
-        address _producerOwner,
+        address _foodChainContractAddress,
+        address _producerOwnerAccountAddress,
         string memory _producerName,
         string memory _licenceNumber,
         string memory _url,
         string memory _certificates
     ) public {
-        foodChainOwner = _foodChainOwner;
-        producerOwner = _producerOwner;
+        foodChainContractAddress = _foodChainContractAddress;
+        producerOwnerAccountAddress = _producerOwnerAccountAddress;
         producerName = _producerName;
         licenceNumber = _licenceNumber;
         url = _url;
@@ -86,10 +86,10 @@ contract Producer {
         string memory _latitude,
         address[] memory _previousProductTags
     ) public returns(address) {
-        require(msg.sender == producerOwner);
+        require(msg.sender == producerOwnerAccountAddress);
 
         ProductTag pt = new ProductTag(
-            msg.sender,
+            address(this),
             _actions,
             _longitude,
             _latitude,
@@ -111,8 +111,8 @@ contract Producer {
         address[] memory
     ) {
         return (
-        foodChainOwner,
-        producerOwner,
+        foodChainContractAddress,
+        producerOwnerAccountAddress,
         producerName,
         licenceNumber,
         url,
@@ -123,32 +123,32 @@ contract Producer {
     }
 
     function isAuthenticated() public view returns (bool) {
-        return (producerOwner == msg.sender);
+        return (producerOwnerAccountAddress == msg.sender);
     }
 }
 
 contract ProductTag {
-    address producer;
+    address producerContractAddress;
     string[] actions;
     string longitude;
     string latitude;
     address[] previousProductTags;
 
     constructor(
-        address _producer,
+        address _producerContractAddress,
         string[] memory _actions,
         string memory _longitude,
         string memory _latitude,
         address[] memory _previousProductTags
     ) public {
-        producer = _producer;
+        producerContractAddress = _producerContractAddress;
         actions = _actions;
         longitude = _longitude;
         latitude = _latitude;
         previousProductTags = _previousProductTags;
     }
 
-    function describeProuctTag() public view returns (
+    function describeProductTag() public view returns (
         address,
         string[],
         string,
@@ -156,7 +156,7 @@ contract ProductTag {
         address[]
     ) {
         return (
-        producer,
+        producerContractAddress,
         actions,
         longitude,
         latitude,

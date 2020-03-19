@@ -4,6 +4,10 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import QrReader from 'react-qr-reader'
+import {StoreState} from "../../../state/reducers";
+import {connect} from "react-redux";
+import {fetchProductTag} from "../../../state/actions";
+import {isAddressValid} from "../../../ethereum/helpers";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function ScanProductTag() {
+interface Props {
+    fetchProductTag: Function
+}
+
+const _ScanProductTags = (props: Props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -37,6 +45,12 @@ export default function ScanProductTag() {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleOnScan = (data: string) => {
+        console.log("data: ", data);
+        console.log("valid: ", isAddressValid(data));
+        if (isAddressValid(data)) props.fetchProductTag(data);
     };
 
     return (
@@ -61,8 +75,8 @@ export default function ScanProductTag() {
                         <QrReader
                             delay={300}
                             onError={() => console.error("error")}
-                            onScan={(data) => console.log("scanned: ", data)}
-                            style={{ width: '100%' }}
+                            onScan={(data) => handleOnScan("0x56Ccc978680F9C0E65069481a3fF59Ad2250bb5b")} // todo
+                            style={{width: '100%'}}
                         />
                     </div>
                 </Fade>
@@ -70,3 +84,15 @@ export default function ScanProductTag() {
         </div>
     );
 }
+
+
+const mapStateToProps = ({newProductTag}: StoreState) => {
+    return {newProductTag};
+};
+
+export const ScanProductTags = connect(
+    mapStateToProps,
+    {
+        fetchProductTag
+    }
+)(_ScanProductTags);

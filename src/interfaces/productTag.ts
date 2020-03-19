@@ -16,7 +16,8 @@ export interface Geolocation {
 }
 
 export interface ProductTag {
+    producerAddress?: string
     actions: ProductTagAction[];
     geolocation: Geolocation
-    previousProductTagAddresses: string[];
+    previousProductTags: ProductTag[];
 }

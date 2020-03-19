@@ -17,7 +17,7 @@ const initialState = {
         longitude: "",
         latitude: "",
     },
-    previousProductTagAddresses: []
+    previousProductTags: []
 };
 
 export const newProductTagReducer = (state: NewProductTag = initialState, action: Action):NewProductTag => {
@@ -34,7 +34,6 @@ export const newProductTagReducer = (state: NewProductTag = initialState, action
             return {
                 ...state,
                 actions: state.actions.map(act => {
-                    console.log(act, action.action);
                     if (act.name === action.action.name) {
                         return {
                             name: act.name,

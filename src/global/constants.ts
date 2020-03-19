@@ -1,4 +1,4 @@
-export const foodChainFactoryAddress = "0xCf61f996a5148fea4F1F78d4F1edF9D696b9265c";
+export const foodChainFactoryAddress = "0xF3E73B824ABC84DA1E3D268c10641459A8b0D053";
 export const variableNames = {
     producerContractAddress: "producerContractAddress",
     ethAccountMnemonic: "ethAccountMnemonic"

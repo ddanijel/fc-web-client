@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {StepIconProps} from '@material-ui/core/StepIcon';
 import {AddActions} from "./steps/AddActions";
-import ScanProductTags from "./steps/ScanProductTags";
+import {ScanProductTags} from "./steps/ScanProductTags";
 import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
