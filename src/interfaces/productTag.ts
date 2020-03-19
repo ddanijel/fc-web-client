@@ -10,7 +10,7 @@ export interface NewProductTagAction extends ProductTagAction{
     selected: boolean
 }
 
-interface Geolocation {
+export interface Geolocation {
     longitude: string;
     latitude: string;
 }

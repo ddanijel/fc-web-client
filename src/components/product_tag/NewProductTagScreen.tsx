@@ -17,7 +17,7 @@ import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
 import {generateProductTag} from "../../state/actions";
-import {NewProductTag} from "../../interfaces/productTag";
+import {Geolocation, NewProductTag} from "../../interfaces/productTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
 
 const ColorlibConnector = withStyles({
@@ -69,12 +69,12 @@ const useColorlibStepIconStyles = makeStyles({
 
 function ColorlibStepIcon(props: StepIconProps) {
     const classes = useColorlibStepIconStyles();
-    const { active, completed } = props;
+    const {active, completed} = props;
 
     const icons: { [index: string]: React.ReactElement } = {
-        1: <CameraIcon />,
-        2: <CallToActionIcon />,
-        3: <DoneIcon />,
+        1: <CameraIcon/>,
+        2: <CallToActionIcon/>,
+        3: <DoneIcon/>,
     };
 
     return (
@@ -122,7 +122,8 @@ function getStepContent(step: number) {
     }
 }
 
-interface Props extends GeolocatedProps{
+
+interface Props extends GeolocatedProps {
     children?: React.ReactElement;
     generateProductTag: Function;
     newProductTag: NewProductTag
@@ -134,14 +135,20 @@ const _NewProductTag = (props: Props) => {
     const [activeStep, setActiveStep] = React.useState(1);
     const steps = getSteps();
 
+    const getGeolocation = (): Geolocation => {
+        return {
+            longitude: props.coords?.longitude === undefined ? "" : props.coords.longitude.toString(),
+            latitude: props.coords?.latitude === undefined ? "" : props.coords.latitude.toString()
+        }
+    };
+
     const handleNext = () => {
-        console.log(props.coords && props.coords.latitude)
         if (activeStep === steps.length - 1) {
 
-            props.newProductTag.geolocation.longitude = "0.3232";
-            props.newProductTag.geolocation.latitude = "0.3232";
-
-            props.generateProductTag(props.newProductTag);
+            props.generateProductTag({
+                ...props.newProductTag,
+                geolocation: getGeolocation()
+            });
         }
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -156,7 +163,7 @@ const _NewProductTag = (props: Props) => {
 
     return (
         <div className={classes.root}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector/>}>
                 {steps.map(label => (
                     <Step key={label}>
                         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
