@@ -12,7 +12,9 @@ import {NewProductTag, ProductTagAction} from "../../../interfaces/productTag";
 import {CardContent} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import {addActionToNewProductTag, toggleActionOfNewProductTag} from "../../../state/actions/newProductTag";
-
+import CardActions from "@material-ui/core/CardActions";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,7 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         cardRoot: {
-            height: theme.spacing(30)
+            height: theme.spacing(35),
+            overflow: "auto"
+        },
+        cardActions: {
+            justifyContent: 'center'
         }
     }),
 );
@@ -57,17 +63,18 @@ const _AddActions = (props: Props) => {
     });
 
     return (
-        <>
-            <Card className={classes.cardRoot}>
-                <CardContent style={{
-                    height: "100%"
+        <Card className={classes.cardRoot}>
+            <CardContent>
+                <Typography variant="h5" component="h2">
+                    Product Actions
+                </Typography>
+                <FormGroup style={{
+                    height: "100%",
+                    display: 'block',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                 }}>
-                    <FormGroup style={{
-                        height: "100%",
-                        display: 'block',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}>
+                    <List>
                         {props.newProductTag.actions.map((action, index) => (
                             <FormControlLabel key={index}
                                               control={<Switch checked={action.selected} onChange={handleChange}
@@ -75,39 +82,39 @@ const _AddActions = (props: Props) => {
                                               label={action.name}
                             />
                         ))}
-                    </FormGroup>
+                    </List>
+                </FormGroup>
 
-                </CardContent>
-            </Card>
-
-            <form className={classes.actionForm} onSubmit={handleAddAction}>
-                <Controller
-                    name="name"
-                    as={
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            size={"small"}
-                            // fullWidth
-                            id="name"
-                            label="Action Name"
-                            name="name"
-                            autoFocus
-                        />}
-                    control={control}
-                    defaultValue=""
-                />
-                <Button type="submit"
-                    // fullWidth
-                        variant="contained"
-                        color="primary"
-                >
-                    Add
-                </Button>
-            </form>
-
-        </>
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+                <form className={classes.actionForm} onSubmit={handleAddAction}>
+                    <Controller
+                        name="name"
+                        as={
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                size={"small"}
+                                // fullWidth
+                                id="name"
+                                label="Action Name"
+                                name="name"
+                                autoFocus
+                            />}
+                        control={control}
+                        defaultValue=""
+                    />
+                    <Button type="submit"
+                        // fullWidth
+                            variant="contained"
+                            color="primary"
+                    >
+                        Add
+                    </Button>
+                </form>
+            </CardActions>
+        </Card>
     );
 };
 

@@ -16,9 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
         button: {
             // margin: theme.spacing(1),
         },
-        root: {
-            minWidth: 275,
-            height: "80%"
+        cardRoot: {
+            height: theme.spacing(35)
         },
         bullet: {
             display: 'inline-block',
@@ -48,7 +47,7 @@ const _ScanProductTags = (props: Props) => {
 
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.cardRoot}>
             <CardContent>
                 <Typography variant="h5" component="h2">
                     Scanned Products

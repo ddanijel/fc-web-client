@@ -7,6 +7,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import CameraIcon from '@material-ui/icons/Camera';
 import CallToActionIcon from '@material-ui/icons/CallToAction';
 import DoneIcon from '@material-ui/icons/Done';
+import PrintIcon from '@material-ui/icons/Print';
 import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +20,7 @@ import {StoreState} from "../../state/reducers";
 import {generateProductTag} from "../../state/actions";
 import {Geolocation, NewProductTag} from "../../interfaces/productTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
+import PrintQrCode from "./steps/PrintQRCode";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -63,7 +65,7 @@ const useColorlibStepIconStyles = makeStyles({
     },
     completed: {
         backgroundImage:
-            'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+            'linear-gradient( 136deg, rgb(153,255,153) 0%, rgb(0,153,76) 50%, rgb(0,102,51) 100%)',
     },
 });
 
@@ -75,6 +77,7 @@ function ColorlibStepIcon(props: StepIconProps) {
         1: <CameraIcon/>,
         2: <CallToActionIcon/>,
         3: <DoneIcon/>,
+        4: <PrintIcon/>
     };
 
     return (
@@ -100,13 +103,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         instructions: {
             marginTop: theme.spacing(1),
-            marginBottom: theme.spacing(1),
+            marginBottom: theme.spacing(1)
         },
     }),
 );
 
 function getSteps() {
-    return ['Scan', 'Add Actions', 'Create'];
+    return ['Scan', 'Add Actions', 'Create', "Print"];
 }
 
 function getStepContent(step: number) {
@@ -117,6 +120,8 @@ function getStepContent(step: number) {
             return <AddActions/>;
         case 2:
             return <NewPTOverview/>;
+        case 3:
+            return <PrintQrCode/>;
         default:
             return 'Unknown step';
     }
@@ -177,13 +182,15 @@ const _NewProductTag = (props: Props) => {
                             All steps completed - you&apos;re finished
                         </Typography>
                         <Button onClick={handleReset} className={classes.button}>
-                            Reset
+                            Create New Product Tag
                         </Button>
                     </div>
                 ) : (
-                    <div>
+                    <>
                         <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-                        <div>
+                        <div style={{
+                            float: "right"
+                        }}>
                             <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                 Back
                             </Button>
@@ -196,7 +203,7 @@ const _NewProductTag = (props: Props) => {
                                 {activeStep === steps.length - 1 ? 'Create Product Tag' : 'Next'}
                             </Button>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>
         </div>
