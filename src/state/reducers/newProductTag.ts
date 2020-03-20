@@ -42,6 +42,15 @@ export const newProductTagReducer = (state: NewProductTag = initialState, action
                     } else return act;
                 })
             };
+        case ActionTypes.addPreviousProductTag:
+            return {
+                ...state,
+                previousProductTags: [
+                    ...state.previousProductTags,
+                    action.productTag
+                ]
+
+            };
         default:
             return state;
     }

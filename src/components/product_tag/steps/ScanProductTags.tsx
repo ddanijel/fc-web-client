@@ -53,6 +53,12 @@ const _ScanProductTags = (props: Props) => {
                     Scanned Products
                 </Typography>
             </CardContent>
+            <CardContent>
+                {
+                    props.newProductTag.previousProductTags.map((productTag, index) => <div
+                        key={index}>{productTag.producerAddress}<br/></div>)
+                }
+            </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button
                     variant="contained"

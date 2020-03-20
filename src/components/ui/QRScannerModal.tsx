@@ -4,7 +4,7 @@ import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import {StoreState} from "../../state/reducers";
 import {connect} from "react-redux";
-import {fetchProductTag, toggleQRScannerModal, Ui} from "../../state/actions";
+import {fetchPreviousProductTag, toggleQRScannerModal, Ui} from "../../state/actions";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import QrReader from 'react-qr-reader'
 import {isAddressValid} from "../../ethereum/helpers";
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     ui: Ui
-    fetchProductTag: Function
+    fetchPreviousProductTag: Function
     toggleQRScannerModal: typeof toggleQRScannerModal
 }
 
@@ -41,7 +41,10 @@ const _QrScannerModal = (props: Props) => {
     const classes = useStyles();
 
     const handleOnScan = (data: string) => {
-        if (isAddressValid(data)) props.fetchProductTag(data);
+        if (isAddressValid(data)) {
+            props.fetchPreviousProductTag(data);
+            props.toggleQRScannerModal(false)
+        }
     };
 
     return (
@@ -78,7 +81,8 @@ const mapStateToProps = ({ui}: StoreState) => {
 export const QrScannerModal = connect(
     mapStateToProps,
     {
-        fetchProductTag,
+        fetchPreviousProductTag,
         toggleQRScannerModal
+
     }
 )(_QrScannerModal);

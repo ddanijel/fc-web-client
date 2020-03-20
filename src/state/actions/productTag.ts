@@ -26,15 +26,27 @@ export const fetchProductTag = (productTagAddress: string) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
         try {
-            const productTag = await ProductTagContract(productTagAddress)
-                .methods.describeProductTag().call();
-
-            console.log("product tag: ", populateProductTag(productTag)); // todo continue here
+            const productTag = await fetchPT(productTagAddress);
+            console.log("fetched: ", productTag);
 
         } catch (e) {
             console.error(e);
         } finally {
             dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
         }
+    }
+};
+
+export const fetchPT = async (productTagAddress: string): Promise<ProductTag> => {
+    let productTag;
+    try {
+        const fetchedProductTag = await ProductTagContract(productTagAddress)
+            .methods.describeProductTag().call();
+        productTag = populateProductTag(fetchedProductTag);
+
+    } catch (e) {
+        console.error("Error while fetching the product tag for address: ", productTagAddress, "\mError: ", e);
+    } finally {
+        return productTag
     }
 };

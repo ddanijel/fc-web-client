@@ -2,6 +2,8 @@ import {ToggleDrawerAction, ToggleIsLoadingAction, ToggleQRScannerModalAction} f
 import {PersistProducerAction, ProducerSignInAction} from "./producer";
 import {
     AddActionToNewProductTagAction,
+    AddPreviousProductTagAction,
+    FetchPreviousProductTagAction,
     GenerateProductTagAction,
     ToggleActionOfNewProductTagAction,
 } from "./newProductTag";
@@ -17,6 +19,8 @@ export enum ActionTypes {
     toggleActionOfNewProductTag,
     generateProductTag,
     fetchProductTag,
+    fetchPreviousProductTag,
+    addPreviousProductTag
 }
 
 export type Action =
@@ -28,4 +32,6 @@ export type Action =
     AddActionToNewProductTagAction |
     ToggleActionOfNewProductTagAction |
     GenerateProductTagAction |
-    FetchProductTagAction;
+    FetchProductTagAction |
+    FetchPreviousProductTagAction |
+    AddPreviousProductTagAction;
