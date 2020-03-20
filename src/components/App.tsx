@@ -14,6 +14,7 @@ import {routePaths} from "../global/constants";
 import PtScanner from "./screens/PTScanner";
 import {PrivateRoute} from "./PrivateRoute";
 import Producer from "./screens/producer/Producer";
+import {QrScannerModal} from "./ui/QRScannerModal";
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,6 +54,7 @@ const App: React.FC = () => {
                     </HashRouter>
                 </Container>
                 <Footer/>
+                <QrScannerModal/>
                 <LoadingBackdrop/>
             </ThemeProvider>
         </div>

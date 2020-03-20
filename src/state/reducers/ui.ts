@@ -2,7 +2,8 @@ import {Action, ActionTypes, Ui} from "../actions"
 
 const initialState = {
     isDrawerOpen: false,
-    isLoading: false
+    isLoading: false,
+    isQRScannerModalOpen: false
 };
 
 export const uiReducer = (state: Ui = initialState, action: Action) => {
@@ -16,6 +17,11 @@ export const uiReducer = (state: Ui = initialState, action: Action) => {
             return {
                 ...state,
                 isLoading: action.isLoading
+            };
+        case ActionTypes.toggleQRScannerModal:
+            return {
+                ...state,
+                isQRScannerModalOpen: action.isQRScannerModalOpen
             };
         default:
             return state;
