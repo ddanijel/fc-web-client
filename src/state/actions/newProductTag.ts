@@ -8,6 +8,7 @@ import ProducerContract from "../../ethereum/producer"
 import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
 import {fetchPT} from "./productTag";
+import {store} from "../../index"
 
 export interface GenerateProductTagAction {
     type: ActionTypes.generateProductTag;
@@ -50,12 +51,19 @@ export const toggleActionOfNewProductTag = (action: NewProductTagAction): Toggle
 
 export const fetchPreviousProductTag = (productTagContractAddress: string) => {
     return async (dispatch: Dispatch) => {
+        console.log("STORE: ", store.getState());
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
-        const productTag = await fetchPT(productTagContractAddress);
-        dispatch<AddPreviousProductTagAction>({
-            type: ActionTypes.addPreviousProductTag,
-            productTag
-        });
+
+        if (!store.getState().newProductTag.previousProductTags.some(productTag => productTag.productTagAddress === productTagContractAddress)) {
+            const productTag = await fetchPT(productTagContractAddress);
+            dispatch<AddPreviousProductTagAction>({
+                type: ActionTypes.addPreviousProductTag,
+                productTag
+            });
+        } else {
+            console.log("Pt scanned...");
+        }
+
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
     }
 };
@@ -68,12 +76,23 @@ export const generateProductTag = (productTag: NewProductTag, history: History) 
         try {
             const accounts = await web3.eth.getAccounts();
 
+            const dateTime = new Date();
+
             const methodToCall = ProducerContract(getItemFromLocalStorage(variableNames.producerContractAddress))
                 .methods.generateProductTag(
                     productTag.actions.filter(action => action.selected).map(action => action.name),
-                    productTag.geolocation.longitude,
-                    productTag.geolocation.latitude,
-                    []
+                    {
+                        longitude: productTag.geolocation.longitude,
+                        latitude: productTag.geolocation.latitude,
+                    },
+                    {
+                        year: dateTime.getFullYear(),
+                        month: dateTime.getMonth(),
+                        day: dateTime.getDay(),
+                        hour: dateTime.getHours(),
+                        minute: dateTime.getMinutes()
+                    },
+                    productTag.previousProductTags.map(pt => pt.productTagAddress)
                 );
 
             const productTagAddress = await methodToCall.call({from: accounts[0]});

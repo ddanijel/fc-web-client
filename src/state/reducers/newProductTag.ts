@@ -13,6 +13,13 @@ const initialState = {
             selected: false
         }
     ],
+    dateTime: {
+        year: 0,
+        month: 0,
+        day: 0,
+        hour: 0,
+        minute: 0,
+    },
     geolocation: {
         longitude: "",
         latitude: "",
@@ -20,7 +27,7 @@ const initialState = {
     previousProductTags: []
 };
 
-export const newProductTagReducer = (state: NewProductTag = initialState, action: Action):NewProductTag => {
+export const newProductTagReducer = (state: NewProductTag = initialState, action: Action): NewProductTag => {
     switch (action.type) {
         case ActionTypes.addActionToNewProductTag:
             return {

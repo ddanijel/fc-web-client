@@ -9,13 +9,21 @@ export interface FetchProductTagAction {
     productTag: ProductTag
 }
 
-const populateProductTag = (productTagResult: any): ProductTag => {
+const populateProductTag = (productTagResult: any, productTagAddress: string): ProductTag => {
     return {
+        productTagAddress: productTagAddress,
         producerAddress: productTagResult[0],
         actions: productTagResult[1],
         geolocation: {
-            longitude: productTagResult[2],
-            latitude: productTagResult[3]
+            longitude: productTagResult[2][0],
+            latitude: productTagResult[2][1]
+        },
+        dateTime: {
+            year: productTagResult[3][0],
+            month: productTagResult[3][1],
+            day: productTagResult[3][2],
+            hour: productTagResult[3][3],
+            minute: productTagResult[3][4],
         },
         previousProductTags: productTagResult[4]
     }
@@ -42,8 +50,7 @@ export const fetchPT = async (productTagAddress: string): Promise<ProductTag> =>
     try {
         const fetchedProductTag = await ProductTagContract(productTagAddress)
             .methods.describeProductTag().call();
-        productTag = populateProductTag(fetchedProductTag);
-
+        productTag = populateProductTag(fetchedProductTag, productTagAddress);
     } catch (e) {
         console.error("Error while fetching the product tag for address: ", productTagAddress, "\mError: ", e);
     } finally {

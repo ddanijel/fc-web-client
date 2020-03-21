@@ -1,17 +1,10 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import CameraIcon from '@material-ui/icons/Camera';
-import CallToActionIcon from '@material-ui/icons/CallToAction';
-import DoneIcon from '@material-ui/icons/Done';
-import PrintIcon from '@material-ui/icons/Print';
-import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {StepIconProps} from '@material-ui/core/StepIcon';
 import {AddActions} from "./steps/AddActions";
 import {ScanProductTags} from "./steps/ScanProductTags";
 import {NewPTOverview} from "./steps/NewPTOverview";
@@ -21,79 +14,16 @@ import {generateProductTag} from "../../state/actions";
 import {Geolocation, NewProductTag} from "../../interfaces/productTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
 import PrintQrCode from "./steps/PrintQRCode";
+import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
+import ArrowRightIcon from '@material-ui/icons/ChevronRight';
 
-const ColorlibConnector = withStyles({
-    alternativeLabel: {
-        top: 22,
-    },
-    active: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    completed: {
-        '& $line': {
-            backgroundImage:
-                'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-        },
-    },
-    line: {
-        height: 3,
-        border: 0,
-        backgroundColor: '#eaeaf0',
-        borderRadius: 1,
-    },
-})(StepConnector);
-
-const useColorlibStepIconStyles = makeStyles({
-    root: {
-        backgroundColor: '#ccc',
-        zIndex: 1,
-        color: '#fff',
-        width: 50,
-        height: 50,
-        display: 'flex',
-        borderRadius: '50%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    active: {
-        backgroundImage:
-            'linear-gradient( 136deg, rgb(128,128,128) 0%, rgb(192,192,192) 50%, rgb(138,35,135) 100%)',
-        boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-    },
-    completed: {
-        backgroundImage:
-            'linear-gradient( 136deg, rgb(153,255,153) 0%, rgb(0,153,76) 50%, rgb(0,102,51) 100%)',
-    },
-});
-
-function ColorlibStepIcon(props: StepIconProps) {
-    const classes = useColorlibStepIconStyles();
-    const {active, completed} = props;
-
-    const icons: { [index: string]: React.ReactElement } = {
-        1: <CameraIcon/>,
-        2: <CallToActionIcon/>,
-        3: <DoneIcon/>,
-        4: <PrintIcon/>
-    };
-
-    return (
-        <div
-            className={clsx(classes.root, {
-                [classes.active]: active,
-                [classes.completed]: completed,
-            })}
-        >
-            {icons[String(props.icon)]}
-        </div>
-    );
-}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        stepperRoot: {
+            height: theme.spacing(10),
+            paddingTop: theme.spacing(1)
+        },
         root: {
             width: '100%',
             // marginBottom: "1000px"
@@ -109,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-    return ['Scan', 'Add Actions', 'Create', "Print"];
+    return ['Scan', 'Actions', 'Create', "Print"];
 }
 
 function getStepContent(step: number) {
@@ -168,14 +98,13 @@ const _NewProductTag = (props: Props) => {
 
     return (
         <div className={classes.root}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector/>}>
+            <Stepper className={classes.stepperRoot} alternativeLabel activeStep={activeStep}>
                 {steps.map(label => (
                     <Step key={label}>
-                        <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+                        <StepLabel>{label}</StepLabel>
                     </Step>
                 ))}
             </Stepper>
-            <div>
                 {activeStep === steps.length ? (
                     <div>
                         <Typography className={classes.instructions}>
@@ -191,21 +120,26 @@ const _NewProductTag = (props: Props) => {
                         <div style={{
                             float: "right"
                         }}>
-                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                            <Button
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                className={classes.button}
+                                startIcon={<ArrowLeftIcon/>}
+                            >
                                 Back
                             </Button>
                             <Button
-                                variant="contained"
-                                color="primary"
+                                variant="outlined"
+                                color="inherit"
                                 onClick={handleNext}
                                 className={classes.button}
+                                endIcon={<ArrowRightIcon/>}
                             >
                                 {activeStep === steps.length - 1 ? 'Create Product Tag' : 'Next'}
                             </Button>
                         </div>
                     </>
                 )}
-            </div>
         </div>
     );
 };

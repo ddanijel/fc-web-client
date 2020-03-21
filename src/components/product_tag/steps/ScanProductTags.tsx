@@ -10,6 +10,8 @@ import {Card} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
+import {ScannedProductTagsPanel} from "../ScannedProductTagsPanel";
+import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
             // margin: theme.spacing(1),
         },
         cardRoot: {
-            height: theme.spacing(35)
+            // height: theme.spacing(50)
         },
         bullet: {
             display: 'inline-block',
@@ -43,21 +45,26 @@ interface Props {
 }
 
 const _ScanProductTags = (props: Props) => {
-    const classes = useStyles();
+    const date = new Date();
 
+    console.log(date.getFullYear());
+
+    const classes = useStyles();
+    const {height} = useWindowDimensions();
 
     return (
-        <Card className={classes.cardRoot}>
+        <Card style={{
+            height: height - 300
+        }} className={classes.cardRoot}>
             <CardContent>
                 <Typography variant="h5" component="h2">
                     Scanned Products
                 </Typography>
             </CardContent>
-            <CardContent>
-                {
-                    props.newProductTag.previousProductTags.map((productTag, index) => <div
-                        key={index}>{productTag.producerAddress}<br/></div>)
-                }
+            <CardContent style={{
+                height: "65%"
+            }}>
+                <ScannedProductTagsPanel/>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Button

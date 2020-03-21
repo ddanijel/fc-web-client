@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {NewProductTag} from "../../../interfaces/productTag";
 import {Card} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,8 +21,12 @@ interface Props {
 
 const _NewPTOverview = (props: Props) => {
     const classes = useStyles();
+    const {height} = useWindowDimensions();
+
     return (
-        <Card className={classes.cardRoot}>
+        <Card style={{
+            height: height - 300
+        }} className={classes.cardRoot}>
             <div>
                 {JSON.stringify(props.newProductTag)}
             </div>

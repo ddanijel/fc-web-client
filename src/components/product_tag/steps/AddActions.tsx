@@ -15,6 +15,7 @@ import {addActionToNewProductTag, toggleActionOfNewProductTag} from "../../../st
 import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
+import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         cardRoot: {
-            height: theme.spacing(35),
             overflow: "auto"
         },
         cardActions: {
@@ -46,6 +46,7 @@ interface Props {
 const _AddActions = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control, reset} = useForm<ProductTagAction>();
+    const {height} = useWindowDimensions();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.toggleActionOfNewProductTag({
@@ -55,16 +56,22 @@ const _AddActions = (props: Props) => {
     };
 
     const handleAddAction = handleSubmit(({name}) => {
-        props.addActionToNewProductTag({
-            name,
-            selected: true
-        });
-        reset();
+        if (!props.newProductTag.actions.some(action => action.name === name)) {
+            props.addActionToNewProductTag({
+                name,
+                selected: true
+            });
+            reset();
+        }
     });
 
     return (
-        <Card className={classes.cardRoot}>
-            <CardContent>
+        <Card style={{
+            height: height - 300
+        }} className={classes.cardRoot}>
+            <CardContent style={{
+                height: "80%"
+            }}>
                 <Typography variant="h5" component="h2">
                     Product Actions
                 </Typography>
@@ -95,6 +102,7 @@ const _AddActions = (props: Props) => {
                                 variant="outlined"
                                 margin="normal"
                                 required
+                                color="secondary"
                                 size={"small"}
                                 // fullWidth
                                 id="name"
@@ -106,9 +114,8 @@ const _AddActions = (props: Props) => {
                         defaultValue=""
                     />
                     <Button type="submit"
-                        // fullWidth
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                     >
                         Add
                     </Button>
