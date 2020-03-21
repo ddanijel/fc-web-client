@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
-import {SignUpFormData} from "../../../../interfaces/producer";
+import {ISignUpFormData} from "../../../../interfaces/Producer";
 import {connect} from "react-redux";
 import {signUpProducer} from "../../../../state/actions";
 import {useHistory} from "react-router-dom";
@@ -45,7 +45,7 @@ interface Props {
 const _SignUpForm = (props: Props) => {
     const classes = useStyles();
     const history = useHistory();
-    const {handleSubmit, control, reset} = useForm<SignUpFormData>();
+    const {handleSubmit, control, reset} = useForm<ISignUpFormData>();
 
     const onSubmit = handleSubmit(
         ({

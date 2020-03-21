@@ -11,7 +11,7 @@ import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
 import {generateProductTag} from "../../state/actions";
-import {Geolocation, NewProductTag} from "../../interfaces/productTag";
+import {IGeolocation, INewProductTag} from "../../interfaces/ProductTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
 import PrintQrCode from "./steps/PrintQRCode";
 import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -66,7 +66,7 @@ function getStepContent(step: number) {
 interface Props extends GeolocatedProps {
     children?: React.ReactElement;
     generateProductTag: Function;
-    newProductTag: NewProductTag
+    newProductTag: INewProductTag
 }
 
 
@@ -75,10 +75,10 @@ const _NewProductTag = (props: Props) => {
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
-    const getGeolocation = (): Geolocation => {
+    const getGeolocation = (): IGeolocation => {
         return {
-            longitude: props.coords?.longitude === undefined ? "" : props.coords.longitude.toString(),
-            latitude: props.coords?.latitude === undefined ? "" : props.coords.latitude.toString()
+            longitude: props.coords?.longitude === undefined ? 0 : props.coords.longitude,
+            latitude: props.coords?.latitude === undefined ? 0 : props.coords.latitude
         }
     };
 

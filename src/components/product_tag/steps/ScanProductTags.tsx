@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/Camera';
 import {toggleQRScannerModal, Ui} from "../../../state/actions";
-import {NewProductTag} from "../../../interfaces/productTag";
+import {INewProductTag} from "../../../interfaces/ProductTag";
 import {Card} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-    newProductTag: NewProductTag
+    newProductTag: INewProductTag
     ui: Ui
     toggleQRScannerModal: typeof toggleQRScannerModal
 }

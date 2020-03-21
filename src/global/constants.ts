@@ -10,5 +10,6 @@ export const routePaths = {
     producerAuthPage: "/producer/auth",
     createProductTag: "/producer/newpt",
     producerHistoryPage: "/producer/pthistory",
-    producerSettings: "/producer/settings"
+    producerSettings: "/producer/settings",
+    testMapView: "/map"
 };

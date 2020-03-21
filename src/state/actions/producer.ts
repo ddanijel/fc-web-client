@@ -1,6 +1,6 @@
 import {ActionTypes} from "./types";
 import {Dispatch} from "redux";
-import {Producer, SignUpFormData} from "../../interfaces/producer";
+import {ISignUpFormData, Producer} from "../../interfaces/Producer";
 import FoodChain from "../../ethereum/foodChain"
 import ProducerContract from "../../ethereum/producer"
 import web3 from "../../ethereum/web3";
@@ -34,8 +34,7 @@ const populateProducer = (producerResult: any): Producer => {
 };
 
 
-
-export const signUpProducer = (producerSignUpFormData: SignUpFormData, history: History) => {
+export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history: History) => {
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 

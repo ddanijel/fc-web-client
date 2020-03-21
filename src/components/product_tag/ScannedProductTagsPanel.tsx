@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {StoreState} from "../../state/reducers";
 import {connect} from "react-redux";
 import {geolocated} from "react-geolocated";
-import {NewProductTag} from "../../interfaces/productTag";
+import {INewProductTag} from "../../interfaces/ProductTag";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-    newProductTag: NewProductTag
+    newProductTag: INewProductTag
 }
 
 const _ScannedProductTagsPanel = (props: Props) => {

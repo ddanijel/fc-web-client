@@ -15,6 +15,7 @@ import PtScanner from "./screens/PTScanner";
 import {PrivateRoute} from "./PrivateRoute";
 import Producer from "./screens/producer/Producer";
 import {QrScannerModal} from "./ui/QRScannerModal";
+import {MapViewModal} from "./map_view/MapViewModal";
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,13 +48,11 @@ const App: React.FC = () => {
                                 <Route exact path={routePaths.ptScan} component={PtScanner}/>
                                 <Route exact path={routePaths.producerAuthPage} component={ProducerAuth}/>
                                 <PrivateRoute path={routePaths.producer} component={Producer}/>
-                                {/*<PrivateRoute exact path={routePaths.createProductTag} component={NewProductTagScreen}/>*/}
-                                {/*<PrivateRoute exact path={routePaths.producerHistoryPage} component={ProductTagHistory}/>*/}
-                                {/*<PrivateRoute exact path={routePaths.producerSettings} component={ProducerSettings}/>*/}
                             </Switch>
                     </HashRouter>
                 </Container>
                 <Footer/>
+                <MapViewModal/>
                 <QrScannerModal/>
                 <LoadingBackdrop/>
             </ThemeProvider>

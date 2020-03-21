@@ -1,5 +1,5 @@
 import {Action, ActionTypes} from "../actions";
-import {Producer} from "../../interfaces/producer";
+import {Producer} from "../../interfaces/Producer";
 import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
 import {isAlreadyAuthenticated} from "../helperFunction";

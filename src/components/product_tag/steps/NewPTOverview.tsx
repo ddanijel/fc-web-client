@@ -1,7 +1,7 @@
 import React from 'react';
 import {StoreState} from "../../../state/reducers";
 import {connect} from "react-redux";
-import {NewProductTag} from "../../../interfaces/productTag";
+import {INewProductTag} from "../../../interfaces/ProductTag";
 import {Card} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     children?: React.ReactElement;
-    newProductTag: NewProductTag;
+    newProductTag: INewProductTag;
 }
 
 const _NewPTOverview = (props: Props) => {

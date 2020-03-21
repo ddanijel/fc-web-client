@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Controller, useForm} from "react-hook-form";
-import {NewProductTag, ProductTagAction} from "../../../interfaces/productTag";
+import {INewProductTag, IProductTagAction} from "../../../interfaces/ProductTag";
 import {CardContent} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import {addActionToNewProductTag, toggleActionOfNewProductTag} from "../../../state/actions/newProductTag";
@@ -39,14 +39,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     children?: React.ReactElement;
-    newProductTag: NewProductTag;
+    newProductTag: INewProductTag;
     addActionToNewProductTag: typeof addActionToNewProductTag;
     toggleActionOfNewProductTag: typeof toggleActionOfNewProductTag;
 }
 
 const _AddActions = (props: Props) => {
     const classes = useStyles();
-    const {handleSubmit, control, reset} = useForm<ProductTagAction>();
+    const {handleSubmit, control, reset} = useForm<IProductTagAction>();
     const {height} = useWindowDimensions();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

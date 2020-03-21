@@ -1,5 +1,5 @@
 import {Action, ActionTypes} from "../actions";
-import {NewProductTag} from "../../interfaces/productTag";
+import {INewProductTag} from "../../interfaces/ProductTag";
 
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
         minute: 0,
     },
     geolocation: {
-        longitude: "",
-        latitude: "",
+        longitude: 0,
+        latitude: 0,
     },
     previousProductTags: []
 };
 
-export const newProductTagReducer = (state: NewProductTag = initialState, action: Action): NewProductTag => {
+export const newProductTagReducer = (state: INewProductTag = initialState, action: Action): INewProductTag => {
     switch (action.type) {
         case ActionTypes.addActionToNewProductTag:
             return {

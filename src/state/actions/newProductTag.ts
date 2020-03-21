@@ -1,5 +1,5 @@
 import {ActionTypes} from "./types";
-import {NewProductTag, NewProductTagAction, ProductTag} from "../../interfaces/productTag";
+import {INewProductTag, INewProductTagAction, IProductTag} from "../../interfaces/ProductTag";
 import {Dispatch} from "redux";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import web3 from "../../ethereum/web3";
@@ -12,17 +12,17 @@ import {store} from "../../index"
 
 export interface GenerateProductTagAction {
     type: ActionTypes.generateProductTag;
-    productTag: NewProductTag
+    productTag: INewProductTag
 }
 
 export interface ToggleActionOfNewProductTagAction {
     type: ActionTypes.toggleActionOfNewProductTag,
-    action: NewProductTagAction
+    action: INewProductTagAction
 }
 
 export interface AddActionToNewProductTagAction {
     type: ActionTypes.addActionToNewProductTag;
-    newAction: NewProductTagAction
+    newAction: INewProductTagAction
 }
 
 export interface ResetProductTagUponCreationAction {
@@ -31,22 +31,22 @@ export interface ResetProductTagUponCreationAction {
 
 export interface FetchPreviousProductTagAction {
     type: ActionTypes.fetchPreviousProductTag;
-    productTag: ProductTag
+    productTag: IProductTag
 }
 
 export interface AddPreviousProductTagAction {
     type: ActionTypes.addPreviousProductTag;
-    productTag: ProductTag
+    productTag: IProductTag
 }
 
-export const addActionToNewProductTag = (newAction: NewProductTagAction): AddActionToNewProductTagAction => {
+export const addActionToNewProductTag = (newAction: INewProductTagAction): AddActionToNewProductTagAction => {
     return {
         type: ActionTypes.addActionToNewProductTag,
         newAction
     }
 };
 
-export const toggleActionOfNewProductTag = (action: NewProductTagAction): ToggleActionOfNewProductTagAction => {
+export const toggleActionOfNewProductTag = (action: INewProductTagAction): ToggleActionOfNewProductTagAction => {
     return {
         type: ActionTypes.toggleActionOfNewProductTag,
         action
@@ -61,7 +61,6 @@ export const resetProductTagUponCreation = (): ResetProductTagUponCreationAction
 
 export const fetchPreviousProductTag = (productTagContractAddress: string) => {
     return async (dispatch: Dispatch) => {
-        console.log("STORE: ", store.getState());
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
         if (!store.getState().newProductTag.previousProductTags.some(productTag => productTag.productTagAddress === productTagContractAddress)) {
@@ -72,6 +71,7 @@ export const fetchPreviousProductTag = (productTagContractAddress: string) => {
             });
         } else {
             console.log("Pt scanned...");
+            alert("lfhldsafjalsdjf");
         }
 
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
@@ -79,7 +79,7 @@ export const fetchPreviousProductTag = (productTagContractAddress: string) => {
 };
 
 
-export const generateProductTag = (productTag: NewProductTag, history: History) => {
+export const generateProductTag = (productTag: INewProductTag, history: History) => {
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 

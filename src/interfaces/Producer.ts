@@ -1,11 +1,11 @@
-export interface SignUpFormData {
+export interface ISignUpFormData {
     producerName: string;
     licenceNumber: string;
     url: string;
     certificates: string;
 }
 
-export interface SignInFormData {
+export interface ISignInFormData {
     producerContractAddress: string;
 }
 

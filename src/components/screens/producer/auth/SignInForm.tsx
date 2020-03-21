@@ -7,10 +7,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import {createMuiTheme, makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Controller, useForm} from "react-hook-form";
-import {SignInFormData} from "../../../../interfaces/producer";
+import {ISignInFormData} from "../../../../interfaces/Producer";
 import {connect} from "react-redux";
 import {signInProducer} from "../../../../state/actions";
 import {useHistory} from "react-router-dom";
@@ -45,7 +45,7 @@ interface Props {
 
 const _SignInForm = (props: Props) => {
     const classes = useStyles();
-    const {handleSubmit, control, reset} = useForm<SignInFormData>();
+    const {handleSubmit, control, reset} = useForm<ISignInFormData>();
     const history = useHistory();
 
 

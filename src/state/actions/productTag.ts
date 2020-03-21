@@ -1,15 +1,15 @@
 import {ActionTypes} from "./types";
-import {ProductTag} from "../../interfaces/productTag";
+import {IProductTag} from "../../interfaces/ProductTag";
 import {Dispatch} from "redux";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import ProductTagContract from "../../ethereum/productTag";
 
 export interface FetchProductTagAction {
     type: ActionTypes.fetchProductTag;
-    productTag: ProductTag
+    productTag: IProductTag
 }
 
-const populateProductTag = (productTagResult: any, productTagAddress: string): ProductTag => {
+const populateProductTag = (productTagResult: any, productTagAddress: string): IProductTag => {
     return {
         productTagAddress: productTagAddress,
         producerAddress: productTagResult[0],
@@ -45,7 +45,7 @@ export const fetchProductTag = (productTagAddress: string) => {
     }
 };
 
-export const fetchPT = async (productTagAddress: string): Promise<ProductTag> => {
+export const fetchPT = async (productTagAddress: string): Promise<IProductTag> => {
     let productTag;
     try {
         const fetchedProductTag = await ProductTagContract(productTagAddress)
