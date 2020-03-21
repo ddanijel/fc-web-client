@@ -2,6 +2,8 @@ pragma solidity ^0.4.17;
 pragma experimental ABIEncoderV2;
 
 contract FoodChain {
+
+
     address public owner;
     address[] public producers;
     mapping(address => address) producerAddresses;
@@ -52,6 +54,10 @@ contract FoodChain {
 }
 
 contract Producer {
+
+    using FoodChainLibrary for FoodChainLibrary.Geolocation;
+    using FoodChainLibrary for FoodChainLibrary.DateTime;
+
     address foodChainContractAddress;
     address producerOwnerAccountAddress;
     string producerName;
@@ -82,17 +88,17 @@ contract Producer {
 
     function generateProductTag(
         string[] memory _actions,
-        string memory _longitude,
-        string memory _latitude,
+        FoodChainLibrary.Geolocation _geolocation,
+        FoodChainLibrary.DateTime _dateTime,
         address[] memory _previousProductTags
-    ) public returns(address) {
+    ) public returns (address) {
         require(msg.sender == producerOwnerAccountAddress);
 
         ProductTag pt = new ProductTag(
             address(this),
             _actions,
-            _longitude,
-            _latitude,
+            _geolocation,
+            _dateTime,
             _previousProductTags
         );
 
@@ -128,42 +134,61 @@ contract Producer {
 }
 
 contract ProductTag {
+
+    using FoodChainLibrary for FoodChainLibrary.Geolocation;
+    using FoodChainLibrary for FoodChainLibrary.DateTime;
+
     address producerContractAddress;
     string[] actions;
-    string longitude;
-    string latitude;
+    FoodChainLibrary.Geolocation geolocation;
+    FoodChainLibrary.DateTime dateTime;
     address[] previousProductTags;
+
 
     constructor(
         address _producerContractAddress,
         string[] memory _actions,
-        string memory _longitude,
-        string memory _latitude,
+        FoodChainLibrary.Geolocation _geolocation,
+        FoodChainLibrary.DateTime _dateTime,
         address[] memory _previousProductTags
     ) public {
         producerContractAddress = _producerContractAddress;
         actions = _actions;
-        longitude = _longitude;
-        latitude = _latitude;
+        geolocation = _geolocation;
+        dateTime = _dateTime;
         previousProductTags = _previousProductTags;
     }
 
     function describeProductTag() public view returns (
         address,
         string[],
-        string,
-        string,
+        FoodChainLibrary.Geolocation,
+        FoodChainLibrary.DateTime,
         address[]
     ) {
         return (
         producerContractAddress,
         actions,
-        longitude,
-        latitude,
+        geolocation,
+        dateTime,
         previousProductTags
         );
     }
-
 }
 
 
+library FoodChainLibrary {
+
+    struct Geolocation {
+        string longitude;
+        string latitude;
+    }
+
+    struct DateTime {
+        uint16 year;
+        uint8 month;
+        uint8 day;
+        uint8 hour;
+        uint8 minute;
+    }
+}
