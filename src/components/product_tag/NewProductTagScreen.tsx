@@ -28,8 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             // marginBottom: "1000px"
         },
-        button: {
-            marginRight: theme.spacing(1),
+        buttonBack: {
+            // marginRight: theme.spacing(1),
+            float: "left"
+        },
+        buttonNext: {
+            // marginRight: theme.spacing(1),
+            float: "right"
         },
         instructions: {
             marginTop: theme.spacing(1),
@@ -110,20 +115,18 @@ const _NewProductTag = (props: Props) => {
                         <Typography className={classes.instructions}>
                             All steps completed - you&apos;re finished
                         </Typography>
-                        <Button onClick={handleReset} className={classes.button}>
+                        <Button onClick={handleReset} className={classes.buttonBack}>
                             Create New Product Tag
                         </Button>
                     </div>
                 ) : (
                     <>
                         <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-                        <div style={{
-                            float: "right"
-                        }}>
                             <Button
+                                variant="outlined"
                                 disabled={activeStep === 0}
                                 onClick={handleBack}
-                                className={classes.button}
+                                className={classes.buttonBack}
                                 startIcon={<ArrowLeftIcon/>}
                             >
                                 Back
@@ -132,12 +135,11 @@ const _NewProductTag = (props: Props) => {
                                 variant="outlined"
                                 color="inherit"
                                 onClick={handleNext}
-                                className={classes.button}
+                                className={classes.buttonNext}
                                 endIcon={<ArrowRightIcon/>}
                             >
                                 {activeStep === steps.length - 1 ? 'Create Product Tag' : 'Next'}
                             </Button>
-                        </div>
                     </>
                 )}
         </div>

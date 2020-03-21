@@ -25,6 +25,10 @@ export interface AddActionToNewProductTagAction {
     newAction: NewProductTagAction
 }
 
+export interface ResetProductTagUponCreationAction {
+    type: ActionTypes.resetProductTagUponCreation;
+}
+
 export interface FetchPreviousProductTagAction {
     type: ActionTypes.fetchPreviousProductTag;
     productTag: ProductTag
@@ -46,6 +50,12 @@ export const toggleActionOfNewProductTag = (action: NewProductTagAction): Toggle
     return {
         type: ActionTypes.toggleActionOfNewProductTag,
         action
+    }
+};
+
+export const resetProductTagUponCreation = (): ResetProductTagUponCreationAction => {
+    return {
+        type: ActionTypes.resetProductTagUponCreation
     }
 };
 
@@ -98,7 +108,7 @@ export const generateProductTag = (productTag: NewProductTag, history: History) 
             const productTagAddress = await methodToCall.call({from: accounts[0]});
             await methodToCall.send({from: accounts[0]});
             console.log("result: ", productTagAddress);
-
+            dispatch<ResetProductTagUponCreationAction>(resetProductTagUponCreation());
         } catch (e) {
             console.error(e);
         } finally {

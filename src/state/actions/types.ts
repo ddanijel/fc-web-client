@@ -5,6 +5,7 @@ import {
     AddPreviousProductTagAction,
     FetchPreviousProductTagAction,
     GenerateProductTagAction,
+    ResetProductTagUponCreationAction,
     ToggleActionOfNewProductTagAction,
 } from "./newProductTag";
 import {FetchProductTagAction} from "./productTag";
@@ -20,7 +21,8 @@ export enum ActionTypes {
     generateProductTag,
     fetchProductTag,
     fetchPreviousProductTag,
-    addPreviousProductTag
+    addPreviousProductTag,
+    resetProductTagUponCreation
 }
 
 export type Action =
@@ -34,4 +36,5 @@ export type Action =
     GenerateProductTagAction |
     FetchProductTagAction |
     FetchPreviousProductTagAction |
-    AddPreviousProductTagAction;
+    AddPreviousProductTagAction |
+    ResetProductTagUponCreationAction;

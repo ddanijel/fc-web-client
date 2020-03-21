@@ -58,6 +58,8 @@ export const newProductTagReducer = (state: NewProductTag = initialState, action
                 ]
 
             };
+        case ActionTypes.resetProductTagUponCreation:
+            return initialState;
         default:
             return state;
     }

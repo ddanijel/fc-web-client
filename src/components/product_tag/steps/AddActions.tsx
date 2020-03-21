@@ -16,6 +16,7 @@ import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -104,7 +105,6 @@ const _AddActions = (props: Props) => {
                                 required
                                 color="secondary"
                                 size={"small"}
-                                // fullWidth
                                 id="name"
                                 label="Action Name"
                                 name="name"
@@ -116,6 +116,7 @@ const _AddActions = (props: Props) => {
                     <Button type="submit"
                             variant="contained"
                             color="secondary"
+                            endIcon={<AddIcon/>}
                     >
                         Add
                     </Button>
