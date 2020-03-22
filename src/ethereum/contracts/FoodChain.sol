@@ -16,7 +16,8 @@ contract FoodChain {
         string memory _producerName,
         string memory _licenceNumber,
         string memory _url,
-        string memory _certificates
+        string[] memory _defaultActions,
+        string[] memory _certificates
     ) public {
         Producer newProducer = new Producer(
             address(this),
@@ -24,6 +25,7 @@ contract FoodChain {
             _producerName,
             _licenceNumber,
             _url,
+            _defaultActions,
             _certificates
         );
         producers.push(address(newProducer));
@@ -63,8 +65,8 @@ contract Producer {
     string producerName;
     string licenceNumber;
     string url;
-    string certificates;
-    string defaultActions;
+    string[] certificates;
+    string[] defaultActions;
     address[] productTags;
 
 
@@ -76,13 +78,15 @@ contract Producer {
         string memory _producerName,
         string memory _licenceNumber,
         string memory _url,
-        string memory _certificates
+        string[] memory _defaultActions,
+        string[] memory _certificates
     ) public {
         foodChainContractAddress = _foodChainContractAddress;
         producerOwnerAccountAddress = _producerOwnerAccountAddress;
         producerName = _producerName;
         licenceNumber = _licenceNumber;
         url = _url;
+        defaultActions = _defaultActions;
         certificates = _certificates;
     }
 
@@ -112,8 +116,8 @@ contract Producer {
         string memory,
         string memory,
         string memory,
-        string memory,
-        string memory,
+        string[] memory,
+        string[] memory,
         address[] memory
     ) {
         return (
@@ -124,6 +128,24 @@ contract Producer {
         url,
         certificates,
         defaultActions,
+        productTags
+        );
+    }
+
+    function describeScannedProducer() public view returns (
+        address,
+        string,
+        string,
+        string,
+        string[],
+        address[]
+    ) {
+        return (
+        producerOwnerAccountAddress,
+        producerName,
+        licenceNumber,
+        url,
+        certificates,
         productTags
         );
     }
