@@ -1,6 +1,6 @@
 import {ActionTypes} from "./types";
 import {Dispatch} from "redux";
-import {ISignUpFormData, Producer} from "../../interfaces/Producer";
+import {IProducer, ISignUpFormData} from "../../interfaces/Producer";
 import FoodChain from "../../ethereum/foodChain"
 import ProducerContract from "../../ethereum/producer"
 import web3 from "../../ethereum/web3";
@@ -11,7 +11,7 @@ import {routePaths, variableNames} from "../../global/constants";
 
 export interface PersistProducerAction {
     type: ActionTypes.persistProducer;
-    producer: Producer
+    producer: IProducer
 }
 
 export interface ProducerSignInAction {
@@ -19,11 +19,12 @@ export interface ProducerSignInAction {
     authenticated: boolean
 }
 
-const populateProducer = (producerResult: any): Producer => {
+const populateProducer = (producerResult: any, contractAddress: string): IProducer => {
     return {
+        producerContractAddress: contractAddress,
         isAuthenticated: true,
-        foodChainOwnerAddress: producerResult[0],
-        owner: producerResult[1],
+        foodChainContractAddress: producerResult[0],
+        producerOwnerAccountAddress: producerResult[1],
         producerName: producerResult[2],
         licenceNumber: producerResult[3],
         url: producerResult[4],
@@ -48,7 +49,7 @@ export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history:
             ).send({from: accounts[0]});
             const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
-            const producer = populateProducer(producerResult);
+            const producer = populateProducer(producerResult, contractAddress);
             saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
             saveItemToLocalStorage("authenticated", true);
             dispatch<PersistProducerAction>({
@@ -79,7 +80,7 @@ export const signInProducer = (producerContractAddress: string, history: History
                 saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
                 saveItemToLocalStorage("authenticated", true);
                 const producerResult = await ProducerContract(producerContractAddress).methods.describeProducer().call();
-                const producer = populateProducer(producerResult);
+                const producer = populateProducer(producerResult, producerContractAddress);
                 dispatch<PersistProducerAction>({
                     type: ActionTypes.persistProducer,
                     producer

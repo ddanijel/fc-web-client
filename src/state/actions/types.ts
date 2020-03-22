@@ -10,6 +10,7 @@ import {
 } from "./newProductTag";
 import {FetchProductTagAction} from "./productTag";
 import {ShowMapViewForProductTagAction, ToggleMapViewModalAction} from "./mapView";
+import {FetchScannedProducerAction, StoreScannedProducerAction} from "./scannedProducers";
 
 export enum ActionTypes {
     toggleDrawer,
@@ -25,7 +26,9 @@ export enum ActionTypes {
     addPreviousProductTag,
     resetProductTagUponCreation,
     toggleMapViewModal,
-    showMapViewForProductTag
+    showMapViewForProductTag,
+    fetchScannedProducer,
+    storeScannedProducer
 }
 
 export type Action =
@@ -42,4 +45,6 @@ export type Action =
     AddPreviousProductTagAction |
     ResetProductTagUponCreationAction |
     ToggleMapViewModalAction |
-    ShowMapViewForProductTagAction;
+    ShowMapViewForProductTagAction |
+    FetchScannedProducerAction |
+    StoreScannedProducerAction;

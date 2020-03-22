@@ -9,18 +9,21 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import {toggleMapViewModal} from "../../state/actions/mapView";
 import useWindowDimensions from "../ui/hooks/useWindowDimensions";
+import Control from '@skyeer/react-leaflet-custom-control'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         modal: {
-            width: "80%",
-            height: "40%",
-            marginLeft: "10%",
-            marginTop: "30%",
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         },
+        closeMapButton: {
+            border: '2px solid grey',
+            backgroundColor: 'white',
+            fontWeight: 'bold',
+            marginLeft: '5%',
+        }
     }),
 );
 
@@ -56,8 +59,8 @@ const _MapViewModal = (props: Props) => {
             <Fade in={isMapViewModalOpen}>
                 <Map
                     style={{
-                        height: "1052px",
-                        width: "500px",
+                        height: height,
+                        width: height,
                     }}
                     animate={true}
                     center={[latitude, longitude]} zoom={13}>
@@ -70,6 +73,14 @@ const _MapViewModal = (props: Props) => {
                             Product Tag Data
                         </Popup>
                     </Marker>
+                    <Control position="bottomright">
+                        <button
+                            className={classes.closeMapButton}
+                            onClick={() => props.toggleMapViewModal(false)}
+                        >
+                            Close Map
+                        </button>
+                    </Control>
                 </Map>
             </Fade>
         </Modal>

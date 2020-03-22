@@ -3,6 +3,7 @@ import {IProductTag} from "../../interfaces/ProductTag";
 import {Dispatch} from "redux";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import ProductTagContract from "../../ethereum/productTag";
+import {fetchScannedProducer, FetchScannedProducerAction} from "./scannedProducers";
 
 export interface FetchProductTagAction {
     type: ActionTypes.fetchProductTag;
@@ -34,7 +35,7 @@ export const fetchProductTag = (productTagAddress: string) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
         try {
-            const productTag = await fetchPT(productTagAddress);
+            const productTag = await fetchPT(dispatch, productTagAddress);
             console.log("fetched: ", productTag);
 
         } catch (e) {
@@ -45,12 +46,14 @@ export const fetchProductTag = (productTagAddress: string) => {
     }
 };
 
-export const fetchPT = async (productTagAddress: string): Promise<IProductTag> => {
+export const fetchPT = async (dispatch: Dispatch, productTagAddress: string): Promise<IProductTag> => {
     let productTag;
     try {
         const fetchedProductTag = await ProductTagContract(productTagAddress)
             .methods.describeProductTag().call();
         productTag = populateProductTag(fetchedProductTag, productTagAddress);
+        // @ts-ignore
+        dispatch<FetchScannedProducerAction>(fetchScannedProducer(productTag.producerAddress));
     } catch (e) {
         console.error("Error while fetching the product tag for address: ", productTagAddress, "\mError: ", e);
     } finally {

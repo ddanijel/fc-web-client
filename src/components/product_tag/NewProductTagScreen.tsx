@@ -5,12 +5,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {AddActions} from "./steps/AddActions";
+import AddActions from "./steps/AddActions";
 import {ScanProductTags} from "./steps/ScanProductTags";
 import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
-import {generateProductTag} from "../../state/actions";
+import {addActionToNewProductTag, generateProductTag, toggleActionOfNewProductTag} from "../../state/actions";
 import {IGeolocation, INewProductTag} from "../../interfaces/ProductTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
 import PrintQrCode from "./steps/PrintQRCode";
@@ -47,12 +47,16 @@ function getSteps() {
     return ['Scan', 'Actions', 'Create', "Print"];
 }
 
-function getStepContent(step: number) {
+function getStepContent(props: Props, step: number) {
     switch (step) {
         case 0:
             return <ScanProductTags/>;
         case 1:
-            return <AddActions/>;
+            return <AddActions
+                currentActions={props.newProductTag.actions}
+                addAction={props.addActionToNewProductTag}
+                toggleAction={props.toggleActionOfNewProductTag}
+            />;
         case 2:
             return <NewPTOverview/>;
         case 3:
@@ -66,7 +70,9 @@ function getStepContent(step: number) {
 interface Props extends GeolocatedProps {
     children?: React.ReactElement;
     generateProductTag: Function;
-    newProductTag: INewProductTag
+    newProductTag: INewProductTag;
+    addActionToNewProductTag: typeof addActionToNewProductTag;
+    toggleActionOfNewProductTag: typeof toggleActionOfNewProductTag;
 }
 
 
@@ -121,16 +127,16 @@ const _NewProductTag = (props: Props) => {
                     </div>
                 ) : (
                     <>
-                        <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-                            <Button
-                                variant="outlined"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                className={classes.buttonBack}
-                                startIcon={<ArrowLeftIcon/>}
-                            >
-                                Back
-                            </Button>
+                        <div className={classes.instructions}>{getStepContent(props, activeStep)}</div>
+                        <Button
+                            variant="outlined"
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            className={classes.buttonBack}
+                            startIcon={<ArrowLeftIcon/>}
+                        >
+                            Back
+                        </Button>
                             <Button
                                 variant="outlined"
                                 color="inherit"
@@ -146,11 +152,29 @@ const _NewProductTag = (props: Props) => {
     );
 };
 
+
+// const mapStateToProps = ({newProductTag}: StoreState) => {
+//     return {newProductTag};
+// };
+
+// export const AddActions = connect(
+//     mapStateToProps,
+//     {
+//         addActionToNewProductTag,
+//         toggleActionOfNewProductTag
+//     }
+// )(_AddActions);
+
+
 const mapStateToProps = ({newProductTag}: StoreState) => {
     return {newProductTag};
 };
 
 export const NewProductTagScreen = connect(
     mapStateToProps,
-    {generateProductTag}
+    {
+        generateProductTag,
+        addActionToNewProductTag,
+        toggleActionOfNewProductTag
+    }
 )(geolocated()(_NewProductTag));

@@ -1,23 +1,24 @@
 import {Action, ActionTypes} from "../actions";
-import {Producer} from "../../interfaces/Producer";
+import {IProducer} from "../../interfaces/Producer";
 import {getItemFromLocalStorage} from "../localStorage";
-import {variableNames} from "../../global/constants";
+import {foodChainFactoryAddress, variableNames} from "../../global/constants";
 import {isAlreadyAuthenticated} from "../helperFunction";
 
 
 const initialState = {
     isAuthenticated: isAlreadyAuthenticated(),
-    foodChainOwnerAddress: getItemFromLocalStorage(variableNames.producerContractAddress),
-    owner: "",
+    foodChainContractAddress: foodChainFactoryAddress,
+    producerContractAddress: getItemFromLocalStorage(variableNames.producerContractAddress),
+    producerOwnerAccountAddress: "",
     producerName: "",
     licenceNumber: "",
     url: "",
-    certificates: "",
-    defaultActions: "",
+    defaultActions: [],
+    certificates: [],
     productTags: []
 };
 
-export const producerReducer = (state: Producer = initialState, action: Action) => {
+export const producerReducer = (state: IProducer = initialState, action: Action) => {
     switch (action.type) {
         case ActionTypes.persistProducer:
             return action.producer;

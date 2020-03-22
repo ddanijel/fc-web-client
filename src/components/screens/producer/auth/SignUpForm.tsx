@@ -34,6 +34,10 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    defaultActionsCard: {},
+    cardTitle: {
+        fontSize: 14
+    }
 }));
 
 interface Props {
@@ -132,6 +136,13 @@ const _SignUpForm = (props: Props) => {
                                 }
                             />
                         </Grid>
+                        {/*<Grid item xs={12}>*/}
+                        {/*    <AddActions*/}
+                        {/*        addActionToNewProductTag={}*/}
+                        {/*        newProductTag={}*/}
+                        {/*        toggleActionOfNewProductTag={}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12}>
                             <Controller
                                 name="certificates"

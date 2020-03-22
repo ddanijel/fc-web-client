@@ -9,6 +9,10 @@ import {StoreState} from "../../state/reducers";
 import {connect} from "react-redux";
 import {geolocated} from "react-geolocated";
 import {INewProductTag} from "../../interfaces/ProductTag";
+import Button from "@material-ui/core/Button";
+import {showMapViewForProductTag} from "../../state/actions/mapView";
+import {Divider} from "@material-ui/core";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     newProductTag: INewProductTag
+    showMapViewForProductTag: typeof showMapViewForProductTag
 }
 
 const _ScannedProductTagsPanel = (props: Props) => {
@@ -56,8 +61,18 @@ const _ScannedProductTagsPanel = (props: Props) => {
                     <ExpansionPanelDetails>
                         <Typography>
                             {productTag.productTagAddress}
+
                         </Typography>
                     </ExpansionPanelDetails>
+                    <Divider/>
+                    <ExpansionPanelActions>
+                        <Button
+                            variant="outlined"
+                            onClick={() => props.showMapViewForProductTag(productTag)}
+                        >
+                            Show on map
+                        </Button>
+                    </ExpansionPanelActions>
                 </ExpansionPanel>
             ))}
 
@@ -71,5 +86,7 @@ const mapStateToProps = ({newProductTag}: StoreState) => {
 
 export const ScannedProductTagsPanel = connect(
     mapStateToProps,
-    {}
+    {
+        showMapViewForProductTag
+    }
 )(geolocated()(_ScannedProductTagsPanel));

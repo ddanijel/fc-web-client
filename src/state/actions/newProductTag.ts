@@ -64,14 +64,14 @@ export const fetchPreviousProductTag = (productTagContractAddress: string) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 
         if (!store.getState().newProductTag.previousProductTags.some(productTag => productTag.productTagAddress === productTagContractAddress)) {
-            const productTag = await fetchPT(productTagContractAddress);
+            const productTag = await fetchPT(dispatch, productTagContractAddress);
             dispatch<AddPreviousProductTagAction>({
                 type: ActionTypes.addPreviousProductTag,
                 productTag
             });
         } else {
             console.log("Pt scanned...");
-            alert("lfhldsafjalsdjf");
+            // todo display modal
         }
 
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));

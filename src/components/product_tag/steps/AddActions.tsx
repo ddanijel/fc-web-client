@@ -2,16 +2,13 @@ import React from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import {StoreState} from "../../../state/reducers";
-import {connect} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Controller, useForm} from "react-hook-form";
-import {INewProductTag, IProductTagAction} from "../../../interfaces/ProductTag";
+import {INewProductTagAction, IProductTagAction} from "../../../interfaces/ProductTag";
 import {CardContent} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import {addActionToNewProductTag, toggleActionOfNewProductTag} from "../../../state/actions/newProductTag";
 import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -38,27 +35,26 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-    children?: React.ReactElement;
-    newProductTag: INewProductTag;
-    addActionToNewProductTag: typeof addActionToNewProductTag;
-    toggleActionOfNewProductTag: typeof toggleActionOfNewProductTag;
+    currentActions: INewProductTagAction[];
+    addAction: Function;
+    toggleAction: Function;
 }
 
-const _AddActions = (props: Props) => {
+const AddActions = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control, reset} = useForm<IProductTagAction>();
     const {height} = useWindowDimensions();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.toggleActionOfNewProductTag({
+        props.toggleAction({
             name: event.target.name,
             selected: event.target.checked
         });
     };
 
     const handleAddAction = handleSubmit(({name}) => {
-        if (!props.newProductTag.actions.some(action => action.name === name)) {
-            props.addActionToNewProductTag({
+        if (!props.currentActions.some(action => action.name === name)) {
+            props.addAction({
                 name,
                 selected: true
             });
@@ -83,7 +79,7 @@ const _AddActions = (props: Props) => {
                     alignItems: 'center',
                 }}>
                     <List>
-                        {props.newProductTag.actions.map((action, index) => (
+                        {props.currentActions.map((action, index) => (
                             <FormControlLabel key={index}
                                               control={<Switch checked={action.selected} onChange={handleChange}
                                                                name={action.name}/>}
@@ -126,14 +122,16 @@ const _AddActions = (props: Props) => {
     );
 };
 
-const mapStateToProps = ({newProductTag}: StoreState) => {
-    return {newProductTag};
-};
+// const mapStateToProps = ({newProductTag}: StoreState) => {
+//     return {newProductTag};
+// };
 
-export const AddActions = connect(
-    mapStateToProps,
-    {
-        addActionToNewProductTag,
-        toggleActionOfNewProductTag
-    }
-)(_AddActions);
+// export const AddActions = connect(
+//     mapStateToProps,
+//     {
+//         addActionToNewProductTag,
+//         toggleActionOfNewProductTag
+//     }
+// )(_AddActions);
+
+export default AddActions;
