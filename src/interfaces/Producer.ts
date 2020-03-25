@@ -1,8 +1,16 @@
+import {INewProductTagAction} from "./ProductTag";
+
 export interface ISignUpFormData {
     producerName: string;
     licenceNumber: string;
     url: string;
-    certificates: string;
+    defaultActions: INewProductTagAction[];
+    certificates: IProducerCertificate[];
+}
+
+export interface IProducerCertificate {
+    name: string;
+    selected: boolean;
 }
 
 export interface ISignInFormData {

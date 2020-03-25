@@ -10,11 +10,18 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Controller, useForm} from "react-hook-form";
-import {ISignUpFormData} from "../../../../interfaces/Producer";
 import {connect} from "react-redux";
-import {signUpProducer} from "../../../../state/actions";
+import {
+    addDefaultActionToProducer,
+    signUpProducer,
+    toggleDefaultActionForProducer,
+    updateSignUpFormField
+} from "../../../../state/actions";
 import {useHistory} from "react-router-dom";
+import {StoreState} from "../../../../state/reducers";
+import {ISignUpFormData} from "../../../../interfaces/Producer";
+import ManageActionsForm from "../../../fragments/ManageActionsForm";
+import ProducerCertificatesForm from "../../../fragments/ProducerCertificatesForm";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -43,29 +50,34 @@ const useStyles = makeStyles(theme => ({
 interface Props {
     children?: React.ReactElement;
     signUpProducer: Function;
-
+    updateSignUpFormField: typeof updateSignUpFormField;
+    producerAuth: ISignUpFormData;
+    addDefaultActionToProducer: typeof addDefaultActionToProducer;
+    toggleDefaultActionForProducer: typeof toggleDefaultActionForProducer;
 }
 
 const _SignUpForm = (props: Props) => {
     const classes = useStyles();
     const history = useHistory();
-    const {handleSubmit, control, reset} = useForm<ISignUpFormData>();
 
-    const onSubmit = handleSubmit(
-        ({
-             producerName,
-             licenceNumber,
-             url,
-             certificates
-         }) => {
-            props.signUpProducer({
-                producerName,
-                licenceNumber,
-                url,
-                certificates
-            }, history);
-            reset();
-        });
+    // const onSubmit = handleSubmit(
+    //     ({
+    //          producerName,
+    //          licenceNumber,
+    //          url,
+    //          certificates
+    //      }) => {
+    //         props.signUpProducer({
+    //             producerName,
+    //             licenceNumber,
+    //             url,
+    //             certificates
+    //         }, history);
+    //         reset();
+    //     });
+    const onFormFieldChange = (eventTarget: (EventTarget & HTMLTextAreaElement) | (EventTarget & HTMLInputElement)) => {
+        props.updateSignUpFormField(eventTarget.name, eventTarget.value);
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -77,112 +89,94 @@ const _SignUpForm = (props: Props) => {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} onSubmit={onSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="producerName"
-                                control={control}
-                                defaultValue="Producer 1"
-                                as={
-                                    <TextField
-                                        autoComplete="producerName"
-                                        name="producerName"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="producerName"
-                                        label="Producer Name"
-                                        autoFocus
-                                    />
-                                }
-                            />
 
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Controller
-                                name="licenceNumber"
-                                control={control}
-                                defaultValue="Licence 1"
-                                as={
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="licenceNumber"
-                                        label="Licence Number"
-                                        name="licenceNumber"
-                                        autoComplete="lnumber"
-                                    />
-                                }
-                            />
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="producerName"
+                            name="producerName"
+                            variant="outlined"
+                            size="small"
+                            required
+                            fullWidth
+                            id="producerName"
+                            label="Producer Name"
+                            autoFocus
+                            value={props.producerAuth.producerName}
+                            onChange={(event) => onFormFieldChange(event.target)}
+                        />
 
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="url"
-                                control={control}
-                                defaultValue="www.producer1.com"
-                                as={
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="url"
-                                        label="URL"
-                                        name="url"
-                                        autoComplete="url"
-                                    />
-                                }
-                            />
-                        </Grid>
-                        {/*<Grid item xs={12}>*/}
-                        {/*    <AddActions*/}
-                        {/*        addActionToNewProductTag={}*/}
-                        {/*        newProductTag={}*/}
-                        {/*        toggleActionOfNewProductTag={}*/}
-                        {/*    />*/}
-                        {/*</Grid>*/}
-                        <Grid item xs={12}>
-                            <Controller
-                                name="certificates"
-                                control={control}
-                                defaultValue="Certificate 1"
-                                as={
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        name="certificates"
-                                        label="Certificates"
-                                        id="certificates"
-                                    />
-                                }
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="agreeWithTermsAndConditions" color="primary"/>}
-                                label="I agree with terms and conditions"
-                            />
-                        </Grid>
                     </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign Up
-                    </Button>
-                </form>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            size="small"
+                            id="licenceNumber"
+                            label="Licence Number"
+                            name="licenceNumber"
+                            autoComplete="licenceNumber"
+                            value={props.producerAuth.licenceNumber}
+                            onChange={(event) => onFormFieldChange(event.target)}
+                        />
+
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            size="small"
+                            fullWidth
+                            id="url"
+                            label="URL"
+                            name="url"
+                            autoComplete="url"
+                            value={props.producerAuth.url}
+                            onChange={(event) => onFormFieldChange(event.target)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ManageActionsForm
+                            currentActions={props.producerAuth.defaultActions}
+                            addAction={props.addDefaultActionToProducer}
+                            toggleAction={props.toggleDefaultActionForProducer}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ProducerCertificatesForm/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={<Checkbox value="agreeWithTermsAndConditions" color="primary"/>}
+                            label="I agree with terms and conditions"
+                        />
+                    </Grid>
+                </Grid>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Sign Up
+                </Button>
             </div>
         </Container>
     );
 };
 
+const mapStateToProps = ({producerAuth}: StoreState) => {
+    return {producerAuth};
+};
+
 export const SignUpForm = connect(
-    null,
-    {signUpProducer}
+    mapStateToProps,
+    {
+        signUpProducer,
+        updateSignUpFormField,
+        addDefaultActionToProducer,
+        toggleDefaultActionForProducer
+    }
 )(_SignUpForm);

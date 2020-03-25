@@ -6,13 +6,13 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Controller, useForm} from "react-hook-form";
-import {INewProductTagAction, IProductTagAction} from "../../../interfaces/ProductTag";
+import {INewProductTagAction, IProductTagAction} from "../../interfaces/ProductTag";
 import {CardContent} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
+import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,7 +40,7 @@ interface Props {
     toggleAction: Function;
 }
 
-const AddActions = (props: Props) => {
+const ManageActionsForm = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control, reset} = useForm<IProductTagAction>();
     const {height} = useWindowDimensions();
@@ -104,7 +104,7 @@ const AddActions = (props: Props) => {
                                 id="name"
                                 label="Action Name"
                                 name="name"
-                                autoFocus
+                                // autoFocus
                             />}
                         control={control}
                         defaultValue=""
@@ -122,16 +122,4 @@ const AddActions = (props: Props) => {
     );
 };
 
-// const mapStateToProps = ({newProductTag}: StoreState) => {
-//     return {newProductTag};
-// };
-
-// export const AddActions = connect(
-//     mapStateToProps,
-//     {
-//         addActionToNewProductTag,
-//         toggleActionOfNewProductTag
-//     }
-// )(_AddActions);
-
-export default AddActions;
+export default ManageActionsForm;

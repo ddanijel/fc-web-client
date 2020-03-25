@@ -1,13 +1,14 @@
 import {combineReducers} from "redux";
 import {Ui} from "../actions";
 import {uiReducer} from "./ui";
-import {IProducer} from "../../interfaces/Producer";
+import {IProducer, ISignUpFormData} from "../../interfaces/Producer";
 import {producerReducer} from "./producer";
 import {INewProductTag} from "../../interfaces/ProductTag";
 import {newProductTagReducer} from "./newProductTag";
 import {IMapView} from "../../interfaces/MapView";
 import {mapViewReducer} from "./mapView";
 import {IScannedProducerReducer, scannedProducersReducer} from "./scannedProducers";
+import {producerAuthReducer} from "./producerAuth";
 
 
 export interface StoreState {
@@ -16,6 +17,7 @@ export interface StoreState {
     newProductTag: INewProductTag;
     mapView: IMapView;
     scannedProducers: IScannedProducerReducer;
+    producerAuth: ISignUpFormData;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -23,5 +25,6 @@ export const reducers = combineReducers<StoreState>({
     producer: producerReducer,
     newProductTag: newProductTagReducer,
     mapView: mapViewReducer,
-    scannedProducers: scannedProducersReducer
+    scannedProducers: scannedProducersReducer,
+    producerAuth: producerAuthReducer
 });

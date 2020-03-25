@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AddActions from "./steps/AddActions";
+import ManageActionsForm from "../fragments/ManageActionsForm";
 import {ScanProductTags} from "./steps/ScanProductTags";
 import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
@@ -52,7 +52,7 @@ function getStepContent(props: Props, step: number) {
         case 0:
             return <ScanProductTags/>;
         case 1:
-            return <AddActions
+            return <ManageActionsForm
                 currentActions={props.newProductTag.actions}
                 addAction={props.addActionToNewProductTag}
                 toggleAction={props.toggleActionOfNewProductTag}
@@ -157,7 +157,7 @@ const _NewProductTag = (props: Props) => {
 //     return {newProductTag};
 // };
 
-// export const AddActions = connect(
+// export const ManageActionsForm = connect(
 //     mapStateToProps,
 //     {
 //         addActionToNewProductTag,

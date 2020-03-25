@@ -1,5 +1,5 @@
 import {ToggleDrawerAction, ToggleIsLoadingAction, ToggleQRScannerModalAction} from "./ui";
-import {PersistProducerAction, ProducerSignInAction} from "./producer";
+import {PersistProducerAction} from "./producer";
 import {
     AddActionToNewProductTagAction,
     AddPreviousProductTagAction,
@@ -11,6 +11,12 @@ import {
 import {FetchProductTagAction} from "./productTag";
 import {ShowMapViewForProductTagAction, ToggleMapViewModalAction} from "./mapView";
 import {FetchScannedProducerAction, StoreScannedProducerAction} from "./scannedProducers";
+import {
+    AddDefaultActionToProducerAction,
+    ProducerSignInAction,
+    ToggleDefaultActionForProducerAction,
+    UpdateSignUpFormFieldAction
+} from "./producerAuth";
 
 export enum ActionTypes {
     toggleDrawer,
@@ -28,7 +34,10 @@ export enum ActionTypes {
     toggleMapViewModal,
     showMapViewForProductTag,
     fetchScannedProducer,
-    storeScannedProducer
+    storeScannedProducer,
+    updateSignUpFormField,
+    addDefaultActionToProducer,
+    toggleDefaultActionForProducer
 }
 
 export type Action =
@@ -47,4 +56,7 @@ export type Action =
     ToggleMapViewModalAction |
     ShowMapViewForProductTagAction |
     FetchScannedProducerAction |
-    StoreScannedProducerAction;
+    StoreScannedProducerAction |
+    UpdateSignUpFormFieldAction |
+    AddDefaultActionToProducerAction |
+    ToggleDefaultActionForProducerAction;

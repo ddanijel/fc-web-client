@@ -2,7 +2,7 @@ import {Action, ActionTypes} from "../actions"
 import {IMapView} from "../../interfaces/MapView";
 
 const initialState = {
-    isMapViewModalOpen: true,
+    isMapViewModalOpen: false,
     productTag: {
         productTagAddress: "",
         producerAddress: "",
@@ -28,6 +28,12 @@ export const mapViewReducer = (state: IMapView = initialState, action: Action) =
             return {
                 ...state,
                 isMapViewModalOpen: action.isMapViewModalOpen
+            };
+        case ActionTypes.showMapViewForProductTag:
+            return {
+                ...state,
+                isMapViewModalOpen: true,
+                productTag: action.productTag
             };
         default:
             return state;
