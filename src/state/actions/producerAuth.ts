@@ -1,4 +1,4 @@
-import {ISignUpFormData} from "../../interfaces/Producer";
+import {IProducerNewCertificate, ISignUpFormData} from "../../interfaces/Producer";
 import {History} from "history";
 import {Dispatch} from "redux";
 import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
@@ -25,10 +25,22 @@ export interface AddDefaultActionToProducerAction {
     newAction: INewProductTagAction
 }
 
+export interface AddCertificateToProducerAction {
+    type: ActionTypes.addCertificateToProducer;
+    newCertificate: IProducerNewCertificate
+}
+
 export const addDefaultActionToProducer = (newAction: INewProductTagAction): AddDefaultActionToProducerAction => {
     return {
         type: ActionTypes.addDefaultActionToProducer,
         newAction
+    }
+};
+
+export const addCertificateToProducer = (newCertificate: IProducerNewCertificate): AddCertificateToProducerAction => {
+    return {
+        type: ActionTypes.addCertificateToProducer,
+        newCertificate
     }
 };
 
@@ -48,8 +60,8 @@ export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history:
                 producerSignUpFormData.producerName,
                 producerSignUpFormData.licenceNumber,
                 producerSignUpFormData.url,
-                producerSignUpFormData.defaultActions,
-                producerSignUpFormData.certificates
+                producerSignUpFormData.defaultActions.filter(action => action.selected).map(action => action.name),
+                producerSignUpFormData.certificates.filter(certificate => certificate.selected).map(certificate => certificate.name)
             ).send({from: accounts[0]});
             const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
@@ -74,24 +86,22 @@ export const signInProducer = (producerContractAddress: string, history: History
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
         try {
             const accounts = await web3.eth.getAccounts();
-            const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call({from: accounts[0]});
+            const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call();
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
                 authenticated: authenticated
             });
-
             if (authenticated) {
-                saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
-                saveItemToLocalStorage("authenticated", true);
                 const producerResult = await ProducerContract(producerContractAddress).methods.describeProducer().call();
                 const producer = populateProducer(producerResult, producerContractAddress);
                 dispatch<PersistProducerAction>({
                     type: ActionTypes.persistProducer,
                     producer
                 });
+                saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
+                saveItemToLocalStorage("authenticated", true);
+                history.push(routePaths.producer);
             }
-
-            history.push(routePaths.producer);
         } catch (e) {
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
@@ -121,9 +131,23 @@ export interface ToggleDefaultActionForProducerAction {
     action: INewProductTagAction
 }
 
+
 export const toggleDefaultActionForProducer = (action: INewProductTagAction): ToggleDefaultActionForProducerAction => {
     return {
         type: ActionTypes.toggleDefaultActionForProducer,
         action
+    }
+};
+
+
+export interface ToggleCertificateForProducerAction {
+    type: ActionTypes.toggleCertificateForProducer,
+    certificate: IProducerNewCertificate
+}
+
+export const toggleCertificateForProducer = (certificate: IProducerNewCertificate): ToggleCertificateForProducerAction => {
+    return {
+        type: ActionTypes.toggleCertificateForProducer,
+        certificate
     }
 };

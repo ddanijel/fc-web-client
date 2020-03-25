@@ -12,8 +12,10 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {connect} from "react-redux";
 import {
+    addCertificateToProducer,
     addDefaultActionToProducer,
     signUpProducer,
+    toggleCertificateForProducer,
     toggleDefaultActionForProducer,
     updateSignUpFormField
 } from "../../../../state/actions";
@@ -21,7 +23,7 @@ import {useHistory} from "react-router-dom";
 import {StoreState} from "../../../../state/reducers";
 import {ISignUpFormData} from "../../../../interfaces/Producer";
 import ManageActionsForm from "../../../fragments/ManageActionsForm";
-import ProducerCertificatesForm from "../../../fragments/ProducerCertificatesForm";
+import ManageCertificatesForm from "../../../fragments/ManageCertificatesForm";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -54,27 +56,14 @@ interface Props {
     producerAuth: ISignUpFormData;
     addDefaultActionToProducer: typeof addDefaultActionToProducer;
     toggleDefaultActionForProducer: typeof toggleDefaultActionForProducer;
+    addCertificateToProducer: typeof addCertificateToProducer;
+    toggleCertificateForProducer: typeof toggleCertificateForProducer;
 }
 
 const _SignUpForm = (props: Props) => {
     const classes = useStyles();
     const history = useHistory();
 
-    // const onSubmit = handleSubmit(
-    //     ({
-    //          producerName,
-    //          licenceNumber,
-    //          url,
-    //          certificates
-    //      }) => {
-    //         props.signUpProducer({
-    //             producerName,
-    //             licenceNumber,
-    //             url,
-    //             certificates
-    //         }, history);
-    //         reset();
-    //     });
     const onFormFieldChange = (eventTarget: (EventTarget & HTMLTextAreaElement) | (EventTarget & HTMLInputElement)) => {
         props.updateSignUpFormField(eventTarget.name, eventTarget.value);
     };
@@ -144,7 +133,11 @@ const _SignUpForm = (props: Props) => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <ProducerCertificatesForm/>
+                        <ManageCertificatesForm
+                            currentCertificates={props.producerAuth.certificates}
+                            addCertificate={props.addCertificateToProducer}
+                            toggleCertificate={props.toggleCertificateForProducer}
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <FormControlLabel
@@ -159,6 +152,7 @@ const _SignUpForm = (props: Props) => {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onClick={() => props.signUpProducer(props.producerAuth, history)}
                 >
                     Sign Up
                 </Button>
@@ -177,6 +171,8 @@ export const SignUpForm = connect(
         signUpProducer,
         updateSignUpFormField,
         addDefaultActionToProducer,
-        toggleDefaultActionForProducer
+        addCertificateToProducer,
+        toggleDefaultActionForProducer,
+        toggleCertificateForProducer
     }
 )(_SignUpForm);

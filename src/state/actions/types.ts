@@ -12,8 +12,10 @@ import {FetchProductTagAction} from "./productTag";
 import {ShowMapViewForProductTagAction, ToggleMapViewModalAction} from "./mapView";
 import {FetchScannedProducerAction, StoreScannedProducerAction} from "./scannedProducers";
 import {
+    AddCertificateToProducerAction,
     AddDefaultActionToProducerAction,
     ProducerSignInAction,
+    ToggleCertificateForProducerAction,
     ToggleDefaultActionForProducerAction,
     UpdateSignUpFormFieldAction
 } from "./producerAuth";
@@ -37,7 +39,9 @@ export enum ActionTypes {
     storeScannedProducer,
     updateSignUpFormField,
     addDefaultActionToProducer,
-    toggleDefaultActionForProducer
+    toggleDefaultActionForProducer,
+    addCertificateToProducer,
+    toggleCertificateForProducer
 }
 
 export type Action =
@@ -59,4 +63,6 @@ export type Action =
     StoreScannedProducerAction |
     UpdateSignUpFormFieldAction |
     AddDefaultActionToProducerAction |
-    ToggleDefaultActionForProducerAction;
+    ToggleDefaultActionForProducerAction |
+    AddCertificateToProducerAction |
+    ToggleCertificateForProducerAction;

@@ -24,6 +24,42 @@ export const producerAuthReducer = (state: ISignUpFormData = initialState, actio
                     action.newAction
                 ]
             };
+        case ActionTypes.addCertificateToProducer:
+            return {
+                ...state,
+                certificates: [
+                    ...state.certificates,
+                    action.newCertificate
+                ]
+            };
+        case ActionTypes.toggleDefaultActionForProducer: {
+            return {
+                ...state,
+                defaultActions: state.defaultActions.map(act => {
+                    if (act.name === action.action.name) {
+                        return {
+                            name: act.name,
+                            selected: !act.selected
+                        };
+                    } else return act;
+                })
+            }
+        }
+            ;
+        case ActionTypes.toggleCertificateForProducer: {
+            return {
+                ...state,
+                certificates: state.certificates.map(cer => {
+                    if (cer.name === action.certificate.name) {
+                        return {
+                            name: cer.name,
+                            selected: !cer.selected
+                        };
+                    } else return cer;
+                })
+            }
+        }
+            ;
         default:
             return state;
     }

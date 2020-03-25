@@ -45,10 +45,6 @@ interface Props {
 }
 
 const _ScanProductTags = (props: Props) => {
-    const date = new Date();
-
-    console.log(date.getFullYear());
-
     const classes = useStyles();
     const {height} = useWindowDimensions();
 

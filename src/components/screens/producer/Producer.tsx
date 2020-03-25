@@ -8,7 +8,6 @@ import ProducerSettings from "./ProducerSettings";
 import theme from "../../ui/Theme";
 
 const Producer = (props) => {
-    console.log(props);
     return (
         <>
             <div style={{

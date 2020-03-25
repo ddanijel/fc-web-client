@@ -35,7 +35,6 @@ interface Props {
 const _MapViewModal = (props: Props) => {
     const classes = useStyles();
     const {height, width} = useWindowDimensions();
-    console.log("h: ", height, "\nw: ", width);
 
     const {isMapViewModalOpen} = props.mapView;
     const {productTag} = props.mapView;

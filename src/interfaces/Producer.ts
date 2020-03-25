@@ -5,10 +5,10 @@ export interface ISignUpFormData {
     licenceNumber: string;
     url: string;
     defaultActions: INewProductTagAction[];
-    certificates: IProducerCertificate[];
+    certificates: IProducerNewCertificate[];
 }
 
-export interface IProducerCertificate {
+export interface IProducerNewCertificate {
     name: string;
     selected: boolean;
 }
