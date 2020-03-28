@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import {showMapViewForProductTag} from "../../state/actions/mapView";
 import {Divider} from "@material-ui/core";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
+import {IScannedProducerReducer} from "../../state/reducers/scannedProducers";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,13 +33,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-    newProductTag: INewProductTag
-    showMapViewForProductTag: typeof showMapViewForProductTag
+    newProductTag: INewProductTag;
+    scannedProducers: IScannedProducerReducer;
+    showMapViewForProductTag: typeof showMapViewForProductTag;
 }
 
 const _ScannedProductTagsPanel = (props: Props) => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
+
+    const {producers} = props.scannedProducers;
 
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
@@ -56,7 +60,12 @@ const _ScannedProductTagsPanel = (props: Props) => {
                     >
                         <Typography
                             className={classes.heading}>{productTag.dateTime.day}/{productTag.dateTime.month}/{productTag.dateTime.year.toString().substring(2, 4)}</Typography>
-                        <Typography className={classes.secondaryHeading}>Producer Name</Typography>
+                        {producers.map((producer, index) => {
+                            if (producer.producerContractAddress === productTag.producerAddress) {
+                                return <Typography key={index}
+                                                   className={classes.secondaryHeading}>{producer.producerName}</Typography>;
+                            }
+                        })}
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Typography>
@@ -80,8 +89,8 @@ const _ScannedProductTagsPanel = (props: Props) => {
     );
 };
 
-const mapStateToProps = ({newProductTag}: StoreState) => {
-    return {newProductTag};
+const mapStateToProps = ({newProductTag, scannedProducers}: StoreState) => {
+    return {newProductTag, scannedProducers};
 };
 
 export const ScannedProductTagsPanel = connect(

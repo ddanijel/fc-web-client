@@ -32,7 +32,7 @@ export const fetchScannedProducer = (producerContractAddress: string) => {
 
         } catch (e) {
             // todo display modal
-            console.error("Error while signing in the producer, message: ", e);
+            console.error("Error while fetching the scanned producer, message: ", e);
         } finally {
             dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
         }

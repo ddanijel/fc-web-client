@@ -87,13 +87,14 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
             const accounts = await web3.eth.getAccounts();
 
             const dateTime = new Date();
+            console.log("generating pt: ", productTag);
 
             const methodToCall = ProducerContract(getItemFromLocalStorage(variableNames.producerContractAddress))
                 .methods.generateProductTag(
                     productTag.actions.filter(action => action.selected).map(action => action.name),
                     {
-                        longitude: productTag.geolocation.longitude,
-                        latitude: productTag.geolocation.latitude,
+                        longitude: productTag.geolocation.longitude.toString(),
+                        latitude: productTag.geolocation.latitude.toString(),
                     },
                     {
                         year: dateTime.getFullYear(),
