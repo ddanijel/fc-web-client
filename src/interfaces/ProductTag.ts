@@ -34,3 +34,7 @@ export interface IProductTag {
     geolocation: IGeolocation
     previousProductTags: IProductTag[];
 }
+
+export interface IGeneratedProductTag {
+    address: string
+}

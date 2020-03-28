@@ -3,12 +3,13 @@ import {Ui} from "../actions";
 import {uiReducer} from "./ui";
 import {IProducer, ISignUpFormData} from "../../interfaces/Producer";
 import {producerReducer} from "./producer";
-import {INewProductTag} from "../../interfaces/ProductTag";
+import {IGeneratedProductTag, INewProductTag} from "../../interfaces/ProductTag";
 import {newProductTagReducer} from "./newProductTag";
 import {IMapView} from "../../interfaces/MapView";
 import {mapViewReducer} from "./mapView";
 import {IScannedProducerReducer, scannedProducersReducer} from "./scannedProducers";
 import {producerAuthReducer} from "./producerAuth";
+import {generatedProductTagReducer} from "./generatedProductTag";
 
 
 export interface StoreState {
@@ -18,6 +19,7 @@ export interface StoreState {
     mapView: IMapView;
     scannedProducers: IScannedProducerReducer;
     producerAuth: ISignUpFormData;
+    generatedProductTag: IGeneratedProductTag;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -26,5 +28,6 @@ export const reducers = combineReducers<StoreState>({
     newProductTag: newProductTagReducer,
     mapView: mapViewReducer,
     scannedProducers: scannedProducersReducer,
-    producerAuth: producerAuthReducer
+    producerAuth: producerAuthReducer,
+    generatedProductTag: generatedProductTagReducer
 });

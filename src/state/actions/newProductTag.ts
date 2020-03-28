@@ -9,6 +9,7 @@ import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
 import {fetchPT} from "./productTag";
 import {store} from "../../index"
+import {saveGeneratedProductTagAddress, SaveGeneratedProductTagAddressAction} from "./generatedProductTag";
 
 export interface GenerateProductTagAction {
     type: ActionTypes.generateProductTag;
@@ -108,7 +109,7 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
 
             const productTagAddress = await methodToCall.call({from: accounts[0]});
             await methodToCall.send({from: accounts[0]});
-            console.log("result: ", productTagAddress);
+            dispatch<SaveGeneratedProductTagAddressAction>(saveGeneratedProductTagAddress(productTagAddress));
             dispatch<ResetProductTagUponCreationAction>(resetProductTagUponCreation());
         } catch (e) {
             console.error(e);

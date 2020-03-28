@@ -13,7 +13,7 @@ import {StoreState} from "../../state/reducers";
 import {addActionToNewProductTag, generateProductTag, toggleActionOfNewProductTag} from "../../state/actions";
 import {IGeolocation, INewProductTag} from "../../interfaces/ProductTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
-import PrintQrCode from "./steps/PrintQRCode";
+import {PrintQrCode} from "./steps/PrintQRCode";
 import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowRightIcon from '@material-ui/icons/ChevronRight';
 

@@ -19,6 +19,7 @@ import {
     ToggleDefaultActionForProducerAction,
     UpdateSignUpFormFieldAction
 } from "./producerAuth";
+import {SaveGeneratedProductTagAddressAction} from "./generatedProductTag";
 
 export enum ActionTypes {
     toggleDrawer,
@@ -41,7 +42,8 @@ export enum ActionTypes {
     addDefaultActionToProducer,
     toggleDefaultActionForProducer,
     addCertificateToProducer,
-    toggleCertificateForProducer
+    toggleCertificateForProducer,
+    saveGeneratedProductTagAddress
 }
 
 export type Action =
@@ -65,4 +67,5 @@ export type Action =
     AddDefaultActionToProducerAction |
     ToggleDefaultActionForProducerAction |
     AddCertificateToProducerAction |
-    ToggleCertificateForProducerAction;
+    ToggleCertificateForProducerAction |
+    SaveGeneratedProductTagAddressAction;
