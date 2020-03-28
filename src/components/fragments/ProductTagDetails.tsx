@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import {ScannedProductTagsPanel} from "../product_tag/ScannedProductTagsPanel";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,18 +50,19 @@ const _ProductTagDetails = (props: Props) => {
                     </Typography>
                 </CardContent>
 
-                <Card>
+                <Card style={{
+                    margin: 7
+                }}>
                     <CardContent>
                         <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
                             Actions
                         </Typography>
                         <List dense={true}>
                             {filteredActions.map((actionName, index) => {
-                                    console.log("filteredActions: ", filteredActions);
                                     return React.cloneElement(
                                         <ListItem key={index}>
                                             <ListItemText
-                                                primary={actionName}
+                                                primary={(index + 1) + `. ` + actionName}
                                             />
                                         </ListItem>,
                                         {
@@ -72,12 +74,17 @@ const _ProductTagDetails = (props: Props) => {
                     </CardContent>
                 </Card>
 
+                <Card style={{
+                    margin: 7
+                }}>
+                    <CardContent>
+                        <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
+                            Previous Product Tags
+                        </Typography>
+                        <ScannedProductTagsPanel/>
+                    </CardContent>
+                </Card>
 
-                {JSON.stringify(props.productTag)}
-                {JSON.stringify(props.productTag)}
-                {JSON.stringify(props.productTag)}
-                {JSON.stringify(props.productTag)}
-                {JSON.stringify(props.productTag)}
             </div>
         </Card>
     );

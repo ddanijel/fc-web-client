@@ -66,6 +66,20 @@ function getStepContent(props: Props, step: number) {
     }
 }
 
+function getForwardButtonText(step) {
+    switch (step) {
+        case 0:
+            return "Actions";
+        case 1:
+            return "Overview";
+        case 2:
+            return "Create";
+        case 3:
+            return "Print QR Code";
+        default:
+            return 'Unknown step';
+    }
+}
 
 interface Props extends GeolocatedProps {
     children?: React.ReactElement;
@@ -89,7 +103,7 @@ const _NewProductTag = (props: Props) => {
     };
 
     const handleNext = () => {
-        if (activeStep === steps.length - 1) {
+        if (activeStep === 2) {
 
             props.generateProductTag({
                 ...props.newProductTag,
@@ -116,55 +130,41 @@ const _NewProductTag = (props: Props) => {
                     </Step>
                 ))}
             </Stepper>
-                {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Button onClick={handleReset} className={classes.buttonBack}>
-                            Create New Product Tag
-                        </Button>
-                    </div>
-                ) : (
-                    <>
-                        <div className={classes.instructions}>{getStepContent(props, activeStep)}</div>
-                        <Button
-                            variant="outlined"
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            className={classes.buttonBack}
-                            startIcon={<ArrowLeftIcon/>}
-                        >
-                            Back
-                        </Button>
-                            <Button
-                                variant="outlined"
-                                color="inherit"
-                                onClick={handleNext}
-                                className={classes.buttonNext}
-                                endIcon={<ArrowRightIcon/>}
-                            >
-                                {activeStep === steps.length - 1 ? 'Create Product Tag' : 'Next'}
-                            </Button>
-                    </>
-                )}
+            {activeStep === steps.length ? (
+                <div>
+                    <Typography className={classes.instructions}>
+                        All steps completed - you&apos;re finished
+                    </Typography>
+                    <Button onClick={handleReset} className={classes.buttonBack}>
+                        Create New Product Tag
+                    </Button>
+                </div>
+            ) : (
+                <>
+                    <div className={classes.instructions}>{getStepContent(props, activeStep)}</div>
+                    <Button
+                        variant="outlined"
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.buttonBack}
+                        startIcon={<ArrowLeftIcon/>}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        variant={activeStep === 2 ? "contained" : "outlined"}
+                        color={activeStep === 2 ? "secondary" : "inherit"}
+                        onClick={handleNext}
+                        className={classes.buttonNext}
+                        endIcon={<ArrowRightIcon/>}
+                    >
+                        {getForwardButtonText(activeStep)}
+                    </Button>
+                </>
+            )}
         </div>
     );
 };
-
-
-// const mapStateToProps = ({newProductTag}: StoreState) => {
-//     return {newProductTag};
-// };
-
-// export const ManageActionsForm = connect(
-//     mapStateToProps,
-//     {
-//         addActionToNewProductTag,
-//         toggleActionOfNewProductTag
-//     }
-// )(_AddActions);
-
 
 const mapStateToProps = ({newProductTag}: StoreState) => {
     return {newProductTag};
