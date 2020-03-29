@@ -5,13 +5,11 @@ import {Card} from "@material-ui/core";
 import {INewProductTag, IProductTag} from "../../interfaces/ProductTag";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import useWindowDimensions from "../ui/hooks/useWindowDimensions";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {ScannedProductTagsPanel} from "../product_tag/ScannedProductTagsPanel";
+import ActionsOverviewCard from "./ActionsOverviewCard";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,8 +34,6 @@ const _ProductTagDetails = (props: Props) => {
     const classes = useStyles();
     const {height} = useWindowDimensions();
     const {actions} = props.productTag;
-    // @ts-ignore
-    const filteredActions = actions.length > 0 && actions[0].selected !== undefined ? actions.filter(action => action.selected).map(action => action.name) : actions.map(action => action.name);
 
     return (
         <Card style={{
@@ -50,29 +46,7 @@ const _ProductTagDetails = (props: Props) => {
                     </Typography>
                 </CardContent>
 
-                <Card style={{
-                    margin: 7
-                }}>
-                    <CardContent>
-                        <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
-                            Actions
-                        </Typography>
-                        <List dense={true}>
-                            {filteredActions.map((actionName, index) => {
-                                    return React.cloneElement(
-                                        <ListItem key={index}>
-                                            <ListItemText
-                                                primary={(index + 1) + `. ` + actionName}
-                                            />
-                                        </ListItem>,
-                                        {
-                                            key: actionName,
-                                        })
-                                }
-                            )}
-                        </List>
-                    </CardContent>
-                </Card>
+                <ActionsOverviewCard actions={actions}/>
 
                 <Card style={{
                     margin: 7

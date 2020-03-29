@@ -50,7 +50,7 @@ export interface ProducerSignInAction {
     authenticated: boolean
 }
 
-export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history: History) => {
+export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history: History): (dispatch: Dispatch) => Promise<void> => {
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
 

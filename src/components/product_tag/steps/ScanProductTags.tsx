@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         cardRoot: {
             // height: theme.spacing(50)
+            overflow: "auto"
         },
         bullet: {
             display: 'inline-block',
@@ -62,7 +63,9 @@ const _ScanProductTags = (props: Props) => {
             }}>
                 <ScannedProductTagsPanel/>
             </CardContent>
-            <CardActions className={classes.cardActions}>
+            <CardActions style={{
+                position: "absolute"
+            }} className={classes.cardActions}>
                 <Button
                     variant="contained"
                     color="secondary"

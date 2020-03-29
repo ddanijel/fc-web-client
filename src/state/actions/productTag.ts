@@ -1,7 +1,6 @@
 import {ActionTypes} from "./types";
 import {IProductTag} from "../../interfaces/ProductTag";
 import {Dispatch} from "redux";
-import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
 import ProductTagContract from "../../ethereum/productTag";
 import {fetchScannedProducer, FetchScannedProducerAction} from "./scannedProducers";
 
@@ -26,28 +25,15 @@ const populateProductTag = (productTagResult: any, productTagAddress: string): I
             hour: productTagResult[3][3],
             minute: productTagResult[3][4],
         },
-        previousProductTags: productTagResult[4]
-    }
-};
-
-export const fetchProductTag = (productTagAddress: string) => {
-    return async (dispatch: Dispatch) => {
-        dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
-
-        try {
-            const productTag = await fetchPT(dispatch, productTagAddress);
-            console.log("fetched: ", productTag);
-
-        } catch (e) {
-            console.error(e);
-        } finally {
-            dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
-        }
+        previousProductTags: productTagResult[4].map(address => ({
+            productTagAddress: address
+        }))
     }
 };
 
 export const fetchPT = async (dispatch: Dispatch, productTagAddress: string): Promise<IProductTag> => {
     let productTag;
+    console.log("fetchPT: ", productTagAddress);
     try {
         const fetchedProductTag = await ProductTagContract(productTagAddress)
             .methods.describeProductTag().call();

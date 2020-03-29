@@ -10,7 +10,7 @@ export interface IProductTagAction {
 }
 
 export interface INewProductTagAction extends IProductTagAction {
-    selected: boolean
+    selected: boolean;
 }
 
 export interface IGeolocation {
@@ -31,10 +31,10 @@ export interface IProductTag {
     producerAddress: string;
     dateTime: IDateTime;
     actions: IProductTagAction[];
-    geolocation: IGeolocation
+    geolocation: IGeolocation;
     previousProductTags: IProductTag[];
 }
 
 export interface IGeneratedProductTag {
-    address: string
+    address: string;
 }

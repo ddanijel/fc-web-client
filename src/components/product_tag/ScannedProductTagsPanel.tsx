@@ -14,10 +14,13 @@ import {showMapViewForProductTag} from "../../state/actions/mapView";
 import {Divider} from "@material-ui/core";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import {IScannedProducerReducer} from "../../state/reducers/scannedProducers";
+import ActionsOverviewCard from "../fragments/ActionsOverviewCard";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
+            overflow: "auto",
             width: '100%',
         },
         heading: {
@@ -29,13 +32,21 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: theme.typography.pxToRem(15),
             color: theme.palette.text.secondary,
         },
+        contractAddressForm: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            // '& > *': {
+            //     margin: theme.spacing(1),
+            // },
+        }
     }),
 );
 
 interface Props {
     newProductTag: INewProductTag;
     scannedProducers: IScannedProducerReducer;
-    showMapViewForProductTag: typeof showMapViewForProductTag;
+    showMapViewForProductTag: Function;
 }
 
 const _ScannedProductTagsPanel = (props: Props) => {
@@ -68,10 +79,30 @@ const _ScannedProductTagsPanel = (props: Props) => {
                         })}
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <Typography>
-                            {productTag.productTagAddress}
+                        <ActionsOverviewCard actions={productTag.actions}/>
+                    </ExpansionPanelDetails>
+                    <ExpansionPanelDetails>
+                        <div className={classes.contractAddressForm}>
+                            <TextField
+                                style={{marginRight: "10px"}}
+                                id="outlined-basic"
+                                label="Contract Address"
+                                variant="outlined"
+                                value={productTag.productTagAddress}
+                                disabled={true}
+                                size={"medium"}
+                            />
+                            <Button
+                                target={"_blank"}
+                                href={"www.google.com"}
+                                size={"small"}
 
-                        </Typography>
+                                variant="outlined"
+                            >
+                                Show on Etherscan
+                            </Button>
+
+                        </div>
                     </ExpansionPanelDetails>
                     <Divider/>
                     <ExpansionPanelActions>
@@ -82,6 +113,11 @@ const _ScannedProductTagsPanel = (props: Props) => {
                             Show on map
                         </Button>
                     </ExpansionPanelActions>
+                    <Divider/>
+                    <Divider/>
+                    <div style={{
+                        marginTop: "70px"
+                    }}/>
                 </ExpansionPanel>
             ))}
 

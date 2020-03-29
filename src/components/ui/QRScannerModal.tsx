@@ -65,7 +65,7 @@ const _QrScannerModal = (props: Props) => {
                     <QrReader
                         delay={300}
                         onError={() => console.error("error")}
-                        onScan={(data) => handleOnScan("0xdf14D00FcDcEBCCdE1Ea6Ac8aD0223549FE486Cb")} // todo
+                        onScan={(data) => handleOnScan("0xDFdFcE0f7B07f06462863101358926bD82C3C21D")} // todo
                         style={{width: '100%'}}
                     />
                 </div>
