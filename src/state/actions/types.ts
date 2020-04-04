@@ -9,7 +9,12 @@ import {
     ToggleActionOfNewProductTagAction,
 } from "./newProductTag";
 import {FetchProductTagAction} from "./productTag";
-import {ShowMapViewForProductTagAction, ToggleMapViewModalAction} from "./mapView";
+import {
+    AddFetchedPreviousProductTagForMapViewAction,
+    ShowMapViewForProductTagAction,
+    StoreMainProductTagToMapViewAction,
+    ToggleMapViewModalAction
+} from "./mapView";
 import {FetchScannedProducerAction, StoreScannedProducerAction} from "./scannedProducers";
 import {
     AddCertificateToProducerAction,
@@ -43,7 +48,9 @@ export enum ActionTypes {
     toggleDefaultActionForProducer,
     addCertificateToProducer,
     toggleCertificateForProducer,
-    saveGeneratedProductTagAddress
+    saveGeneratedProductTagAddress,
+    storeMainProductTagToMapView,
+    addFetchedPreviousProductTagForMapView
 }
 
 export type Action =
@@ -68,4 +75,6 @@ export type Action =
     ToggleDefaultActionForProducerAction |
     AddCertificateToProducerAction |
     ToggleCertificateForProducerAction |
-    SaveGeneratedProductTagAddressAction;
+    SaveGeneratedProductTagAddressAction |
+    StoreMainProductTagToMapViewAction |
+    AddFetchedPreviousProductTagForMapViewAction;

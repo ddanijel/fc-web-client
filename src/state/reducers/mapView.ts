@@ -19,7 +19,8 @@ const initialState = {
             latitude: 0,
         },
         previousProductTags: []
-    }
+    },
+    previousProductTags: []
 };
 
 export const mapViewReducer = (state: IMapView = initialState, action: Action) => {
@@ -29,12 +30,21 @@ export const mapViewReducer = (state: IMapView = initialState, action: Action) =
                 ...state,
                 isMapViewModalOpen: action.isMapViewModalOpen
             };
-        case ActionTypes.showMapViewForProductTag:
+        case ActionTypes.storeMainProductTagToMapView:
             return {
                 ...state,
                 isMapViewModalOpen: true,
                 productTag: action.productTag
             };
+        case ActionTypes.addFetchedPreviousProductTagForMapView: {
+            return {
+                ...state,
+                previousProductTags: [
+                    ...state.previousProductTags,
+                    action.productTag
+                ]
+            }
+        }
         default:
             return state;
     }

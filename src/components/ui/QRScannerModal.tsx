@@ -64,7 +64,7 @@ const _QrScannerModal = (props: Props) => {
                 <div className={classes.paper}>
                     <QrReader
                         delay={300}
-                        onError={() => console.error("error")}
+                        onError={(error) => console.error("error: ", error)}
                         onScan={(data) => handleOnScan("0xDFdFcE0f7B07f06462863101358926bD82C3C21D")} // todo
                         style={{width: '100%'}}
                     />

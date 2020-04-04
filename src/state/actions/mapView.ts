@@ -15,6 +15,16 @@ export interface ShowMapViewForProductTagAction {
     productTag: IProductTag
 }
 
+export interface StoreMainProductTagToMapViewAction {
+    type: ActionTypes.storeMainProductTagToMapView
+    productTag: IProductTag
+}
+
+export interface AddFetchedPreviousProductTagForMapViewAction {
+    type: ActionTypes.addFetchedPreviousProductTagForMapView
+    productTag: IProductTag
+}
+
 export const toggleMapViewModal = (isMapViewModalOpen: boolean): ToggleMapViewModalAction => {
     return {
         type: ActionTypes.toggleMapViewModal,
@@ -22,40 +32,42 @@ export const toggleMapViewModal = (isMapViewModalOpen: boolean): ToggleMapViewMo
     }
 };
 
-export const showMapViewForProductTag = (productTag: IProductTag): (dispatch: Dispatch) => Promise<void> => {
-    return async (dispatch: Dispatch) => {
-        dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
-
-        const result = await processPreviousProductTags(dispatch, productTag);
-
-        console.log("result: ", result);
-        dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
-
-
+export const storeMainProductTagToMapView = (productTag: IProductTag): StoreMainProductTagToMapViewAction => {
+    return {
+        type: ActionTypes.storeMainProductTagToMapView,
+        productTag
     }
-
-
-    // return {
-    //     type: ActionTypes.showMapViewForProductTag,
-    //     productTag
-    // }
 };
 
+export const addFetchedPreviousProductTagForMapView = (productTag: IProductTag): AddFetchedPreviousProductTagForMapViewAction => {
+    return {
+        type: ActionTypes.addFetchedPreviousProductTagForMapView,
+        productTag
+    }
+};
 
-const processPreviousProductTags = async (dispatch: Dispatch, productTag: IProductTag) => {
-    console.log("called ppt: ", productTag.previousProductTags);
+export const showMapViewForProductTag = (productTag: IProductTag) => {
+    return async (dispatch: Dispatch) => {
+        dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
+        dispatch<StoreMainProductTagToMapViewAction>(storeMainProductTagToMapView(productTag));
+        await traversePreviousProductTagsTree(productTag, dispatch);
+        dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
+    }
+};
 
-    const pptgs = await productTag.previousProductTags.map(async previousProductTag => (
-        await fetchPT(dispatch, previousProductTag.productTagAddress)
-    ));
+const traversePreviousProductTagsTree = async (productTag: IProductTag, dispatch: Dispatch) => {
+    await asyncForEach(productTag.previousProductTags, async (productTag) => {
+        const result = await fetchPT(dispatch, productTag.productTagAddress);
+        dispatch<AddFetchedPreviousProductTagForMapViewAction>(addFetchedPreviousProductTagForMapView(result));
+        await asyncForEach(result.previousProductTags, async (prevPt) => {
+            const result = await fetchPT(dispatch, prevPt.productTagAddress);
+            dispatch<AddFetchedPreviousProductTagForMapViewAction>(addFetchedPreviousProductTagForMapView(result));
+        });
+    });
+};
 
-    // for (const previousProductTag of productTag.previousProductTags) {
-    //     const ptObject = await fetchPT(dispatch, previousProductTag.productTagAddress);
-    //
-    //     console.log("ptObject: ", ptObject);
-    //
-    //     await processPreviousProductTags(dispatch, ptObject);
-    // }
-    console.log("end fn:", pptgs);
-    return productTag;
+const asyncForEach = async (array, callback) => {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
 };
