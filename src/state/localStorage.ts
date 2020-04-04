@@ -1,4 +1,4 @@
-export const getItemFromLocalStorage = (key: string):string => {
+export const getItemFromLocalStorage = (key: string): any => {
     try {
         const serializedState = localStorage.getItem(key);
         if (serializedState === null) {

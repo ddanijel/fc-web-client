@@ -66,7 +66,7 @@ export const signUpProducer = (producerSignUpFormData: ISignUpFormData, history:
             const contractAddress = await FoodChain().methods.getContractForProducer(accounts[0]).call();
             const producerResult = await ProducerContract(contractAddress).methods.describeProducer().call();
             const producer = populateProducer(producerResult, contractAddress);
-            saveItemToLocalStorage(variableNames.producerContractAddress, contractAddress);
+            saveItemToLocalStorage(variableNames.producer, producer);
             saveItemToLocalStorage("authenticated", true);
             dispatch<PersistProducerAction>({
                 type: ActionTypes.persistProducer,
@@ -85,7 +85,8 @@ export const signInProducer = (producerContractAddress: string, history: History
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
         try {
-            const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call();
+            const accounts = await web3.eth.getAccounts();
+            const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call({from: accounts[0]});
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,
                 authenticated: authenticated
@@ -97,7 +98,7 @@ export const signInProducer = (producerContractAddress: string, history: History
                     type: ActionTypes.persistProducer,
                     producer
                 });
-                saveItemToLocalStorage(variableNames.producerContractAddress, producerContractAddress);
+                saveItemToLocalStorage(variableNames.producer, producer);
                 saveItemToLocalStorage("authenticated", true);
                 history.push(routePaths.producer);
             }

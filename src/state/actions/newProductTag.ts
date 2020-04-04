@@ -8,8 +8,9 @@ import ProducerContract from "../../ethereum/producer"
 import {getItemFromLocalStorage} from "../localStorage";
 import {variableNames} from "../../global/constants";
 import {fetchPT} from "./productTag";
-import {store} from "../../index"
+import {store} from "../../index";
 import {saveGeneratedProductTagAddress, SaveGeneratedProductTagAddressAction} from "./generatedProductTag";
+import {IProducer} from "../../interfaces/Producer";
 
 export interface GenerateProductTagAction {
     type: ActionTypes.generateProductTag;
@@ -89,8 +90,11 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
 
             const dateTime = new Date();
             console.log("generating pt: ", productTag);
+            console.log("dateTime pt: ", dateTime);
 
-            const methodToCall = ProducerContract(getItemFromLocalStorage(variableNames.producerContractAddress))
+            const producer: IProducer = getItemFromLocalStorage(variableNames.producer);
+
+            const methodToCall = ProducerContract(producer.producerContractAddress)
                 .methods.generateProductTag(
                     productTag.actions.filter(action => action.selected).map(action => action.name),
                     {

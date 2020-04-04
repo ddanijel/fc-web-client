@@ -1,18 +1,16 @@
 import {Action, ActionTypes} from "../actions";
 import {INewProductTag} from "../../interfaces/ProductTag";
+import {IProducer} from "../../interfaces/Producer";
+import {getItemFromLocalStorage} from "../localStorage";
+import {variableNames} from "../../global/constants";
 
+const producer: IProducer = getItemFromLocalStorage(variableNames.producer);
 
 const initialState = {
-    actions: [
-        {
-            name: "Action 1",
-            selected: true
-        },
-        {
-            name: "Action 2",
-            selected: false
-        }
-    ],
+    actions: producer.defaultActions.map(action => ({
+        name: action,
+        selected: true
+    })),
     dateTime: {
         year: 0,
         month: 0,
