@@ -13,8 +13,8 @@ const Producer = (props) => {
             <div style={{
                 marginTop: theme.spacing(2)
             }}>
-            {props.location.pathname === routePaths.producer ? <NewProductTagScreen/> : null}
-            <PrivateRoute path="/producer/:subroute" component={subroute}/>
+                {props.location.pathname === routePaths.producer ? <NewProductTagScreen/> : null}
+                <PrivateRoute path="/producer/:subroute" component={subroute}/>
             </div>
             <ProducerBottomTagNavigation/>
         </>
@@ -32,8 +32,6 @@ const subroute = ({match}) => {
         default:
             return <div>Not Found</div>
     }
-
-    return <div>hi</div>
 };
 
 export default Producer;

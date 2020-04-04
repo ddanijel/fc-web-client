@@ -45,7 +45,7 @@ interface Props {
 
 const _SignInForm = (props: Props) => {
     const classes = useStyles();
-    const {handleSubmit, control, reset} = useForm<ISignInFormData>();
+    const {handleSubmit, control} = useForm<ISignInFormData>();
     const history = useHistory();
 
 

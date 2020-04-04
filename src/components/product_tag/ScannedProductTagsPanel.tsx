@@ -74,8 +74,11 @@ const _ScannedProductTagsPanel = (props: Props) => {
                         {producers.map((producer, index) => {
                             if (producer.producerContractAddress === productTag.producerAddress) {
                                 return <Typography key={index}
-                                                   className={classes.secondaryHeading}>{producer.producerName}</Typography>;
-                            }
+                                                   className={classes.secondaryHeading}
+                                >
+                                    {producer.producerName}
+                                </Typography>;
+                            } // todo improve this method
                         })}
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>

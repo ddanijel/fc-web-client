@@ -32,7 +32,7 @@ export const producerAuthReducer = (state: ISignUpFormData = initialState, actio
                     action.newCertificate
                 ]
             };
-        case ActionTypes.toggleDefaultActionForProducer: {
+        case ActionTypes.toggleDefaultActionForProducer:
             return {
                 ...state,
                 defaultActions: state.defaultActions.map(act => {
@@ -43,10 +43,8 @@ export const producerAuthReducer = (state: ISignUpFormData = initialState, actio
                         };
                     } else return act;
                 })
-            }
-        }
-            ;
-        case ActionTypes.toggleCertificateForProducer: {
+            };
+        case ActionTypes.toggleCertificateForProducer:
             return {
                 ...state,
                 certificates: state.certificates.map(cer => {
@@ -57,9 +55,7 @@ export const producerAuthReducer = (state: ISignUpFormData = initialState, actio
                         };
                     } else return cer;
                 })
-            }
-        }
-            ;
+            };
         default:
             return state;
     }

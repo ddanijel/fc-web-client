@@ -41,7 +41,7 @@ export const fetchPT = async (dispatch: Dispatch, productTagAddress: string): Pr
         // @ts-ignore
         dispatch<FetchScannedProducerAction>(fetchScannedProducer(productTag.producerAddress));
     } catch (e) {
-        console.error("Error while fetching the product tag for address: ", productTagAddress, "\mError: ", e);
+        console.error("Error while fetching the product tag for address: ", productTagAddress, "\nError: ", e);
     } finally {
         return productTag
     }

@@ -85,7 +85,6 @@ export const signInProducer = (producerContractAddress: string, history: History
     return async (dispatch: Dispatch) => {
         dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
         try {
-            const accounts = await web3.eth.getAccounts();
             const authenticated = await ProducerContract(producerContractAddress).methods.isAuthenticated().call();
             dispatch<ProducerSignInAction>({
                 type: ActionTypes.producerSignIn,

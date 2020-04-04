@@ -1,6 +1,4 @@
 import React from 'react';
-import {StoreState} from "../../state/reducers";
-import {connect} from "react-redux";
 import {Card} from "@material-ui/core";
 import {INewProductTag, IProductTag} from "../../interfaces/ProductTag";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
@@ -30,7 +28,7 @@ interface Props {
     productTag: INewProductTag | IProductTag;
 }
 
-const _ProductTagDetails = (props: Props) => {
+const ProductTagDetails = (props: Props) => {
     const classes = useStyles();
     const {height} = useWindowDimensions();
     const {actions} = props.productTag;
@@ -64,11 +62,5 @@ const _ProductTagDetails = (props: Props) => {
     );
 };
 
-const mapStateToProps = ({}: StoreState) => {
-    return {};
-};
 
-export const ProductTagDetails = connect(
-    mapStateToProps,
-    {}
-)(_ProductTagDetails);
+export default ProductTagDetails;
