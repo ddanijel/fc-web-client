@@ -89,9 +89,20 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
             const accounts = await web3.eth.getAccounts();
 
             const dateTime = new Date();
-            console.log("generating pt: ", productTag);
             console.log("dateTime pt: ", dateTime);
 
+            const genProductTag = {
+                ...productTag,
+                dateTime: {
+                    year: dateTime.getFullYear(),
+                    month: dateTime.getUTCMonth(),
+                    day: dateTime.getUTCDay(),
+                    hour: dateTime.getHours(),
+                    minute: dateTime.getMinutes()
+                }
+            };
+
+            console.log("generating pt: ", genProductTag);
             const producer: IProducer = getItemFromLocalStorage(variableNames.producer);
 
             const methodToCall = ProducerContract(producer.producerContractAddress)
@@ -101,17 +112,12 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
                         longitude: productTag.geolocation.longitude.toString(),
                         latitude: productTag.geolocation.latitude.toString(),
                     },
-                    {
-                        year: dateTime.getFullYear(),
-                        month: dateTime.getMonth(),
-                        day: dateTime.getDay(),
-                        hour: dateTime.getHours(),
-                        minute: dateTime.getMinutes()
-                    },
+                    genProductTag.dateTime,
                     productTag.previousProductTags.map(pt => pt.productTagAddress)
                 );
 
             const productTagAddress = await methodToCall.call({from: accounts[0]});
+            console.log("generated pt address", productTagAddress);
             await methodToCall.send({from: accounts[0]});
             dispatch<SaveGeneratedProductTagAddressAction>(saveGeneratedProductTagAddress(productTagAddress));
             dispatch<ResetProductTagUponCreationAction>(resetProductTagUponCreation());

@@ -26,10 +26,10 @@ const initialState = {
 export const mapViewReducer = (state: IMapView = initialState, action: Action) => {
     switch (action.type) {
         case ActionTypes.toggleMapViewModal:
-            return {
+            return action.isMapViewModalOpen ? {
                 ...state,
-                isMapViewModalOpen: action.isMapViewModalOpen
-            };
+                isMapViewModalOpen: true
+            } : initialState;
         case ActionTypes.storeMainProductTagToMapView:
             return {
                 ...state,

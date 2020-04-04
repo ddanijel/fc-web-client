@@ -107,7 +107,11 @@ const _NewProductTag = (props: Props) => {
 
             props.generateProductTag({
                 ...props.newProductTag,
-                geolocation: getGeolocation()
+                // geolocation: getGeolocation()
+                geolocation: {
+                    longitude: 7.4474,
+                    latitude: 46.9480
+                }
             });
         }
         setActiveStep(prevActiveStep => prevActiveStep + 1);
