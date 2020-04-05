@@ -1,6 +1,5 @@
 name: 'Deploy to GitHub Pages'
-description: 'This action will handle the deployment process to GitHub Pages.'
-author: 'Danijel Dordevic <danijel.fon@gmail.com>'
+
 runs:
   using: 'node12'
   main: 'lib/main.js'
