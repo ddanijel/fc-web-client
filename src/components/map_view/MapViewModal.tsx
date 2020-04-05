@@ -12,6 +12,7 @@ import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 import Control from '@skyeer/react-leaflet-custom-control'
 import {IProductTag} from "../../interfaces/ProductTag";
 import L from 'leaflet'
+import ProductTagDetails from "../fragments/ProductTagDetails";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -104,14 +105,20 @@ const _MapViewModal = (props: Props) => {
                         icon={mainMarkerIcon}
                         position={[props.mapView.productTag.geolocation.latitude, props.mapView.productTag.geolocation.longitude]}>
                         <Popup>
-                            {productTag.productTagAddress}
+                            <ProductTagDetails
+                                height={(height * 0.8).toString().concat("px")}
+                                productTag={productTag}
+                            />
                         </Popup>
                     </Marker>
                     {props.mapView.previousProductTags.map((productTag, index) => (
                         <Marker key={index}
                                 position={[productTag.geolocation.latitude, productTag.geolocation.longitude]}>
                             <Popup>
-                                {productTag.productTagAddress}
+                                <ProductTagDetails
+                                    height={(height * 0.8).toString().concat("px")}
+                                    productTag={productTag}
+                                />
                             </Popup>
                         </Marker>
                     ))}

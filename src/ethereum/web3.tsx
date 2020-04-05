@@ -6,7 +6,6 @@ import {isMnemonicValid} from "./helpers";
 // https://medium.com/@awantoch/how-to-connect-web3-js-to-metamask-in-2020-fee2b2edf58a
 
 
-
 const ethEnabled = () => {
     // @ts-ignore
     if (window.ethereum) {
