@@ -13,7 +13,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: ddanijel
+        uses: actions/checkout@v1
 
       - name: Build
         run: |
@@ -23,7 +23,7 @@ jobs:
           REACT_APP_INFURA_REMOTE_CLIENT_URL: ${{ secrets.REACT_APP_INFURA_REMOTE_CLIENT_URL }}
 
       - name: Deploy
-        uses: ddanijel
+        uses: ddanijel/fc-web-client-action@releases/v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
