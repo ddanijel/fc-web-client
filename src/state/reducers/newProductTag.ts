@@ -7,7 +7,7 @@ import {variableNames} from "../../global/constants";
 const producer: IProducer = getItemFromLocalStorage(variableNames.producer);
 
 const initialState = {
-    actions: producer.defaultActions.map(action => ({
+    actions: producer.defaultActions === undefined ? [] : producer.defaultActions.map(action => ({
         name: action,
         selected: true
     })),

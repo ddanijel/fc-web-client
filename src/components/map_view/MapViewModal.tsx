@@ -11,6 +11,7 @@ import {toggleMapViewModal} from "../../state/actions/mapView";
 import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 import Control from '@skyeer/react-leaflet-custom-control'
 import {IProductTag} from "../../interfaces/ProductTag";
+import L from 'leaflet'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,6 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+interface IPolyline {
+    from_lat: number,
+    from_long: number,
+    id: string,
+    to_lat: number,
+    to_long: number,
+}
+
 interface Props {
     mapView: IMapView,
     toggleMapViewModal: typeof toggleMapViewModal
@@ -37,33 +46,31 @@ const _MapViewModal = (props: Props) => {
     const classes = useStyles();
     const {height} = useWindowDimensions();
 
+    const mainMarkerIcon = new L.Icon({
+        iconUrl: require('../../assets/img/marker-icon.png'),
+        iconRetinaUrl: require('../../assets/img/marker-icon.png'),
+        iconSize: [35, 50],
+        shadowUrl: require('../../assets/img/marker-shadow.png')
+    });
+
+
     const {productTag, previousProductTags, isMapViewModalOpen} = props.mapView;
 
-    const longitude = productTag.geolocation.longitude;
-    const latitude = productTag.geolocation.latitude;
-
-    const lines = [
-        {
-            from_lat: "46.9480",
-            from_long: "7.4474",
-            id: "132512",
-            to_lat: "12.92732",
-            to_long: "77.63575",
-        },
-        {
-            from_lat: "12.96691",
-            from_long: "77.74935",
-            id: "132513",
-            to_lat: "12.92768",
-            to_long: "77.62664",
-        }
-    ];
-
+    const lines: IPolyline[] = [];
     const allProductTags: IProductTag[] = previousProductTags.concat([productTag]);
-
-    allProductTags.forEach(pt => {
-        allProductTags.forEach(prevPt => {
-            // todo contine here
+    allProductTags.forEach(pt1 => {
+        pt1.previousProductTags.forEach(pt2 => {
+            allProductTags.forEach(pt3 => {
+                if (pt2.productTagAddress === pt3.productTagAddress) {
+                    lines.push({
+                        from_lat: pt1.geolocation.latitude,
+                        from_long: pt1.geolocation.longitude,
+                        id: pt2.productTagAddress.concat(pt3.productTagAddress),
+                        to_lat: pt3.geolocation.latitude,
+                        to_long: pt3.geolocation.longitude,
+                    })
+                }
+            })
         })
     });
 
@@ -88,12 +95,13 @@ const _MapViewModal = (props: Props) => {
                         width: height,
                     }}
                     animate={true}
-                    center={[latitude, longitude]} zoom={13}>
+                    center={[productTag.geolocation.latitude, productTag.geolocation.longitude]} zoom={10}>
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <Marker
+                        icon={mainMarkerIcon}
                         position={[props.mapView.productTag.geolocation.latitude, props.mapView.productTag.geolocation.longitude]}>
                         <Popup>
                             {productTag.productTagAddress}
@@ -108,7 +116,6 @@ const _MapViewModal = (props: Props) => {
                         </Marker>
                     ))}
                     {lines.map(({id, from_lat, from_long, to_lat, to_long}) => {
-                        // @ts-ignore
                         return <Polyline key={id} positions={[
                             [from_lat, from_long], [to_lat, to_long],
                         ]} color={'red'}/>

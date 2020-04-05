@@ -66,8 +66,10 @@ const _QrScannerModal = (props: Props) => {
                         delay={300}
                         onError={(error) => console.error("error: ", error)}
                         onScan={(data) => {
-                            // handleOnScan("0x19bA096F82bd7C48187b6d0029D9c4d0275EE6Da");
-                            handleOnScan("0xa045f0E8C3C20525FFE742277BaD45E33f3Be961");
+                            // handleOnScan("0xa045f0E8C3C20525FFE742277BaD45E33f3Be961"); // bern
+                            // handleOnScan("0x1Fb387A826F12920afE9100C1764B6eFfFec1C74"); // winterthur
+                            // handleOnScan("0xC4Fc43d36DAA20BB609827E5E4654Ac02c48b7d0"); // lugano
+                            handleOnScan("0x55960902BaA42D94d7df260dc2700d6697ccfB23"); // zurich
                         }} // todo
                         style={{width: '100%'}}
                     />

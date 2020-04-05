@@ -9,14 +9,14 @@ const producer: IProducer = getItemFromLocalStorage(variableNames.producer);
 const initialState = {
     isAuthenticated: isAlreadyAuthenticated(),
     foodChainContractAddress: foodChainFactoryAddress,
-    producerContractAddress: producer.producerContractAddress,
-    producerOwnerAccountAddress: producer.producerOwnerAccountAddress,
-    producerName: producer.producerName,
-    licenceNumber: producer.licenceNumber,
-    url: producer.url,
-    defaultActions: producer.defaultActions,
-    certificates: producer.certificates,
-    productTags: producer.productTags
+    producerContractAddress: producer.producerContractAddress === undefined ? "" : producer.producerContractAddress,
+    producerOwnerAccountAddress: producer.producerOwnerAccountAddress === undefined ? "" : producer.producerOwnerAccountAddress,
+    producerName: producer.producerName === undefined ? "" : producer.producerName,
+    licenceNumber: producer.licenceNumber === undefined ? "" : producer.licenceNumber,
+    url: producer.url === undefined ? "" : producer.url,
+    defaultActions: producer.defaultActions === undefined ? [] : producer.defaultActions,
+    certificates: producer.certificates === undefined ? [] : producer.certificates,
+    productTags: producer.productTags === undefined ? [] : producer.productTags
 };
 
 export const producerReducer = (state: IProducer = initialState, action: Action) => {

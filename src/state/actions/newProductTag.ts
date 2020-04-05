@@ -87,16 +87,13 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
 
         try {
             const accounts = await web3.eth.getAccounts();
-
             const dateTime = new Date();
-            console.log("dateTime pt: ", dateTime);
-
             const genProductTag = {
                 ...productTag,
                 dateTime: {
                     year: dateTime.getFullYear(),
-                    month: dateTime.getUTCMonth(),
-                    day: dateTime.getUTCDay(),
+                    month: dateTime.getMonth() + 1,
+                    day: dateTime.getDate(),
                     hour: dateTime.getHours(),
                     minute: dateTime.getMinutes()
                 }
