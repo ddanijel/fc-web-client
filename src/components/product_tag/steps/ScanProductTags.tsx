@@ -2,9 +2,7 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {StoreState} from "../../../state/reducers";
 import {connect} from "react-redux";
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/Camera';
-import {toggleQRScannerModal, Ui} from "../../../state/actions";
+import {Ui} from "../../../state/actions";
 import {INewProductTag} from "../../../interfaces/ProductTag";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
@@ -13,11 +11,7 @@ import {ScannedProductTagsPanel} from "../ScannedProductTagsPanel";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        button: {
-            // margin: theme.spacing(1),
-        },
         cardRoot: {
-            // height: theme.spacing(50)
             overflow: "auto"
         },
         bullet: {
@@ -40,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
     newProductTag: INewProductTag
     ui: Ui
-    toggleQRScannerModal: typeof toggleQRScannerModal
 }
 
 const _ScanProductTags = (props: Props) => {
@@ -61,15 +54,6 @@ const _ScanProductTags = (props: Props) => {
             <CardActions style={{
                 position: "absolute"
             }} className={classes.cardActions}>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    className={classes.button}
-                    startIcon={<CameraIcon/>}
-                    onClick={() => props.toggleQRScannerModal(true)}
-                >
-                    Scan Product
-                </Button>
             </CardActions>
         </>
     );
@@ -82,7 +66,5 @@ const mapStateToProps = ({newProductTag, ui}: StoreState) => {
 
 export const ScanProductTags = connect(
     mapStateToProps,
-    {
-        toggleQRScannerModal
-    }
+    {}
 )(_ScanProductTags);

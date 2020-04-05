@@ -1,14 +1,26 @@
 import {ActionTypes} from "./types";
 
 export interface Ui {
-    isDrawerOpen: boolean
-    isLoading: boolean
-    isQRScannerModalOpen: boolean
+    isDrawerOpen: boolean;
+    isLoading: boolean;
+    isQRScannerModalOpen: boolean;
+    newProductTagSteps: INewProductTagSteps;
+}
+
+interface INewProductTagSteps {
+    steps: string[];
+    activeStep: number;
+
 }
 
 export interface ToggleDrawerAction {
     type: ActionTypes.toggleDrawer;
     isDrawerOpen: boolean;
+}
+
+export interface SetNewProductTagActiveStepAction {
+    type: ActionTypes.setNewProductTagActiveStep;
+    activeStep: number;
 }
 
 export interface ToggleQRScannerModalAction {
@@ -39,5 +51,12 @@ export const toggleIsLoading = (isLoading: boolean): ToggleIsLoadingAction => {
     return {
         type: ActionTypes.toggleIsLoading,
         isLoading
+    }
+};
+
+export const setNewProductTagActiveStep = (activeStep: number): SetNewProductTagActiveStepAction => {
+    return {
+        type: ActionTypes.setNewProductTagActiveStep,
+        activeStep
     }
 };

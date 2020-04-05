@@ -4,13 +4,19 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import ManageActionsForm from "../fragments/ManageActionsForm";
 import {ScanProductTags} from "./steps/ScanProductTags";
 import {NewPTOverview} from "./steps/NewPTOverview";
 import {connect} from "react-redux";
 import {StoreState} from "../../state/reducers";
-import {addActionToNewProductTag, generateProductTag, toggleActionOfNewProductTag} from "../../state/actions";
+import {
+    addActionToNewProductTag,
+    generateProductTag,
+    setNewProductTagActiveStep,
+    toggleActionOfNewProductTag,
+    toggleQRScannerModal,
+    Ui
+} from "../../state/actions";
 import {IGeolocation, INewProductTag} from "../../interfaces/ProductTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
 import {PrintShareQRCode} from "./steps/PrintShareQRCode";
@@ -18,6 +24,7 @@ import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowRightIcon from '@material-ui/icons/ChevronRight';
 import {Card} from "@material-ui/core";
 import useWindowDimensions from "../ui/hooks/useWindowDimensions";
+import CameraIcon from "@material-ui/icons/Camera";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,15 +39,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         root: {
             width: '100%',
-            // marginBottom: "1000px"
         },
         buttonBack: {
-            // marginRight: theme.spacing(1),
             float: "left"
         },
         buttonNext: {
-            // marginRight: theme.spacing(1),
             float: "right"
+        },
+        scanPTButton: {
+            // margin: theme.spacing(1),
+            marginLeft: "5%"
         },
         instructions: {
             marginTop: theme.spacing(1),
@@ -48,10 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-function getSteps() {
-    return ['Scan', 'Actions', 'Create', "Print/Share"];
-}
 
 function getStepContent(props: Props, step: number) {
     switch (step) {
@@ -81,7 +85,7 @@ function getForwardButtonText(step) {
         case 2:
             return "Create";
         case 3:
-            return "Print QR Code";
+            return "New Product Tag";
         default:
             return 'Unknown step';
     }
@@ -91,16 +95,20 @@ interface Props extends GeolocatedProps {
     children?: React.ReactElement;
     generateProductTag: Function;
     newProductTag: INewProductTag;
+    ui: Ui;
     addActionToNewProductTag: typeof addActionToNewProductTag;
     toggleActionOfNewProductTag: typeof toggleActionOfNewProductTag;
+    setNewProductTagActiveStep: typeof setNewProductTagActiveStep;
+    toggleQRScannerModal: typeof toggleQRScannerModal
 }
 
 
 const _NewProductTag = (props: Props) => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(3);
-    const steps = getSteps();
+    const steps = props.ui.newProductTagSteps.steps;
     const {height} = useWindowDimensions();
+
+    const activeStep = props.ui.newProductTagSteps.activeStep;
 
     const getGeolocation = (): IGeolocation => {
         return {
@@ -111,7 +119,6 @@ const _NewProductTag = (props: Props) => {
 
     const handleNext = () => {
         if (activeStep === 2) {
-
             props.generateProductTag({
                 ...props.newProductTag,
                 geolocation: getGeolocation()
@@ -120,17 +127,20 @@ const _NewProductTag = (props: Props) => {
                 //     latitude: 47.3769
                 // }
             });
+        } else if (activeStep === steps.length - 1) {
+            props.setNewProductTagActiveStep(0);
+        } else {
+            props.setNewProductTagActiveStep(activeStep + 1);
         }
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
 
     const handleBack = () => {
-        setActiveStep(prevActiveStep => prevActiveStep - 1);
+        props.setNewProductTagActiveStep(activeStep - 1);
     };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
+    //
+    // const handleReset = () => {
+    //     props.setNewProductTagActiveStep(0);
+    // };
 
     return (
         <div className={classes.root}>
@@ -141,50 +151,68 @@ const _NewProductTag = (props: Props) => {
                     </Step>
                 ))}
             </Stepper>
-            {activeStep === steps.length ? (
-                <div>
-                    <Typography className={classes.instructions}>
-                        All steps completed - you&apos;re finished
-                    </Typography>
-                    <Button onClick={handleReset} className={classes.buttonBack}>
-                        Create New Product Tag
-                    </Button>
+            <>
+                <div className={classes.instructions}>
+                    <Card style={{
+                        height: height - 300
+                    }} className={classes.cardRoot}>
+                        {getStepContent(props, activeStep)}
+                    </Card>
                 </div>
-            ) : (
-                <>
-                    <div className={classes.instructions}>
-                        <Card style={{
-                            height: height - 300
-                        }} className={classes.cardRoot}>
-                            {getStepContent(props, activeStep)}
-                        </Card>
-                    </div>
+                <div style={{
+                    // display: "flex",
+                    justifyContent: "center",
+                }}>
                     <Button
+                        style={{
+                            width: "30%",
+                            marginRight: "5%",
+                            float: activeStep === 0 ? "none" : "left"
+                        }}
                         variant="outlined"
                         disabled={activeStep === 0}
                         onClick={handleBack}
-                        className={classes.buttonBack}
+                        // className={classes.buttonBack}
                         startIcon={<ArrowLeftIcon/>}
                     >
                         Back
                     </Button>
+                    {activeStep === 0 ?
+                        <Button
+                            style={{
+                                width: "30%"
+                            }}
+                            variant="contained"
+                            color="secondary"
+                            // className={classes.scanPTButton}
+                            startIcon={<CameraIcon/>}
+                            onClick={() => props.toggleQRScannerModal(true)}
+                        >
+                            Scan
+                        </Button>
+                        : null}
                     <Button
+                        style={{
+                            width: activeStep === 0 ? "30%" : "40%",
+                            marginLeft: "5%",
+                            float: activeStep === 0 ? "none" : "right"
+                        }}
                         variant={activeStep === 2 ? "contained" : "outlined"}
                         color={activeStep === 2 ? "secondary" : "inherit"}
                         onClick={handleNext}
-                        className={classes.buttonNext}
+                        // className={classes.buttonNext}
                         endIcon={<ArrowRightIcon/>}
                     >
                         {getForwardButtonText(activeStep)}
                     </Button>
-                </>
-            )}
+                </div>
+            </>
         </div>
     );
 };
 
-const mapStateToProps = ({newProductTag}: StoreState) => {
-    return {newProductTag};
+const mapStateToProps = ({newProductTag, ui}: StoreState) => {
+    return {newProductTag, ui};
 };
 
 export const NewProductTagScreen = connect(
@@ -192,6 +220,8 @@ export const NewProductTagScreen = connect(
     {
         generateProductTag,
         addActionToNewProductTag,
-        toggleActionOfNewProductTag
+        toggleActionOfNewProductTag,
+        setNewProductTagActiveStep,
+        toggleQRScannerModal
     }
 )(geolocated()(_NewProductTag));

@@ -1,4 +1,9 @@
-import {ToggleDrawerAction, ToggleIsLoadingAction, ToggleQRScannerModalAction} from "./ui";
+import {
+    SetNewProductTagActiveStepAction,
+    ToggleDrawerAction,
+    ToggleIsLoadingAction,
+    ToggleQRScannerModalAction
+} from "./ui";
 import {PersistProducerAction} from "./producer";
 import {
     AddActionToNewProductTagAction,
@@ -50,7 +55,8 @@ export enum ActionTypes {
     toggleCertificateForProducer,
     saveGeneratedProductTagAddress,
     storeMainProductTagToMapView,
-    addFetchedPreviousProductTagForMapView
+    addFetchedPreviousProductTagForMapView,
+    setNewProductTagActiveStep
 }
 
 export type Action =
@@ -77,4 +83,5 @@ export type Action =
     ToggleCertificateForProducerAction |
     SaveGeneratedProductTagAddressAction |
     StoreMainProductTagToMapViewAction |
-    AddFetchedPreviousProductTagForMapViewAction;
+    AddFetchedPreviousProductTagForMapViewAction |
+    SetNewProductTagActiveStepAction;

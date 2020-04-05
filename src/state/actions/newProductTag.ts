@@ -1,7 +1,12 @@
 import {ActionTypes} from "./types";
 import {INewProductTag, INewProductTagAction, IProductTag} from "../../interfaces/ProductTag";
 import {Dispatch} from "redux";
-import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
+import {
+    setNewProductTagActiveStep,
+    SetNewProductTagActiveStepAction,
+    toggleIsLoading,
+    ToggleIsLoadingAction
+} from "./ui";
 import web3 from "../../ethereum/web3";
 import {History} from 'history';
 import ProducerContract from "../../ethereum/producer"
@@ -118,6 +123,7 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
             await methodToCall.send({from: accounts[0]});
             dispatch<SaveGeneratedProductTagAddressAction>(saveGeneratedProductTagAddress(productTagAddress));
             dispatch<ResetProductTagUponCreationAction>(resetProductTagUponCreation());
+            dispatch<SetNewProductTagActiveStepAction>(setNewProductTagActiveStep(3));
         } catch (e) {
             console.error(e);
         } finally {
