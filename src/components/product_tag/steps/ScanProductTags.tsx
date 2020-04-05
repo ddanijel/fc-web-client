@@ -6,12 +6,10 @@ import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/Camera';
 import {toggleQRScannerModal, Ui} from "../../../state/actions";
 import {INewProductTag} from "../../../interfaces/ProductTag";
-import {Card} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import {ScannedProductTagsPanel} from "../ScannedProductTagsPanel";
-import useWindowDimensions from "../../ui/hooks/useWindowDimensions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -47,12 +45,9 @@ interface Props {
 
 const _ScanProductTags = (props: Props) => {
     const classes = useStyles();
-    const {height} = useWindowDimensions();
 
     return (
-        <Card style={{
-            height: height - 300
-        }} className={classes.cardRoot}>
+        <>
             <CardContent>
                 <Typography variant="h5" component="h2">
                     Scanned Products
@@ -76,7 +71,7 @@ const _ScanProductTags = (props: Props) => {
                     Scan Product
                 </Button>
             </CardActions>
-        </Card>
+        </>
     );
 };
 

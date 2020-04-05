@@ -23,7 +23,6 @@ export const producerReducer = (state: IProducer = initialState, action: Action)
     switch (action.type) {
         case ActionTypes.persistProducer:
             const producer = action.producer;
-            console.log("prod: ", producer);
             return {
                 ...state,
                 isAuthenticated: true,

@@ -13,9 +13,11 @@ import {StoreState} from "../../state/reducers";
 import {addActionToNewProductTag, generateProductTag, toggleActionOfNewProductTag} from "../../state/actions";
 import {IGeolocation, INewProductTag} from "../../interfaces/ProductTag";
 import {geolocated, GeolocatedProps} from "react-geolocated";
-import {PrintQrCode} from "./steps/PrintQRCode";
+import {PrintShareQRCode} from "./steps/PrintShareQRCode";
 import ArrowLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowRightIcon from '@material-ui/icons/ChevronRight';
+import {Card} from "@material-ui/core";
+import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
         stepperRoot: {
             height: theme.spacing(10),
             paddingTop: theme.spacing(1)
+        },
+        cardRoot: {
+            height: theme.spacing(35),
+            overflow: "auto"
         },
         root: {
             width: '100%',
@@ -44,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-    return ['Scan', 'Actions', 'Create', "Print"];
+    return ['Scan', 'Actions', 'Create', "Print/Share"];
 }
 
 function getStepContent(props: Props, step: number) {
@@ -60,7 +66,7 @@ function getStepContent(props: Props, step: number) {
         case 2:
             return <NewPTOverview/>;
         case 3:
-            return <PrintQrCode/>;
+            return <PrintShareQRCode/>;
         default:
             return 'Unknown step';
     }
@@ -92,8 +98,9 @@ interface Props extends GeolocatedProps {
 
 const _NewProductTag = (props: Props) => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(3);
     const steps = getSteps();
+    const {height} = useWindowDimensions();
 
     const getGeolocation = (): IGeolocation => {
         return {
@@ -145,7 +152,13 @@ const _NewProductTag = (props: Props) => {
                 </div>
             ) : (
                 <>
-                    <div className={classes.instructions}>{getStepContent(props, activeStep)}</div>
+                    <div className={classes.instructions}>
+                        <Card style={{
+                            height: height - 300
+                        }} className={classes.cardRoot}>
+                            {getStepContent(props, activeStep)}
+                        </Card>
+                    </div>
                     <Button
                         variant="outlined"
                         disabled={activeStep === 0}

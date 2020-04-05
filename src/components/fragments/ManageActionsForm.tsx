@@ -8,11 +8,9 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Controller, useForm} from "react-hook-form";
 import {INewProductTagAction, IProductTagAction} from "../../interfaces/ProductTag";
 import {CardContent} from "@material-ui/core";
-import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,7 +41,6 @@ interface Props {
 const ManageActionsForm = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control, reset} = useForm<IProductTagAction>();
-    const {height} = useWindowDimensions();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.toggleAction({
@@ -63,9 +60,7 @@ const ManageActionsForm = (props: Props) => {
     });
 
     return (
-        <Card style={{
-            height: height - 300
-        }} className={classes.cardRoot}>
+        <>
             <CardContent style={{
                 height: "80%"
             }}>
@@ -118,7 +113,7 @@ const ManageActionsForm = (props: Props) => {
                     </Button>
                 </form>
             </CardActions>
-        </Card>
+        </>
     );
 };
 
