@@ -1,12 +1,5 @@
 name: 'Deploy to GitHub Pages'
 
-runs:
-  using: 'node12'
-  main: 'lib/main.js'
-branding:
-  icon: 'git-commit'
-  color: 'orange'
-
 on:
   push:
     branches:
