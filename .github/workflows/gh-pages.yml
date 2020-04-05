@@ -21,10 +21,3 @@ jobs:
           build build
         env:
           REACT_APP_INFURA_REMOTE_CLIENT_URL: ${{ secrets.REACT_APP_INFURA_REMOTE_CLIENT_URL }}
-
-      - name: Deploy
-        uses: ddanijel/fc-web-client@releases/v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
