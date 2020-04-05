@@ -16,6 +16,7 @@ import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import {IScannedProducerReducer} from "../../state/reducers/scannedProducers";
 import ActionsOverviewCard from "../fragments/ActionsOverviewCard";
 import TextField from "@material-ui/core/TextField";
+import {variableNames} from "../../global/constants";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -61,8 +62,8 @@ const _ScannedProductTagsPanel = (props: Props) => {
 
     return (
         <div className={classes.root}>
-            {props.newProductTag.previousProductTags.map((productTag, index) => (
-                <ExpansionPanel key={index} expanded={expanded === productTag.productTagAddress}
+            {props.newProductTag.previousProductTags.map((productTag, index1) => (
+                <ExpansionPanel key={index1} expanded={expanded === productTag.productTagAddress}
                                 onChange={handleChange(productTag.productTagAddress)}>
                     <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon/>}
@@ -71,9 +72,10 @@ const _ScannedProductTagsPanel = (props: Props) => {
                     >
                         <Typography
                             className={classes.heading}>{productTag.dateTime.day}/{productTag.dateTime.month}/{productTag.dateTime.year.toString().substring(2, 4)}</Typography>
-                        {producers.map((producer, index) => {
+                        {producers.map((producer, index2) => {
                             if (producer.producerContractAddress === productTag.producerAddress) {
-                                return <Typography key={index}
+                                console.log("returning: ", productTag);
+                                return <Typography key={index2}
                                                    className={classes.secondaryHeading}
                                 >
                                     {producer.producerName}
@@ -96,11 +98,14 @@ const _ScannedProductTagsPanel = (props: Props) => {
                                 size={"medium"}
                             />
                             <Button
-                                target={"_blank"}
-                                href={"www.google.com"}
                                 size={"small"}
-
                                 variant="outlined"
+                                onClick={() => {
+                                    window.open(
+                                        `${variableNames.etherscanBaseURL}/address/${productTag.productTagAddress}`,
+                                        '_blank'
+                                    );
+                                }}
                             >
                                 Show on Etherscan
                             </Button>

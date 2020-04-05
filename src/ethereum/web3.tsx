@@ -42,7 +42,8 @@ if (ethEnabled()) {
             if (valid) {
                 // we can do this since the above method checks already that is not null
                 // @ts-ignore
-                provider = new HDWalletProvider(inputMnemonic, rinkebyRemoteClientAddress);
+                provider = new HDWalletProvider(inputMnemonic,
+                    process.env.REACT_APP_INFURA_REMOTE_CLIENT_URL);
                 // @ts-ignore
                 localStorage.setItem(variableNames.ethAccountMnemonic, inputMnemonic);
             }

@@ -1,0 +1,38 @@
+name: 'Deploy to GitHub Pages'
+description: 'This action will handle the deployment process to GitHub Pages.'
+author: 'Danijel Dordevic <danijel.fon@gmail.com>'
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
+branding:
+  icon: 'git-commit'
+  color: 'orange'
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: ddanijel
+
+      - name: Build
+        run: |
+          yarn install
+          build build
+        env:
+          REACT_APP_INFURA_REMOTE_CLIENT_URL: ${{ secrets.REACT_APP_INFURA_REMOTE_CLIENT_URL }}
+
+      - name: Deploy
+        uses: ddanijel
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
