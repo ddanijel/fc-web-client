@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/fc-web-client/static/js/main.9eb8e28a.chunk.js",
-    "main.js.map": "/fc-web-client/static/js/main.9eb8e28a.chunk.js.map",
-    "runtime-main.js": "/fc-web-client/static/js/runtime-main.53dc9da2.js",
-    "runtime-main.js.map": "/fc-web-client/static/js/runtime-main.53dc9da2.js.map",
-    "static/js/2.e2feb80b.chunk.js": "/fc-web-client/static/js/2.e2feb80b.chunk.js",
-    "static/js/2.e2feb80b.chunk.js.map": "/fc-web-client/static/js/2.e2feb80b.chunk.js.map",
-    "index.html": "/fc-web-client/index.html",
-    "precache-manifest.24708bffdb24bfe1e24bbcd43cd7575c.js": "/fc-web-client/precache-manifest.24708bffdb24bfe1e24bbcd43cd7575c.js",
-    "service-worker.js": "/fc-web-client/service-worker.js",
-    "static/js/2.e2feb80b.chunk.js.LICENSE.txt": "/fc-web-client/static/js/2.e2feb80b.chunk.js.LICENSE.txt",
-    "static/media/marker-icon.png": "/fc-web-client/static/media/marker-icon.71c80642.png"
+    "main.js": "/nutria-dapp/static/js/main.08f65f00.chunk.js",
+    "main.js.map": "/nutria-dapp/static/js/main.08f65f00.chunk.js.map",
+    "runtime-main.js": "/nutria-dapp/static/js/runtime-main.e2f9a7c8.js",
+    "runtime-main.js.map": "/nutria-dapp/static/js/runtime-main.e2f9a7c8.js.map",
+    "static/js/2.64b56538.chunk.js": "/nutria-dapp/static/js/2.64b56538.chunk.js",
+    "static/js/2.64b56538.chunk.js.map": "/nutria-dapp/static/js/2.64b56538.chunk.js.map",
+    "index.html": "/nutria-dapp/index.html",
+    "precache-manifest.0ae23723ef668a68abc722a64b94fadc.js": "/nutria-dapp/precache-manifest.0ae23723ef668a68abc722a64b94fadc.js",
+    "service-worker.js": "/nutria-dapp/service-worker.js",
+    "static/js/2.64b56538.chunk.js.LICENSE.txt": "/nutria-dapp/static/js/2.64b56538.chunk.js.LICENSE.txt",
+    "static/media/marker-icon.png": "/nutria-dapp/static/media/marker-icon.71c80642.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.53dc9da2.js",
-    "static/js/2.e2feb80b.chunk.js",
-    "static/js/main.9eb8e28a.chunk.js"
+    "static/js/runtime-main.e2f9a7c8.js",
+    "static/js/2.64b56538.chunk.js",
+    "static/js/main.08f65f00.chunk.js"
   ]
 }
