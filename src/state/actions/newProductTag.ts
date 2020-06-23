@@ -113,6 +113,8 @@ export const generateProductTag = (productTag: INewProductTag, history: History)
                     {
                         longitude: productTag.geolocation.longitude.toString(),
                         latitude: productTag.geolocation.latitude.toString(),
+                        // longitude: "9.16225433",
+                        // latitude: "47.10845747",
                     },
                     genProductTag.dateTime,
                     productTag.previousProductTags.map(pt => pt.productTagAddress)

@@ -1,8 +1,8 @@
 {
-  "name": "fc-web-client",
+  "name": "nutria-dapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ddanijel.github.com/fc-web-client",
+  "homepage": "https://ddanijel.github.com/nutria-dapp",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
