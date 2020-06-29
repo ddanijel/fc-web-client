@@ -42,7 +42,8 @@
     "redux-thunk": "^2.3.0",
     "solc": "^0.4.26",
     "typescript": "~3.7.2",
-    "web3": "^1.2.6"
+    "web3": "^1.2.6",
+    "react-uuid": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

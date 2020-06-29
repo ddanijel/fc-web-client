@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import {Card} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {INewProductTagAction, IProductTagAction} from "../../interfaces/ProductTag";
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,7 +40,7 @@ const ActionsOverviewCard = (props: Props) => {
                 <List dense={true}>
                     {filteredActions.map((actionName, index) => {
                             return React.cloneElement(
-                                <ListItem key={index}>
+                                <ListItem key={uuid()}>
                                     <ListItemText
                                         primary={(index + 1) + `. ` + actionName}
                                     />

@@ -12,6 +12,7 @@ import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -75,7 +76,7 @@ const ManageActionsForm = (props: Props) => {
                 }}>
                     <List>
                         {props.currentActions.map((action, index) => (
-                            <FormControlLabel key={index}
+                            <FormControlLabel key={uuid()}
                                               control={<Switch checked={action.selected} onChange={handleChange}
                                                                name={action.name}/>}
                                               label={action.name}

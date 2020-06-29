@@ -13,6 +13,7 @@ import Control from '@skyeer/react-leaflet-custom-control'
 import {IProductTag} from "../../interfaces/ProductTag";
 import L from 'leaflet'
 import ProductTagDetails from "../fragments/ProductTagDetails";
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -106,24 +107,24 @@ const _MapViewModal = (props: Props) => {
                         position={[props.mapView.productTag.geolocation.latitude, props.mapView.productTag.geolocation.longitude]}>
                         <Popup>
                             <ProductTagDetails
-                                height={(height * 0.8).toString().concat("px")}
+                                height={(height * 0.6).toString().concat("px")}
                                 productTag={productTag}
                             />
                         </Popup>
                     </Marker>
                     {props.mapView.previousProductTags.map((productTag, index) => (
-                        <Marker key={index}
+                        <Marker key={uuid()}
                                 position={[productTag.geolocation.latitude, productTag.geolocation.longitude]}>
                             <Popup>
                                 <ProductTagDetails
-                                    height={(height * 0.8).toString().concat("px")}
+                                    height={(height * 0.6).toString().concat("px")}
                                     productTag={productTag}
                                 />
                             </Popup>
                         </Marker>
                     ))}
                     {lines.map(({id, from_lat, from_long, to_lat, to_long}) => {
-                        return <Polyline key={id} positions={[
+                        return <Polyline key={uuid()} positions={[
                             [from_lat, from_long], [to_lat, to_long],
                         ]} color={'red'}/>
                     })}

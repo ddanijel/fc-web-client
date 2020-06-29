@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import useWindowDimensions from "../ui/hooks/useWindowDimensions";
 import AddIcon from '@material-ui/icons/Add';
 import {IProducerNewCertificate} from "../../interfaces/Producer";
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -81,7 +82,7 @@ const ManageCertificatesForm = (props: Props) => {
                 }}>
                     <List>
                         {props.currentCertificates.map((currentCertificates, index) => (
-                            <FormControlLabel key={index}
+                            <FormControlLabel key={uuid()}
                                               control={<Switch checked={currentCertificates.selected}
                                                                onChange={handleChange}
                                                                name={currentCertificates.name}/>}
