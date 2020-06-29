@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const HomeScreen = () => {
 
+const HomeScreen = () => {
     const classes = useStyles();
     return (
 
@@ -62,6 +62,15 @@ const HomeScreen = () => {
                     </Grid>
                 </Grid>
             </Box>
+            {/*<div className="Demo__some-network">*/}
+            {/*    <EmailShareButton*/}
+            {/*        url='lfjsda'*/}
+            {/*        title='lfsdj'*/}
+            {/*        className="Demo__some-network__share-button"*/}
+            {/*    >*/}
+            {/*        <EmailIcon size={32} round />*/}
+            {/*    </EmailShareButton>*/}
+            {/*</div>*/}
         </div>
     );
 };

@@ -14,6 +14,7 @@ import {ISignInFormData} from "../../../../interfaces/Producer";
 import {connect} from "react-redux";
 import {signInProducer} from "../../../../state/actions";
 import {useHistory} from "react-router-dom";
+import {getItemFromLocalStorage} from "../../../../state/localStorage";
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,18 +37,25 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
+const getProducerContractAddress = (): string => {
+    let address = '';
+    const producer = getItemFromLocalStorage('producer');
+    if (producer !== undefined && producer !== "")
+        address = producer.producerContractAddress;
+    return address;
+}
+
 interface Props {
     children?: React.ReactElement;
     signInProducer: Function;
 
 }
 
-
 const _SignInForm = (props: Props) => {
     const classes = useStyles();
     const {handleSubmit, control} = useForm<ISignInFormData>();
     const history = useHistory();
-
 
     const onSubmit = handleSubmit(
         ({
@@ -84,7 +92,7 @@ const _SignInForm = (props: Props) => {
                             autoFocus
                         />}
                         control={control}
-                        defaultValue="0xb82BC4B22A092C8C80AA04170482AfF3189FCD30"
+                        defaultValue={getProducerContractAddress()}
                     />
 
                     <FormControlLabel

@@ -35,15 +35,16 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-share": "^4.2.0",
     "react-swipeable-views": "^0.13.9",
     "react-to-print": "^2.6.3",
+    "react-uuid": "^1.0.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "solc": "^0.4.26",
     "typescript": "~3.7.2",
-    "web3": "^1.2.6",
-    "react-uuid": "^1.0.2"
+    "web3": "^1.2.6"
   },
   "scripts": {
     "start": "react-scripts start",
