@@ -66,7 +66,7 @@ const _Header = (props: Props) => {
                             <MenuIcon/>
                         </IconButton>
                         <Typography component={Link} to="/" variant="h6" className={classes.title}>
-                            FoodChain
+                            Nutria dApp
                         </Typography>
                     </Toolbar>
                 </AppBar>
