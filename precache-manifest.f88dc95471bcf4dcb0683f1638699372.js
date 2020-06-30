@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8db907ccadd35d2bc93d875e656b0ae5",
+    "revision": "c10b0bd2975014ebc7e003f0f25c8b75",
     "url": "/nutria-dapp/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nutria-dapp/static/js/2.2a6cc0a7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6240b90b2c027c2a04f3",
-    "url": "/nutria-dapp/static/js/main.cc315576.chunk.js"
+    "revision": "3a749e55cd19130ed99e",
+    "url": "/nutria-dapp/static/js/main.46c2a24f.chunk.js"
   },
   {
     "revision": "a46b82528ab57ac26918",

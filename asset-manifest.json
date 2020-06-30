@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/nutria-dapp/static/js/main.cc315576.chunk.js",
-    "main.js.map": "/nutria-dapp/static/js/main.cc315576.chunk.js.map",
+    "main.js": "/nutria-dapp/static/js/main.46c2a24f.chunk.js",
+    "main.js.map": "/nutria-dapp/static/js/main.46c2a24f.chunk.js.map",
     "runtime-main.js": "/nutria-dapp/static/js/runtime-main.e2f9a7c8.js",
     "runtime-main.js.map": "/nutria-dapp/static/js/runtime-main.e2f9a7c8.js.map",
     "static/js/2.2a6cc0a7.chunk.js": "/nutria-dapp/static/js/2.2a6cc0a7.chunk.js",
     "static/js/2.2a6cc0a7.chunk.js.map": "/nutria-dapp/static/js/2.2a6cc0a7.chunk.js.map",
     "index.html": "/nutria-dapp/index.html",
-    "precache-manifest.38064ca621523099c3236db0d17a20ba.js": "/nutria-dapp/precache-manifest.38064ca621523099c3236db0d17a20ba.js",
+    "precache-manifest.f88dc95471bcf4dcb0683f1638699372.js": "/nutria-dapp/precache-manifest.f88dc95471bcf4dcb0683f1638699372.js",
     "service-worker.js": "/nutria-dapp/service-worker.js",
     "static/js/2.2a6cc0a7.chunk.js.LICENSE.txt": "/nutria-dapp/static/js/2.2a6cc0a7.chunk.js.LICENSE.txt",
     "static/media/marker-icon.png": "/nutria-dapp/static/media/marker-icon.71c80642.png"
@@ -15,6 +15,6 @@
   "entrypoints": [
     "static/js/runtime-main.e2f9a7c8.js",
     "static/js/2.2a6cc0a7.chunk.js",
-    "static/js/main.cc315576.chunk.js"
+    "static/js/main.46c2a24f.chunk.js"
   ]
 }
