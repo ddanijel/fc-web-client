@@ -58,6 +58,8 @@ const _MapViewModal = (props: Props) => {
 
     const {productTag, previousProductTags, isMapViewModalOpen} = props.mapView;
 
+    console.log('pt modal: ', props.mapView.productTag.geolocation);
+
     const lines: IPolyline[] = [];
     const allProductTags: IProductTag[] = previousProductTags.concat([productTag]);
     allProductTags.forEach(pt1 => {
@@ -104,7 +106,7 @@ const _MapViewModal = (props: Props) => {
                     />
                     <Marker
                         icon={mainMarkerIcon}
-                        position={[props.mapView.productTag.geolocation.latitude, props.mapView.productTag.geolocation.longitude]}>
+                        position={[productTag.geolocation.latitude, productTag.geolocation.longitude]}>
                         <Popup>
                             <ProductTagDetails
                                 height={(height * 0.6).toString().concat("px")}

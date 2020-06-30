@@ -56,12 +56,8 @@ interface Props {
 
 const _ScannedProductTagsPanel = (props: Props) => {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const {producers} = props.scannedProducers;
-    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
-    };
 
     return (
         <div className={classes.root}>
@@ -73,7 +69,7 @@ const _ScannedProductTagsPanel = (props: Props) => {
                         <ListItem>
                             <ListItemText
                                 className={classes.listItemText}
-                                primary={producers.map((producer, index2) => {
+                                primary={producers.map((producer) => {
                                     if (producer.producerContractAddress === productTag.producerAddress) {
                                         console.log("returning: ", productTag);
                                         return <Typography key={uuid()}

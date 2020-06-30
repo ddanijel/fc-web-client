@@ -19,7 +19,7 @@ export interface ISignInFormData {
 
 export interface IProducer {
     isAuthenticated: boolean;
-    foodChainContractAddress: string;
+    foodChainContractAddress: string | undefined;
     producerContractAddress: string,
     producerOwnerAccountAddress: string;
     producerName: string;

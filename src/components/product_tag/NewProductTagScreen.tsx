@@ -112,8 +112,8 @@ const _NewProductTag = (props: Props) => {
 
     const getGeolocation = (): IGeolocation => {
         return {
-            longitude: props.coords?.longitude === undefined ? 0 : props.coords.longitude,
-            latitude: props.coords?.latitude === undefined ? 0 : props.coords.latitude
+            latitude: props.coords?.latitude === undefined ? 0 : props.coords.latitude,
+            longitude: props.coords?.longitude === undefined ? 0 : props.coords.longitude
         }
     };
 
@@ -123,8 +123,8 @@ const _NewProductTag = (props: Props) => {
                 ...props.newProductTag,
                 geolocation: getGeolocation()
                 // geolocation: {
-                //     longitude: 8.5417,
-                //     latitude: 47.3769
+                //     latitude: 46.948168,
+                //     longitude: 7.451845
                 // }
             });
         } else if (activeStep === steps.length - 1) {
