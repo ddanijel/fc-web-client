@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/nutria-dapp/precache-manifest.f88dc95471bcf4dcb0683f1638699372.js"
+  "/nutria-dapp/precache-manifest.56a680e6349a741816f36cd783790888.js"
 );
 
 self.addEventListener('message', (event) => {
